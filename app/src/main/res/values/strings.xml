@@ -47,6 +47,7 @@
     <string name="event_id_fake">EVN802</string>
     <string name="password_text">Password:</string>
     <string name="event_password_fake">902df</string>
+    <string name="participants">participants</string>
 
 
 </resources>

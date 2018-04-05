@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="30dp"
+        android:layout_weight="0.95">
+
+        <TextView
+            android:id="@+id/title"
+            android:maxLines="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:text="Trip"
+            android:textColor="@color/black"
+            android:ellipsize="end"/>
+
+        <TextView
+            android:id="@+id/second_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:text="20 February, Thursday"
+            android:ellipsize="end"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/participants_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="2"
+                android:layout_marginRight="3dp"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/participants_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:layout_toEndOf="@id/participants_number"
+                android:text="@string/participants"
+                android:textColor="@color/black"
+                android:textStyle="italic"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
