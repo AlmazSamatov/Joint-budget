@@ -38,6 +38,15 @@
     <string name="participants_text">Participants:</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
+    <string name="participant_name">Participant name</string>
+    <string name="link_or_phone_number">Phone number or link to social network (optional)</string>
+    <string name="add">Add</string>
+    <string name="or">...OR...</string>
+    <string name="share">Share this event info with your friends</string>
+    <string name="event_id_text">Event ID:</string>
+    <string name="event_id_fake">EVN802</string>
+    <string name="password_text">Password:</string>
+    <string name="event_password_fake">902df</string>
 
 
 </resources>
