@@ -16,7 +16,7 @@ public class FirebaseLoginToSystem extends LoginToSystemAPI {
         mAuth = FirebaseAuth.getInstance();
         Task<AuthResult> task = mAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword());
         while (task.isComplete()) {
-            Thread.sleep(500);
+            Thread.sleep(700);
         }
         if (task.isSuccessful()) {
             return mAuth.getCurrentUser();
