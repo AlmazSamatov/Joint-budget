@@ -1,10 +1,12 @@
 package joint_budget.joint_budget.ShoppingList;
 
 import joint_budget.joint_budget.DataTypes.Event;
-import joint_budget.joint_budget.DataTypes.ShoppingListPurchase;
+import joint_budget.joint_budget.DataTypes.ShoppingList;
 
 public interface ShoppingListPresenter {
-    void addPurchase(ShoppingListPurchase purchase, Event event);
-    void editPurchase(ShoppingListPurchase purchase, Event event);
-    void deletePurchase(ShoppingListPurchase purchase, Event event);
+    void addPurchase(ShoppingList purchase, Event event);
+
+    void editPurchase(ShoppingList purchase, Event event);
+
+    void deletePurchase(ShoppingList purchase, Event event);
 }

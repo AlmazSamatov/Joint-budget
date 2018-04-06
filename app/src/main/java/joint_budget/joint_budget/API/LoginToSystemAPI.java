@@ -1,11 +1,15 @@
 package joint_budget.joint_budget.API;
 
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import joint_budget.joint_budget.DataTypes.LoginPage;
-import joint_budget.joint_budget.DataTypes.RegisterPage;
+import joint_budget.joint_budget.DataTypes.User;
 import joint_budget.joint_budget.DataTypes.recoveryPage;
 
-public abstract class LoginToSystemAPI {
+public abstract class LoginToSystemAPI<T> {
+
+    private FirebaseAuth mAuth;
 
     public LoginToSystemAPI() {
         //
@@ -18,9 +22,8 @@ public abstract class LoginToSystemAPI {
     }
 
 
-    public boolean register(RegisterPage registerPage) {
-        // TODO implement me
-        return false;
+    public T register(User user) throws InterruptedException {
+        return null;
     }
 
 

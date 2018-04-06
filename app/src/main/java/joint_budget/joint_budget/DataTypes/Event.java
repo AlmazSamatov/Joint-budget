@@ -1,15 +1,16 @@
 package joint_budget.joint_budget.DataTypes;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Event {
     private String name;
-    private String startDate;
-    private String endDate;
-    private String currency;
+    private Date startDate;
+    private Date endDate;
+    private Currency currency;
     private ArrayList<User> participants;
 
-    public Event(String name, String startDate, String endDate, String currency, ArrayList<User> participants) {
+    public Event(String name, Date startDate, Date endDate, Currency currency, ArrayList<User> participants) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -25,27 +26,27 @@ public class Event {
         this.name = name;
     }
 
-    public String getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
-    public String getCurrency() {
+    public Currency getCurrency() {
         return currency;
     }
 
-    public void setCurrency(String currency) {
+    public void setCurrency(Currency currency) {
         this.currency = currency;
     }
 

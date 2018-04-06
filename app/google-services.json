@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "519916854781",
+    "firebase_url": "https://joint-budget-f59f7.firebaseio.com",
+    "project_id": "joint-budget-f59f7",
+    "storage_bucket": "joint-budget-f59f7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:519916854781:android:2130bda472e90e94",
+        "android_client_info": {
+          "package_name": "joint_budget.joint_budget"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "519916854781-orh7kdeoa7nb365kirebvakviv9md9p6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNwvxsGNDC-W5tKr7z6MEkd0GGjn0yCS0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
