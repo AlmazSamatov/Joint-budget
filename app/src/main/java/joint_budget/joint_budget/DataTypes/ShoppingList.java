@@ -1,9 +1,9 @@
 package joint_budget.joint_budget.DataTypes;
 
-public class ShoppingListPurchase {
+public class ShoppingList {
     private String name;
 
-    public ShoppingListPurchase(String name) {
+    public ShoppingList(String name) {
         this.name = name;
     }
 

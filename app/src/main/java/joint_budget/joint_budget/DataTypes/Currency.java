@@ -1,4 +1,5 @@
 package joint_budget.joint_budget.DataTypes;
 
-public class EventPage {
+public enum Currency {
+    RUB, USD, EUR
 }

@@ -2,8 +2,8 @@ package joint_budget.joint_budget.API;
 
 import java.util.LinkedList;
 
-import joint_budget.joint_budget.DataTypes.EventPage;
-import joint_budget.joint_budget.DataTypes.PurchasePage;
+import joint_budget.joint_budget.DataTypes.Event;
+import joint_budget.joint_budget.DataTypes.Purchase;
 
 
 public abstract class EventsAPI {
@@ -12,7 +12,7 @@ public abstract class EventsAPI {
     }
 
 
-    public boolean createEvent(EventPage eventPage) {
+    public boolean createEvent(Event event) {
         // TODO implement me
         return false;
     }
@@ -25,21 +25,21 @@ public abstract class EventsAPI {
     }
 
 
-    public boolean updateEvent(EventPage eventPage) {
+    public boolean updateEvent(Event event) {
         // TODO implement me
         return false;
 
     }
 
 
-    public boolean addPurchase(PurchasePage purchasePage) {
+    public boolean addPurchase(Purchase purchase) {
         // TODO implement me
         return false;
 
     }
 
 
-    public boolean editPurchase(PurchasePage purchasePage) {
+    public boolean editPurchase(Purchase purchase) {
         // TODO implement me
         return false;
 
@@ -60,14 +60,14 @@ public abstract class EventsAPI {
     }
 
 
-    public LinkedList<EventPage> getAllEvents() {
+    public LinkedList<Event> getAllEvents() {
         // TODO implement me
         return new LinkedList<>();
 
     }
 
 
-    public LinkedList<PurchasePage> getAllPurchases() {
+    public LinkedList<Purchase> getAllPurchases() {
         // TODO implement me
         return new LinkedList<>();
     }
