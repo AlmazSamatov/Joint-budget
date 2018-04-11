@@ -1,15 +1,34 @@
 package joint_budget.joint_budget.Events.CreateEvent;
 
+import android.app.DialogFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import joint_budget.joint_budget.DataTypes.User;
+import joint_budget.joint_budget.Events.AddParticipant.AddParticipantActivity;
+import joint_budget.joint_budget.Events.Choice.ChoiceActivity;
 import joint_budget.joint_budget.R;
 
 public class CreateEventActivity extends AppCompatActivity implements CreateEventView{
 
     private CreateEventPresenterInterface presenter;
+    private ParticipantsAdapter participantsAdapter;
+    private List<User> users;
+    private final int REQUEST_CODE = 1;
+
+    @BindView(R.id.start_date) TextView startDate;
+    @BindView(R.id.final_date) TextView finalDate;
+    @BindView(R.id.participants_list) ListView participantsList;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -19,7 +38,71 @@ public class CreateEventActivity extends AppCompatActivity implements CreateEven
     }
 
     private void initialize() {
+        ButterKnife.bind(this);
         presenter = new CreateEventPresenter();
+        presenter.setCurrentDate();
+        users = new ArrayList<>();
+        addCurrentUser();
+        showParticipants();
     }
 
+    private void addCurrentUser() {
+        User currentUser = new User();
+        currentUser.setUserName("Ivan Ivanov");
+        users.add(currentUser);
+    }
+
+    private void showParticipants() {
+        participantsAdapter = new ParticipantsAdapter(this, R.layout.participant_item, users);
+        participantsList.setAdapter(participantsAdapter);
+    }
+
+    @Override
+    public void setDates(String currentDate){
+        setStartDate(currentDate);
+        setFinalDate(currentDate);
+    }
+
+    @Override
+    public void setStartDate(String date) {
+        startDate.setText(date);
+    }
+
+    @Override
+    public void setFinalDate(String date) {
+        finalDate.setText(date);
+    }
+
+    public void onStartDateClick(View view) {
+        showDatePicker(true);
+    }
+
+    public void onFinalDateClick(View view) {
+        showDatePicker(false);
+    }
+
+    public void showDatePicker(boolean isStartDate){
+        DialogFragment dateDialog = new DatePicker(this, isStartDate);
+        dateDialog.show(getFragmentManager(), "datePicker");
+    }
+
+    public void addParticipants(View view) {
+        Intent intent = new Intent(getApplicationContext(), AddParticipantActivity.class);
+        startActivityForResult(intent, REQUEST_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == REQUEST_CODE && resultCode == RESULT_OK){
+            String username = data.getStringExtra("participantName");
+            String participantLinkOrPhone = data.getStringExtra("participantLinkOrPhone");
+            if(username.length() > 0){
+                User user = new User();
+                user.setUserName(username);
+                user.setPhoneNumber(participantLinkOrPhone);
+                users.add(user);
+                participantsAdapter.notifyDataSetChanged();
+            }
+        }
+    }
 }

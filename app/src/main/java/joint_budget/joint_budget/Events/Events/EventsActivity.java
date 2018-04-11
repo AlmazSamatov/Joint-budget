@@ -8,13 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import butterknife.BindView;
-import joint_budget.joint_budget.Events.CreateEvent.CreateEventActivity;
+import butterknife.ButterKnife;
+import joint_budget.joint_budget.Events.Choice.ChoiceActivity;
 import joint_budget.joint_budget.R;
 
 public class EventsActivity extends AppCompatActivity implements EventsView {
 
     private EventsPresenterInterface presenter;
-    @BindView(R.id.add_event)
+    @BindView(R.id.events_add_event)
     FloatingActionButton createEvent;
 
     @Override
@@ -26,11 +27,12 @@ public class EventsActivity extends AppCompatActivity implements EventsView {
 
     private void initialize() {
         presenter = new EventsPresenter();
+        ButterKnife.bind(this);
     }
 
     @Override
     public void onEventCreate(View view) {
-        Intent intent = new Intent(getBaseContext(), CreateEventActivity.class);
+        Intent intent = new Intent(getBaseContext(), ChoiceActivity.class);
         startActivity(intent);
     }
 

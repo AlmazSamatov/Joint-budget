@@ -5,8 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/toolbar" android:id="@+id/my_toolbar"/>
-
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,6 +45,8 @@
         android:gravity="center">
 
         <Button
+            android:onClick="addParticipant"
+            android:id="@+id/add_participant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/blue"

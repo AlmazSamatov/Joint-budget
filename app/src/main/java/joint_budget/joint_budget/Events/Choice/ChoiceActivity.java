@@ -3,12 +3,8 @@ package joint_budget.joint_budget.Events.Choice;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
-
-import butterknife.BindView;
 import joint_budget.joint_budget.Events.CreateEvent.CreateEventActivity;
 import joint_budget.joint_budget.Events.JoinExistingEvent.JoinExistingEventActivity;
 import joint_budget.joint_budget.R;

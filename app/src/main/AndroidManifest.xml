@@ -12,18 +12,18 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        android:theme="@style/AppTheme">
         <activity
-            android:name=".LoginActivity"
+            android:name=".Events.Events.EventsActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".Events.JoinExistingEvent.JoinExistingEventActivity" />
         <activity android:name=".Events.CreateEvent.CreateEventActivity" />
+        <activity android:name=".Events.Choice.ChoiceActivity" />
     </application>
 
 </manifest>

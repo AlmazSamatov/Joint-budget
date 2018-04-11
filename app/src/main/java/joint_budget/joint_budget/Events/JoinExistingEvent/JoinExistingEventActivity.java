@@ -9,9 +9,9 @@ import joint_budget.joint_budget.Events.CreateEvent.CreateEventPresenterInterfac
 import joint_budget.joint_budget.Events.CreateEvent.CreateEventView;
 import joint_budget.joint_budget.R;
 
-public class JoinExistingEventActivity extends AppCompatActivity implements CreateEventView {
+public class JoinExistingEventActivity extends AppCompatActivity implements JoinExistingEventView {
 
-    private CreateEventPresenterInterface presenter;
+    private JoinExistingEventPresenterInterface presenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -21,7 +21,7 @@ public class JoinExistingEventActivity extends AppCompatActivity implements Crea
     }
 
     private void initialize() {
-        presenter = new CreateEventPresenter();
+        presenter = new JoinExistingEventPresenter();
     }
 
 }
