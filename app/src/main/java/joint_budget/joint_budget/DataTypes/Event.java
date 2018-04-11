@@ -5,10 +5,12 @@ import java.util.Date;
 
 public class Event {
     private String name;
+    private Date creationDate;
     private Date startDate;
     private Date endDate;
     private Currency currency;
     private ArrayList<User> participants;
+    private String eventId;
 
     public Event(String name, Date startDate, Date endDate, Currency currency, ArrayList<User> participants) {
         this.name = name;
@@ -57,4 +59,13 @@ public class Event {
     public void setParticipants(ArrayList<User> participants) {
         this.participants = participants;
     }
+
+    public void setEventId() {
+        eventId = name + creationDate.toString();
+    }
+
+    public String getEventId() {
+        return eventId;
+    }
+
 }

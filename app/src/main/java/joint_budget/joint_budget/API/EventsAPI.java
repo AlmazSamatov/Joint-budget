@@ -1,86 +1,47 @@
 package joint_budget.joint_budget.API;
 
+import android.util.Pair;
+
 import java.util.LinkedList;
 
 import joint_budget.joint_budget.DataTypes.Event;
 import joint_budget.joint_budget.DataTypes.Purchase;
 
 
-public abstract class EventsAPI {
-
-    public EventsAPI() {
-    }
+public interface EventsAPI {
 
 
-    public boolean createEvent(Event event) {
-        // TODO implement me
-        return false;
-    }
+    Pair<String, Boolean> createEvent(Event event) throws InterruptedException;
 
 
-    public boolean deleteEvent(String eventID) {
-        // TODO implement me
-        return false;
-
-    }
+    boolean deleteEvent(String eventID) throws InterruptedException;
 
 
-    public boolean updateEvent(Event event) {
-        // TODO implement me
-        return false;
-
-    }
+    boolean updateEvent(Event event) throws InterruptedException;
 
 
-    public boolean addPurchase(Purchase purchase) {
-        // TODO implement me
-        return false;
-
-    }
+    boolean addPurchase(Purchase purchase);
 
 
-    public boolean editPurchase(Purchase purchase) {
-        // TODO implement me
-        return false;
-
-    }
+    boolean editPurchase(Purchase purchase);
 
 
-    public boolean deletePurchase(String eventID, String purchaseID) {
-        // TODO implement me
-        return false;
-
-    }
+    boolean deletePurchase(String eventID, String purchaseID);
 
 
-    public boolean joinEvent(String EventID, String Password) {
-        // TODO implement me
-        return false;
-
-    }
+    boolean joinEvent(String EventID, String Password);
 
 
-    public LinkedList<Event> getAllEvents() {
-        // TODO implement me
-        return new LinkedList<>();
-
-    }
+    LinkedList<Event> getAllEvents();
 
 
-    public LinkedList<Purchase> getAllPurchases() {
-        // TODO implement me
-        return new LinkedList<>();
-    }
+    LinkedList<Purchase> getAllPurchases();
 
 
-    public void subscribeToEventsUpdates() {
-        // TODO implement me
-    }
+    void subscribeToEventsUpdates();
 
 
-    public void subscribeToPurchasesUpdates() {
-        // TODO implement me
-    }
+    void subscribeToPurchasesUpdates();
 
 }
 
