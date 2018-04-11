@@ -1,9 +1,9 @@
-package joint_budget.joint_budget.Events;
+package joint_budget.joint_budget.Events.Events;
 
 import joint_budget.joint_budget.DataTypes.Event;
 import joint_budget.joint_budget.DataTypes.User;
 
-public interface EventPresenter {
+public interface EventsPresenterInterface {
     void createEvent(Event event);
     void joinEvent(String ID, String password);
     void addParticipantToEvent(User user, Event event);
