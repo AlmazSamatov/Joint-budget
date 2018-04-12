@@ -1,5 +1,10 @@
 package joint_budget.joint_budget.Events.Events;
 
+import android.content.Context;
+import android.view.Display;
+
+import java.io.IOException;
+
 import joint_budget.joint_budget.API.EventsAPI;
 import joint_budget.joint_budget.DataTypes.Event;
 import joint_budget.joint_budget.DataTypes.User;
@@ -7,15 +12,16 @@ import joint_budget.joint_budget.DataTypes.User;
 public class EventsPresenter implements EventsPresenterInterface {
 
     private EventsView view;
-    private EventsAPI model;
+    private Model model;
 
-    EventsPresenter(){
-        view = new EventsActivity();
+    EventsPresenter(EventsView view, Context context) throws IOException {
+        this.view = view;
+        model = new Model(context);
     }
 
     @Override
-    public void createEvent(Event event) {
-
+    public void createEvent(Event event) throws IOException {
+        model.addEvent(event);
     }
 
     @Override
@@ -41,5 +47,10 @@ public class EventsPresenter implements EventsPresenterInterface {
     @Override
     public void deleteEvent(Event event) {
 
+    }
+
+    @Override
+    public void loadEvents() {
+        view.showEvents(model.getEvents());
     }
 }

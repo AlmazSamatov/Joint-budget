@@ -121,6 +121,7 @@
                 android:text="@string/currency"/>
 
             <Spinner
+                android:id="@+id/currency"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/currency_text"
@@ -186,6 +187,7 @@
 
         <Button
             android:id="@+id/cancel_btn"
+            android:onClick="cancelOnClick"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/cancel"
@@ -197,6 +199,7 @@
 
         <Button
             android:id="@+id/save_btn"
+            android:onClick="saveOnClick"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/save"

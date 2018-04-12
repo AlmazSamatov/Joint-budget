@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -24,6 +26,7 @@
         <activity android:name=".Events.JoinExistingEvent.JoinExistingEventActivity" />
         <activity android:name=".Events.CreateEvent.CreateEventActivity" />
         <activity android:name=".Events.Choice.ChoiceActivity" />
+        <activity android:name=".Events.AddParticipant.AddParticipantActivity" />
     </application>
 
 </manifest>

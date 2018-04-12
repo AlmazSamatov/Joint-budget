@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -20,20 +21,20 @@ import joint_budget.joint_budget.R;
 
 public class ParticipantsAdapter extends ArrayAdapter<User> {
 
-    private List<User> users;
+    private ArrayList<User> users;
     @BindView(R.id.item_participant_name)
     TextView participantName;
     @BindView(R.id.delete_participant)
     ImageView deleteParticipant;
 
-    public ParticipantsAdapter(@NonNull Context context, int resource, @NonNull List<User> objects) {
+    public ParticipantsAdapter(@NonNull Context context, int resource, @NonNull ArrayList<User> objects) {
         super(context, resource, objects);
         users = objects;
     }
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull final ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull final ViewGroup parent) {
         User user = users.get(position);
         View view = null;
 
@@ -45,12 +46,16 @@ public class ParticipantsAdapter extends ArrayAdapter<User> {
         }
 
         ButterKnife.bind(this, view);
-        String userName = user.getFirstName() + ' ' + user.getLastName();
+        String userName = user.getUserName();
         participantName.setText(userName);
+        if(position == 0)
+            deleteParticipant.setVisibility(View.GONE);
+        else
+            deleteParticipant.setVisibility(View.VISIBLE);
         deleteParticipant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                remove(users.get(parent.indexOfChild(view)));
+                remove(users.get(position));
             }
         });
 

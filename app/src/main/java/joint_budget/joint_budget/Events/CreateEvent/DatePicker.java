@@ -19,6 +19,7 @@ public class DatePicker extends DialogFragment implements DatePickerDialog.OnDat
     DatePicker(CreateEventActivity activity, boolean isStartDate){
         view = activity;
         this.isStartDate = isStartDate;
+        setStyle(R.style.MyDatePickerStyle, getTheme());
     }
 
     @Override
@@ -39,6 +40,7 @@ public class DatePicker extends DialogFragment implements DatePickerDialog.OnDat
 
     @Override
     public void onDateSet(android.widget.DatePicker datePicker, int year, int month, int day) {
+
         String dayText = String.valueOf(day);
         String yearText = String.valueOf(year);
         String monthText = String.valueOf(month);
