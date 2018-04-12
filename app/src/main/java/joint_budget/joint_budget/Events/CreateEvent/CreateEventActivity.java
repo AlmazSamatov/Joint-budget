@@ -30,7 +30,6 @@ public class CreateEventActivity extends AppCompatActivity implements CreateEven
 
     private CreateEventPresenterInterface presenter;
     private ParticipantsAdapter participantsAdapter;
-    private ArrayList<User> users;
     private final int REQUEST_CODE = 1;
 
     @BindView(R.id.event_name) TextInputEditText eventName;
@@ -56,19 +55,12 @@ public class CreateEventActivity extends AppCompatActivity implements CreateEven
         ButterKnife.bind(this);
         presenter = new CreateEventPresenter(this, getApplicationContext());
         presenter.setCurrentDate();
-        users = new ArrayList<>();
-        addCurrentUser();
         showParticipants();
     }
 
-    private void addCurrentUser() {
-        User currentUser = new User();
-        currentUser.setUserName("Ivan Ivanov");
-        users.add(currentUser);
-    }
-
     private void showParticipants() {
-        participantsAdapter = new ParticipantsAdapter(this, R.layout.participant_item, users);
+        participantsAdapter = new ParticipantsAdapter(this, R.layout.participant_item,
+                presenter.getUsers());
         participantsList.setAdapter(participantsAdapter);
     }
 
@@ -96,6 +88,7 @@ public class CreateEventActivity extends AppCompatActivity implements CreateEven
         showDatePicker(false);
     }
 
+    @Override
     public void showError(String errorMessage){
         Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
     }
@@ -115,23 +108,21 @@ public class CreateEventActivity extends AppCompatActivity implements CreateEven
         if(requestCode == REQUEST_CODE && resultCode == RESULT_OK){
             String username = data.getStringExtra("participantName");
             String participantLinkOrPhone = data.getStringExtra("participantLinkOrPhone");
-            if(username.length() > 0){
-                User user = new User();
-                user.setUserName(username);
-                user.setPhoneNumber(participantLinkOrPhone);
-                users.add(user);
-                participantsAdapter.notifyDataSetChanged();
-            }
+            presenter.addNewParticipant(username, participantLinkOrPhone, participantsAdapter);
         }
     }
 
     public void cancelOnClick(View view) {
-        finish();
+        startEventsActivity();
     }
 
     public void saveOnClick(View view) throws IOException, ParseException {
         presenter.saveEvent(eventName.getText().toString(), startDate.getText().toString(),
-                finalDate.getText().toString(), users, currency.getSelectedItem().toString());
+                finalDate.getText().toString(), currency.getSelectedItem().toString());
+    }
+
+    @Override
+    public void startEventsActivity(){
         Intent intent = new Intent(getApplicationContext(), EventsActivity.class);
         startActivity(intent);
     }

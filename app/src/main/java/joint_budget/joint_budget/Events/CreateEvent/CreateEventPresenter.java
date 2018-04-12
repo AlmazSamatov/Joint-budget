@@ -1,7 +1,6 @@
 package joint_budget.joint_budget.Events.CreateEvent;
 
 import android.content.Context;
-import android.widget.ArrayAdapter;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -9,7 +8,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import joint_budget.joint_budget.DataTypes.Currency;
 import joint_budget.joint_budget.DataTypes.Event;
@@ -20,10 +18,19 @@ public class CreateEventPresenter implements CreateEventPresenterInterface {
 
     private CreateEventView view;
     private Model model;
+    private ArrayList<User> users;
 
     public CreateEventPresenter(CreateEventView view, Context context) throws IOException {
         this.view = view;
         model = new Model(context);
+        users = new ArrayList<>();
+        addCurrentUser();
+    }
+
+    private void addCurrentUser() {
+        User currentUser = new User();
+        currentUser.setUserName("Ivan Ivanov");
+        users.add(currentUser);
     }
 
     @Override
@@ -33,16 +40,41 @@ public class CreateEventPresenter implements CreateEventPresenterInterface {
         view.setDates(dateFormat.format(date));
     }
 
+    public void addNewParticipant(String username, String participantLinkOrPhone,
+                                  ParticipantsAdapter adapter){
+        if(username.length() > 0){
+            User user = new User();
+            user.setUserName(username);
+            user.setPhoneNumber(participantLinkOrPhone);
+            users.add(user);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
     @Override
-    public void saveEvent(String name, String startDate, String finalDate, ArrayList<User> users,
+    public void saveEvent(String name, String startDate, String finalDate,
                           String currency) throws ParseException, IOException {
-        Event event = new Event();
-        event.setName(name);
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        event.setStartDate(format.parse(startDate));
-        event.setEndDate(format.parse(finalDate));
-        event.setParticipants(users);
-        event.setCurrency(Currency.valueOf(currency));
-        model.addEvent(event);
+        Date beginningDate = format.parse(startDate);
+        Date endDate = format.parse(finalDate);
+        if(name.trim().length() == 0){
+            view.showError("Event should has name");
+        } else if(endDate.before(beginningDate)){
+            view.showError("Final date should be after start date");
+        } else{
+            Event event = new Event();
+            event.setName(name);
+            event.setStartDate(beginningDate);
+            event.setEndDate(endDate);
+            event.setParticipants(users);
+            event.setCurrency(Currency.valueOf(currency));
+            model.addEvent(event);
+            view.startEventsActivity();
+        }
+    }
+
+    @Override
+    public ArrayList<User> getUsers() {
+        return users;
     }
 }
