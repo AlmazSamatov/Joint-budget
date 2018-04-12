@@ -12,6 +12,10 @@ public class Event {
     private ArrayList<User> participants;
     private String eventId;
 
+
+    public Event() {
+
+    }
     public Event(String name, Date startDate, Date endDate, Currency currency, ArrayList<User> participants) {
         this.name = name;
         this.startDate = startDate;
@@ -62,8 +66,8 @@ public class Event {
         this.participants = participants;
     }
 
-    public void setEventId() {
-        eventId = name + creationDate.toString();
+    public void setEventId(String key) {
+        eventId = key;
     }
 
     public String getEventId() {
