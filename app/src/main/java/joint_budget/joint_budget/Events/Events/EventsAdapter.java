@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.DateFormat;
@@ -17,7 +16,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import joint_budget.joint_budget.DataTypes.Event;
-import joint_budget.joint_budget.DataTypes.User;
 import joint_budget.joint_budget.R;
 
 public class EventsAdapter extends ArrayAdapter<Event> {

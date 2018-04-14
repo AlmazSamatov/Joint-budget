@@ -1,15 +1,34 @@
 package joint_budget.joint_budget.DataTypes;
 
-
-public class RegisterPage {
-
+public class UserInfo {
     private String firstName;
     private String lastName;
     private String userName;
     private String phoneNumber;
     private String email;
-    private String cardNumber;
-    private String password;
+    private String creditCard;
+
+
+    public UserInfo() {
+    }
+
+    public UserInfo(String firstName, String lastName, String userName, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userName = userName;
+        this.email = email;
+
+    }
+
+    public UserInfo(String firstName, String lastName, String userName, String phoneNumber, String email, String creditCard, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userName = userName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.creditCard = creditCard;
+
+    }
 
     public String getFirstName() {
         return firstName;
@@ -51,22 +70,12 @@ public class RegisterPage {
         this.email = email;
     }
 
-    public String getCardNumber() {
-        return cardNumber;
+    public String getCreditCard() {
+        return creditCard;
     }
 
-    public void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
+    public void setCreditCard(String creditCard) {
+        this.creditCard = creditCard;
     }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
 
 }
-

@@ -15,14 +15,10 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import joint_budget.joint_budget.DataTypes.User;
 import joint_budget.joint_budget.Events.AddParticipant.AddParticipantActivity;
-import joint_budget.joint_budget.Events.Choice.ChoiceActivity;
 import joint_budget.joint_budget.Events.Events.EventsActivity;
 import joint_budget.joint_budget.R;
 
@@ -60,7 +56,7 @@ public class CreateEventActivity extends AppCompatActivity implements CreateEven
 
     private void showParticipants() {
         participantsAdapter = new ParticipantsAdapter(this, R.layout.participant_item,
-                presenter.getUsers());
+                presenter.getUserInfos());
         participantsList.setAdapter(participantsAdapter);
     }
 
