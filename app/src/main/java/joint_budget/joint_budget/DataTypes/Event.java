@@ -5,7 +5,6 @@ import java.util.Date;
 
 public class Event {
     private String name;
-    private Date creationDate;
     private Date startDate;
     private Date endDate;
     private Currency currency;
@@ -24,7 +23,6 @@ public class Event {
         this.participants = participants;
     }
 
-    public Event(){ }
 
     public String getName() {
         return name;
