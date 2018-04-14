@@ -1,7 +1,5 @@
 package joint_budget.joint_budget.API;
 
-import android.util.Pair;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,7 +10,7 @@ import joint_budget.joint_budget.DataTypes.Purchase;
 public interface EventsAPI {
 
 
-    Pair<String, Boolean> createEvent(Event event) throws InterruptedException;
+    Event createEvent(Event event) throws InterruptedException;
 
 
     boolean deleteEvent(String eventID) throws InterruptedException;
@@ -21,10 +19,10 @@ public interface EventsAPI {
     boolean updateEvent(Event event) throws InterruptedException;
 
 
-    boolean addPurchase(Purchase purchase);
+    Purchase addPurchase(Purchase purchase);
 
 
-    boolean editPurchase(Purchase purchase);
+    boolean updatePurchase(Purchase purchase);
 
 
     boolean deletePurchase(String eventID, String purchaseID);
@@ -33,16 +31,12 @@ public interface EventsAPI {
     boolean joinEvent(String EventID, String Password);
 
 
-    void getAllEvents(LoadEventsCallback callback);
+    void getAllEvents(LoadEventsCallback callback) throws InterruptedException;
 
 
     void getAllPurchases(LoadPurchasesCallback callback);
 
 
-    void subscribeToEventsUpdates();
-
-
-    void subscribeToPurchasesUpdates();
 
     interface LoadEventsCallback{
         void onLoad(List<Event> events);
