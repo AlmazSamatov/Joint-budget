@@ -1,10 +1,6 @@
 package joint_budget.joint_budget.API.FIrebaseAPI;
 
-import android.content.Context;
-import android.util.Pair;
-
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,56 +18,53 @@ import joint_budget.joint_budget.DataTypes.Purchase;
 public class FirebaseEventsAPI implements EventsAPI {
     FirebaseDatabase firebaseDatabase;
     private DatabaseReference mDatabase;
-    private DatabaseReference referenceToEvents;
+    private DatabaseReference databaseReference;
 
-    public FirebaseEventsAPI(Context context) {
-        FirebaseApp app = FirebaseApp.initializeApp(context);
-        firebaseDatabase = FirebaseDatabase.getInstance(app);
-        DatabaseReference referenceToEvents = firebaseDatabase.getReference();
-    }
-
-    private static void completing(Task task) throws InterruptedException {
-        while (!task.isComplete()) {
-            Thread.sleep(500);
-        }
+    public FirebaseEventsAPI() {
+        firebaseDatabase = FirebaseDatabase.getInstance("https://joint-budget-f59f7.firebaseio.com/");
+        databaseReference = firebaseDatabase.getReference();
     }
 
     @Override
-    public Pair<String, Boolean> createEvent(Event event) throws InterruptedException {
-        String key = referenceToEvents.child("events").push().getKey();
+    public Event createEvent(Event event) {
+        String key = databaseReference.child("events").push().getKey();
         event.setEventId(key);
-        Task valueAdding = referenceToEvents.child("events").child(key).setValue(event);
-        completing(valueAdding);
-        return new Pair<>(key, valueAdding.isSuccessful());
+        databaseReference.child("events").child(key).setValue(event);
+        return event;
     }
 
     @Override
-    public boolean deleteEvent(String eventID) throws InterruptedException {
-        Task valueAdding = referenceToEvents.child("events").child(eventID).removeValue();
-        completing(valueAdding);
+    public boolean deleteEvent(String eventID) {
+        Task valueAdding = databaseReference.child("events").child(eventID).removeValue();
         return valueAdding.isSuccessful();
     }
 
     @Override
-    public boolean updateEvent(Event event) throws InterruptedException {
-        Task valueUpdating = referenceToEvents.child("events").child(event.getEventId()).updateChildren(EventToMap(event));
-        completing(valueUpdating);
+    public boolean updateEvent(Event event) {
+        Task valueUpdating = databaseReference.child("events").child(event.getEventId()).setValue(event);
         return valueUpdating.isSuccessful();
     }
 
     @Override
-    public boolean addPurchase(Purchase purchase) {
-        return false;
+    public Purchase addPurchase(Purchase purchase) {
+        String key = databaseReference.child("events").child(purchase.getEventID()).child("purchases").push().getKey();
+        purchase.setPurchaseID(key);
+        databaseReference.child("events").child(purchase.getEventID()).child(key).setValue(purchase);
+        return purchase;
     }
 
     @Override
-    public boolean editPurchase(Purchase purchase) {
-        return false;
+    public boolean updatePurchase(Purchase purchase) {
+        Task valueUpdating = databaseReference.child("events/" + purchase.getEventID() + "purchases/" +
+                purchase.getPurchaseID()).setValue(purchase);
+        return valueUpdating.isSuccessful();
     }
 
     @Override
     public boolean deletePurchase(String eventID, String purchaseID) {
-        return false;
+        Task valueAdding = databaseReference.child("events/" + eventID + "purchases/" +
+                purchaseID).removeValue();
+        return valueAdding.isSuccessful();
     }
 
     @Override
@@ -82,11 +75,11 @@ public class FirebaseEventsAPI implements EventsAPI {
     @Override
     public LinkedList<Event> getAllEvents() {
         final LinkedList<Event> events = new LinkedList<>();
-        ValueEventListener eventListener = new ValueEventListener() {
+        databaseReference.child("events").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
-                    events.add(dataSnapshot.getValue(Event.class));
+                    events.add(eventSnapshot.getValue(Event.class));
                 }
             }
 
@@ -95,7 +88,7 @@ public class FirebaseEventsAPI implements EventsAPI {
                 throw new RuntimeException();
 
             }
-        };
+        });
         return events;
     }
 
@@ -104,15 +97,6 @@ public class FirebaseEventsAPI implements EventsAPI {
         return null;
     }
 
-    @Override
-    public void subscribeToEventsUpdates() {
-
-    }
-
-    @Override
-    public void subscribeToPurchasesUpdates() {
-
-    }
 
     private Map<String, Object> EventToMap(Event event) {
         HashMap<String, Object> map = new HashMap<>();
