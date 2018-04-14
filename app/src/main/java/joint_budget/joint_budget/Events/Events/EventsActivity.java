@@ -54,6 +54,7 @@ public class EventsActivity extends AppCompatActivity implements EventsView {
 
     @Override
     public void showEvents(List<Event> events) {
+
         EventsAdapter eventsAdapter = new EventsAdapter(this, R.layout.event_item, events);
         eventsListView.setEmptyView(emptyEvents);
         eventsListView.setAdapter(eventsAdapter);

@@ -7,18 +7,12 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import joint_budget.joint_budget.DataTypes.Event;
 
@@ -40,14 +34,18 @@ public class Model {
     }
 
     private void saveEventsToFile() throws IOException {
-        File file = new File(context.getFilesDir(), eventsFileName);
-        if(file.exists())
-            file.delete();
+        deleteEventsFromFile();
         FileOutputStream out = context.openFileOutput(eventsFileName, Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String issuesInJson = gson.toJson(events);
         out.write(issuesInJson.getBytes());
         out.close();
+    }
+
+    private void deleteEventsFromFile(){
+        File file = new File(context.getFilesDir(), eventsFileName);
+        if(file.exists())
+            file.delete();
     }
 
     private void getEventsFromFile() throws IOException {

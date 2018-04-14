@@ -3,6 +3,7 @@ package joint_budget.joint_budget.API;
 import android.util.Pair;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import joint_budget.joint_budget.DataTypes.Event;
 import joint_budget.joint_budget.DataTypes.Purchase;
@@ -32,10 +33,10 @@ public interface EventsAPI {
     boolean joinEvent(String EventID, String Password);
 
 
-    LinkedList<Event> getAllEvents();
+    void getAllEvents(LoadEventsCallback callback);
 
 
-    LinkedList<Purchase> getAllPurchases();
+    void getAllPurchases(LoadPurchasesCallback callback);
 
 
     void subscribeToEventsUpdates();
@@ -43,5 +44,12 @@ public interface EventsAPI {
 
     void subscribeToPurchasesUpdates();
 
+    interface LoadEventsCallback{
+        void onLoad(List<Event> events);
+    }
+
+    interface LoadPurchasesCallback{
+        void onLoad(List<Purchase> purchases);
+    }
 }
 

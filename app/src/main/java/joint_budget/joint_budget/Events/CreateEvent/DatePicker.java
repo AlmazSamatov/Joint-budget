@@ -7,6 +7,8 @@ import android.app.DialogFragment;
 import android.os.Bundle;
 
 import java.util.Calendar;
+import java.util.Locale;
+
 import joint_budget.joint_budget.R;
 
 @SuppressLint("ValidFragment")
@@ -41,9 +43,9 @@ public class DatePicker extends DialogFragment implements DatePickerDialog.OnDat
     @Override
     public void onDateSet(android.widget.DatePicker datePicker, int year, int month, int day) {
 
-        String dayText = String.valueOf(day);
-        String yearText = String.valueOf(year);
-        String monthText = String.valueOf(month);
+        String dayText = String.format("%02d", day);
+        String yearText = String.format("%02d", year);
+        String monthText = String.format("%02d", month + 1);
         String date = dayText + '/' + monthText + '/' + yearText;
         if(isStartDate)
             view.setStartDate(date);

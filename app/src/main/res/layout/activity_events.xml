@@ -40,7 +40,7 @@
     </FrameLayout>
 
     <ProgressBar
-        android:id="@+id/IssuesProgressBar"
+        android:id="@+id/EventsProgressBar"
         android:visibility="gone"
         android:layout_width="wrap_content"
         style="@style/Widget.AppCompat.ProgressBar"

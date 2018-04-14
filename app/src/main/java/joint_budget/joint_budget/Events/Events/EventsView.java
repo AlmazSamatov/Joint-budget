@@ -8,7 +8,6 @@ import joint_budget.joint_budget.DataTypes.Event;
 
 interface EventsView {
 
-    public void onEventCreate(View view);
-
+    void onEventCreate(View view);
     void showEvents(List<Event> events);
 }
