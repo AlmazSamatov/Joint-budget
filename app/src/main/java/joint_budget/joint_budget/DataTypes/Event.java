@@ -11,8 +11,6 @@ public class Event {
     private ArrayList<UserInfo> participants;
     private String eventId;
 
-
-    public Event(String name, Date startDate, Date endDate, Currency currency, ArrayList<UserInfo> participants) {
     public Event() { }
 
     public Event(String name, Date startDate, Date endDate, Currency currency, ArrayList<UserInfo> participants) {

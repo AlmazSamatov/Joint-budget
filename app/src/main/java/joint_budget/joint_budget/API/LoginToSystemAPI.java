@@ -11,7 +11,6 @@ public abstract class LoginToSystemAPI<T> {
         //
     }
 
-
     public boolean login(LoginPage loginPage) {
         // TODO implement me
         return false;

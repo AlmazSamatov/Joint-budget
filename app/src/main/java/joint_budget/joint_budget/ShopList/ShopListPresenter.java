@@ -1,12 +1,25 @@
-package joint_budget.joint_budget.ShoppingList;
+package joint_budget.joint_budget.ShopList;
 
 import joint_budget.joint_budget.DataTypes.Event;
-import joint_budget.joint_budget.DataTypes.ShoppingList;
+import joint_budget.joint_budget.DataTypes.ShoppingListItem;
 
-public interface ShoppingListPresenter {
-    void addPurchase(ShoppingList purchase, Event event);
+public class ShopListPresenter implements ShopListPresenterInterface {
 
-    void editPurchase(ShoppingList purchase, Event event);
+    ShopListView view;
 
-    void deletePurchase(ShoppingList purchase, Event event);
+    ShopListPresenter(){
+        view = new ShopListActivity();
+    }
+
+    public void addPurchase(ShoppingListItem purchase, Event event) {
+
+    }
+
+    public void editPurchase(ShoppingListItem purchase, Event event) {
+
+    }
+
+    public void deletePurchase(ShoppingListItem purchase, Event event) {
+
+    }
 }

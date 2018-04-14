@@ -16,7 +16,6 @@ public abstract class DebtsAPI {
         // TODO implement me
     }
 
-
     public void sendInvoice(String debtID) {
         // TODO implement me
     }
@@ -26,7 +25,7 @@ public abstract class DebtsAPI {
         // TODO implement me
     }
 
-    interface LoadDebtsCallback{
+    protected interface LoadDebtsCallback{
         void onLoad(List<Debt> events);
     }
 }

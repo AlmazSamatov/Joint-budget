@@ -1,4 +1,4 @@
-package joint_budget.joint_budget;
+package joint_budget.joint_budget.Login;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +13,13 @@ import joint_budget.joint_budget.DataTypes.UserInfo;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements LoginView {
+
+    LoginPresenterInterface presenter;
+
+    LoginActivity(){
+        presenter = new LoginPresenter();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
