@@ -6,15 +6,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import joint_budget.joint_budget.API.LoginToSystemAPI;
-import joint_budget.joint_budget.DataTypes.User;
 
 public class FirebaseLoginToSystem extends LoginToSystemAPI {
     private FirebaseAuth mAuth;
 
     @Override
-    public FirebaseUser register(User user) throws InterruptedException {
+    public FirebaseUser register(RegisterPage registerPage) throws InterruptedException {
         mAuth = FirebaseAuth.getInstance();
-        Task<AuthResult> task = mAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword());
+        Task<AuthResult> task = mAuth.createUserWithEmailAndPassword(registerPage.getEmail(), registerPage.getPassword());
         while (task.isComplete()) {
             Thread.sleep(700);
         }

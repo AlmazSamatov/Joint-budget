@@ -11,26 +11,26 @@ import java.util.Date;
 
 import joint_budget.joint_budget.DataTypes.Currency;
 import joint_budget.joint_budget.DataTypes.Event;
-import joint_budget.joint_budget.DataTypes.User;
+import joint_budget.joint_budget.DataTypes.UserInfo;
 import joint_budget.joint_budget.Model.EventsModel;
 
 public class CreateEventPresenter implements CreateEventPresenterInterface {
 
     private CreateEventView view;
     private EventsModel eventModel;
-    private ArrayList<User> users;
+    private ArrayList<UserInfo> userInfos;
 
     public CreateEventPresenter(CreateEventView view, Context context) throws IOException {
         this.view = view;
         eventModel = new EventsModel(context);
-        users = new ArrayList<>();
+        userInfos = new ArrayList<>();
         addCurrentUser();
     }
 
     private void addCurrentUser() {
-        User currentUser = new User();
-        currentUser.setUserName("Ivan Ivanov");
-        users.add(currentUser);
+        UserInfo currentUserInfo = new UserInfo();
+        currentUserInfo.setUserName("Ivan Ivanov");
+        userInfos.add(currentUserInfo);
     }
 
     @Override
@@ -43,10 +43,10 @@ public class CreateEventPresenter implements CreateEventPresenterInterface {
     public void addNewParticipant(String username, String participantLinkOrPhone,
                                   ParticipantsAdapter adapter){
         if(username.length() > 0){
-            User user = new User();
-            user.setUserName(username);
-            user.setPhoneNumber(participantLinkOrPhone);
-            users.add(user);
+            UserInfo userInfo = new UserInfo();
+            userInfo.setUserName(username);
+            userInfo.setPhoneNumber(participantLinkOrPhone);
+            userInfos.add(userInfo);
             adapter.notifyDataSetChanged();
         }
     }
@@ -66,7 +66,7 @@ public class CreateEventPresenter implements CreateEventPresenterInterface {
             event.setName(name);
             event.setStartDate(beginningDate);
             event.setEndDate(endDate);
-            event.setParticipants(users);
+            event.setParticipants(userInfos);
             event.setCurrency(Currency.valueOf(currency));
             eventModel.addEvent(event);
             view.startEventsActivity();
@@ -74,7 +74,7 @@ public class CreateEventPresenter implements CreateEventPresenterInterface {
     }
 
     @Override
-    public ArrayList<User> getUsers() {
-        return users;
+    public ArrayList<UserInfo> getUserInfos() {
+        return userInfos;
     }
 }

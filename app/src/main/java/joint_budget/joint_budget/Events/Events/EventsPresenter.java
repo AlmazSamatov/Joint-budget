@@ -5,7 +5,7 @@ import android.content.Context;
 import java.io.IOException;
 
 import joint_budget.joint_budget.DataTypes.Event;
-import joint_budget.joint_budget.DataTypes.User;
+import joint_budget.joint_budget.DataTypes.UserInfo;
 import joint_budget.joint_budget.Model.EventsModel;
 
 public class EventsPresenter implements EventsPresenterInterface {
@@ -29,12 +29,12 @@ public class EventsPresenter implements EventsPresenterInterface {
     }
 
     @Override
-    public void addParticipantToEvent(User user, Event event) {
+    public void addParticipantToEvent(UserInfo userInfo, Event event) {
 
     }
 
     @Override
-    public void deleteParticipantFromEvent(User user, Event event) {
+    public void deleteParticipantFromEvent(UserInfo userInfo, Event event) {
 
     }
 
