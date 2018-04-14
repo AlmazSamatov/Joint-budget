@@ -6,6 +6,7 @@
 
     <Button
         android:id="@+id/join_existing"
+        android:onClick="joinExistingEvent"
         style="?android:textAppearanceSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,6 +21,7 @@
 
     <Button
         android:id="@+id/create_event"
+        android:onClick="createNewEvent"
         style="?android:textAppearanceSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

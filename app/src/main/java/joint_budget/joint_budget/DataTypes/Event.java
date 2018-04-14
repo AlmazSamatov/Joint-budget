@@ -24,6 +24,8 @@ public class Event {
         this.participants = participants;
     }
 
+    public Event(){ }
+
     public String getName() {
         return name;
     }

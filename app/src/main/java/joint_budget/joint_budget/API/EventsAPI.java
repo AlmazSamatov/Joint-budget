@@ -1,6 +1,7 @@
 package joint_budget.joint_budget.API;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import joint_budget.joint_budget.DataTypes.Event;
 import joint_budget.joint_budget.DataTypes.Purchase;
@@ -30,12 +31,19 @@ public interface EventsAPI {
     boolean joinEvent(String EventID, String Password);
 
 
-    LinkedList<Event> getAllEvents() throws InterruptedException;
+    void getAllEvents(LoadEventsCallback callback) throws InterruptedException;
 
 
-    LinkedList<Purchase> getAllPurchases();
+    void getAllPurchases(LoadPurchasesCallback callback);
 
 
 
+    interface LoadEventsCallback{
+        void onLoad(List<Event> events);
+    }
+
+    interface LoadPurchasesCallback{
+        void onLoad(List<Purchase> purchases);
+    }
 }
 

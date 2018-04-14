@@ -7,8 +7,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import joint_budget.joint_budget.API.EventsAPI;
@@ -16,6 +18,7 @@ import joint_budget.joint_budget.DataTypes.Event;
 import joint_budget.joint_budget.DataTypes.Purchase;
 
 public class FirebaseEventsAPI implements EventsAPI {
+
     FirebaseDatabase firebaseDatabase;
     private DatabaseReference mDatabase;
     private DatabaseReference databaseReference;
@@ -73,28 +76,29 @@ public class FirebaseEventsAPI implements EventsAPI {
     }
 
     @Override
-    public LinkedList<Event> getAllEvents() {
-        final LinkedList<Event> events = new LinkedList<>();
-        databaseReference.child("events").addValueEventListener(new ValueEventListener() {
+    public void getAllEvents(final LoadEventsCallback callback) {
+
+        ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
+                List<Event> events = new ArrayList<>();
+                for (DataSnapshot eventSnapshot: dataSnapshot.getChildren()) {
                     events.add(eventSnapshot.getValue(Event.class));
                 }
+                callback.onLoad(events);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 throw new RuntimeException();
-
             }
         });
-        return events;
+
+        referenceToEvents.addListenerForSingleValueEvent(eventListener);
     }
 
     @Override
-    public LinkedList<Purchase> getAllPurchases() {
-        return null;
+    public void getAllPurchases(LoadPurchasesCallback callback) {
     }
 
 

@@ -5,13 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/toolbar" android:id="@+id/my_toolbar"/>
-
     <LinearLayout
         android:id="@+id/create_event_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/my_toolbar"
         android:layout_above="@+id/btns"
         android:orientation="vertical">
 
@@ -53,10 +50,12 @@
                 android:text="@string/start_date_text"/>
 
             <TextView
+                android:id="@+id/start_date"
+                android:onClick="onStartDateClick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/start_date_text"
-                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@+id/start_date_text"
+                android:layout_marginStart="10dp"
                 android:layout_alignBottom="@+id/start_date_img"
                 android:textSize="25sp"
                 android:text="@string/start_date"
@@ -77,19 +76,22 @@
 
             <TextView
                 android:id="@+id/final_date_text"
+                android:onClick="onStartDateClick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/final_date_img"
+                android:layout_toEndOf="@+id/final_date_img"
                 android:textSize="25sp"
                 android:textColor="@color/black"
                 android:layout_alignBottom="@+id/final_date_img"
                 android:text="@string/final_date_text"/>
 
             <TextView
+                android:id="@+id/final_date"
+                android:onClick="onFinalDateClick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/final_date_text"
-                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@+id/final_date_text"
+                android:layout_marginStart="10dp"
                 android:layout_alignBottom="@+id/final_date_img"
                 android:textSize="25sp"
                 android:text="@string/final_date"
@@ -118,14 +120,14 @@
                 android:layout_alignBottom="@+id/currency_img"
                 android:text="@string/currency"/>
 
-            <TextView
+            <Spinner
+                android:id="@+id/currency"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/currency_text"
                 android:layout_marginStart="10dp"
                 android:layout_alignBottom="@+id/currency_img"
-                android:textSize="25sp"
-                android:text="@string/rub"
+                android:entries="@array/currency_list"
                 android:textColor="@color/black" />
 
         </RelativeLayout>
@@ -153,14 +155,15 @@
                 android:text="@string/participants_text"/>
 
             <android.support.design.widget.FloatingActionButton
-                android:id="@+id/add_event"
+                android:id="@+id/add_participants"
+                android:onClick="addParticipants"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 app:fabSize="normal"
                 android:layout_marginEnd="5dp"
                 android:clickable="true"
-                android:backgroundTint="@color/blue"
+                app:backgroundTint="@color/blue"
                 android:src="@drawable/plus"
                 app:elevation="6dp"
                 android:focusable="true" />
@@ -184,6 +187,7 @@
 
         <Button
             android:id="@+id/cancel_btn"
+            android:onClick="cancelOnClick"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/cancel"
@@ -195,6 +199,7 @@
 
         <Button
             android:id="@+id/save_btn"
+            android:onClick="saveOnClick"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/save"

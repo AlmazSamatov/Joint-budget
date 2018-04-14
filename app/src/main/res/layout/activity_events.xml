@@ -6,8 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/toolbar"/>
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,7 +19,7 @@
             android:layout_height="match_parent">
 
             <ListView
-                android:id="@+id/listView"
+                android:id="@+id/events_listView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             </ListView>
@@ -29,35 +27,39 @@
         </android.support.v4.widget.SwipeRefreshLayout>
 
         <TextView
-            android:id="@+id/empty_issues"
+            android:id="@+id/empty_events"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textAlignment="center"
             android:visibility="gone"
             android:text="@string/no_events"
+            android:textSize="25sp"
             android:textColor="@color/black" />
 
     </FrameLayout>
 
     <ProgressBar
-        android:id="@+id/IssuesProgressBar"
+        android:id="@+id/EventsProgressBar"
         android:visibility="gone"
         android:layout_width="wrap_content"
         style="@style/Widget.AppCompat.ProgressBar"
         android:layout_height="wrap_content" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/add_event"
+        android:id="@+id/events_add_event"
+        android:onClick="onEventCreate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         app:fabSize="normal"
         android:layout_marginBottom="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
         android:clickable="true"
-        android:backgroundTint="@color/blue"
+        app:backgroundTint="@color/blue"
         android:src="@drawable/plus"
-        app:elevation="6dp" />
+        app:elevation="6dp"
+        android:focusable="true" />
 
 </RelativeLayout>
