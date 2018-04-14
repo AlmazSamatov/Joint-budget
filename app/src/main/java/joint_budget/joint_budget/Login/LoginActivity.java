@@ -1,4 +1,4 @@
-package joint_budget.joint_budget.LoginRegister;
+package joint_budget.joint_budget.Login;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

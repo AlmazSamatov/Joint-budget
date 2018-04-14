@@ -17,10 +17,12 @@ import java.util.List;
 import joint_budget.joint_budget.API.EventsAPI;
 import joint_budget.joint_budget.API.FIrebaseAPI.FirebaseEventsAPI;
 import joint_budget.joint_budget.DataTypes.Event;
+import joint_budget.joint_budget.DataTypes.Purchase;
 
 public class EventsModel {
 
     private List<Event> events;
+    private List<Purchase> purchases;
     private final String eventsDBName = "Events";
     private Context context;
     private EventsAPI eventsAPI;
@@ -28,6 +30,7 @@ public class EventsModel {
     public EventsModel(Context context) throws IOException {
         this.context = context;
         events = new ArrayList<>();
+        purchases = new ArrayList<>();
         eventsAPI = new FirebaseEventsAPI();
         getEventsFromDB();
     }
@@ -75,7 +78,7 @@ public class EventsModel {
 
     private void getPurchasesFromDB(){}
 
-    public List<>
+    public List<Event>
 
     public List<Event> getEvents(){
         return events;

@@ -1,8 +1,8 @@
-package joint_budget.joint_budget.LoginRegister;
+package joint_budget.joint_budget.Login;
 
 import joint_budget.joint_budget.DataTypes.User;
 
-public interface LoginRegisterPresenter {
+public interface LoginPresenterInterface {
     void login(String login, String password);
     void loginGoogle(String login, String password);
     void register(User user);
