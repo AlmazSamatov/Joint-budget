@@ -7,6 +7,8 @@ public class Purchase {
     private Currency currency;
     private int totalCost;
     private String purchaseName;
+    private String purchaseID;
+    private String eventID;
 
     public LinkedList<PurchaseItem> getPurchaseItems() {
         return purchaseItems;
@@ -39,4 +41,21 @@ public class Purchase {
     public void setPurchaseName(String purchaseName) {
         this.purchaseName = purchaseName;
     }
+
+    public String getPurchaseID() {
+        return purchaseID;
+    }
+
+    public void setPurchaseID(String purchaseID) {
+        this.purchaseID = purchaseID;
+    }
+
+    public String getEventID() {
+        return eventID;
+    }
+
+    public void setEventID(String eventID) {
+        this.eventID = eventID;
+    }
+
 }
