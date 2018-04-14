@@ -100,7 +100,7 @@ public class FirebaseEventsAPI implements EventsAPI {
     }
 
     @Override
-    public void getAllPurchases(LoadPurchasesCallback callback) {
+    public void getAllPurchases(LoadPurchasesCallback callback, String EventID) {
     }
 
 

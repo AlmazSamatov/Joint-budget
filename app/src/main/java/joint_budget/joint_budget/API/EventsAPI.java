@@ -34,8 +34,7 @@ public interface EventsAPI {
     void getAllEvents(LoadEventsCallback callback) throws InterruptedException;
 
 
-    void getAllPurchases(LoadPurchasesCallback callback);
-
+    void getAllPurchases(LoadPurchasesCallback callback, String EventID);
 
 
     interface LoadEventsCallback{
