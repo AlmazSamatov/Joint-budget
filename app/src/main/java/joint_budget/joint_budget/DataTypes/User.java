@@ -9,8 +9,7 @@ public class User {
     private String creditCard;
     private String password;
 
-    public User() {
-    }
+    public User() { }
 
     public User(String firstName, String lastName, String userName, String email, String password) {
         this.firstName = firstName;

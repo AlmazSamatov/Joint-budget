@@ -12,17 +12,17 @@ import java.util.Date;
 import joint_budget.joint_budget.DataTypes.Currency;
 import joint_budget.joint_budget.DataTypes.Event;
 import joint_budget.joint_budget.DataTypes.User;
-import joint_budget.joint_budget.Events.Events.Model;
+import joint_budget.joint_budget.Model.EventsModel;
 
 public class CreateEventPresenter implements CreateEventPresenterInterface {
 
     private CreateEventView view;
-    private Model model;
+    private EventsModel eventModel;
     private ArrayList<User> users;
 
     public CreateEventPresenter(CreateEventView view, Context context) throws IOException {
         this.view = view;
-        model = new Model(context);
+        eventModel = new EventsModel(context);
         users = new ArrayList<>();
         addCurrentUser();
     }
@@ -68,7 +68,7 @@ public class CreateEventPresenter implements CreateEventPresenterInterface {
             event.setEndDate(endDate);
             event.setParticipants(users);
             event.setCurrency(Currency.valueOf(currency));
-            model.addEvent(event);
+            eventModel.addEvent(event);
             view.startEventsActivity();
         }
     }

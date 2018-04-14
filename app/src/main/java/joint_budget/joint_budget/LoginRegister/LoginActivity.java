@@ -1,10 +1,11 @@
-package joint_budget.joint_budget;
+package joint_budget.joint_budget.LoginRegister;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import joint_budget.joint_budget.API.FIrebaseAPI.FirebaseEventsAPI;
 import joint_budget.joint_budget.DataTypes.Event;
+import joint_budget.joint_budget.R;
 
 /**
  * A login screen that offers login via email/password.

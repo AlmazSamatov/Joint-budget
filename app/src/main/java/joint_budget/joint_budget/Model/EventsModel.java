@@ -1,4 +1,4 @@
-package joint_budget.joint_budget.Events.Events;
+package joint_budget.joint_budget.Model;
 
 import android.content.Context;
 
@@ -14,17 +14,21 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import joint_budget.joint_budget.API.EventsAPI;
+import joint_budget.joint_budget.API.FIrebaseAPI.FirebaseEventsAPI;
 import joint_budget.joint_budget.DataTypes.Event;
 
-public class Model {
+public class EventsModel {
 
     private List<Event> events;
     private final String eventsFileName = "Events";
     private Context context;
+    private EventsAPI eventsAPI;
 
-    public Model(Context context) throws IOException {
+    public EventsModel(Context context) throws IOException {
         this.context = context;
         events = new ArrayList<>();
+        eventsAPI = new FirebaseEventsAPI();
         getEventsFromFile();
     }
 

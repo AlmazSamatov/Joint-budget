@@ -4,18 +4,16 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Event {
+
     private String name;
-    private Date creationDate;
     private Date startDate;
     private Date endDate;
     private Currency currency;
     private ArrayList<User> participants;
     private String eventId;
 
+    public Event() { }
 
-    public Event() {
-
-    }
     public Event(String name, Date startDate, Date endDate, Currency currency, ArrayList<User> participants) {
         this.name = name;
         this.startDate = startDate;
@@ -24,7 +22,6 @@ public class Event {
         this.participants = participants;
     }
 
-    public Event(){ }
 
     public String getName() {
         return name;
