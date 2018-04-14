@@ -28,9 +28,5 @@ public abstract class DebtsAPI {
     }
 
 
-    public void subscribeToDebtsUpdates() {
-        // TODO implement me
-    }
-
 }
 
