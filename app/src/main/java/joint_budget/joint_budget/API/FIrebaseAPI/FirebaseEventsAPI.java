@@ -9,7 +9,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -78,6 +77,7 @@ public class FirebaseEventsAPI implements EventsAPI {
     @Override
     public void getAllEvents(final LoadEventsCallback callback) {
 
+        DatabaseReference referenceToEvents = databaseReference.child("events");
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -92,7 +92,7 @@ public class FirebaseEventsAPI implements EventsAPI {
             public void onCancelled(DatabaseError databaseError) {
                 throw new RuntimeException();
             }
-        });
+        };
 
         referenceToEvents.addListenerForSingleValueEvent(eventListener);
     }

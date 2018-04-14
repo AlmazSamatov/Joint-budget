@@ -5,7 +5,7 @@ import com.google.firebase.auth.FirebaseUser;
 import org.junit.Test;
 
 import joint_budget.joint_budget.API.FIrebaseAPI.FirebaseLoginToSystem;
-import joint_budget.joint_budget.DataTypes.User;
+import joint_budget.joint_budget.DataTypes.UserInfo;
 
 import static org.junit.Assert.assertEquals;
 
@@ -20,7 +20,7 @@ public class ExampleUnitTest {
     public void addition_isCorrect() throws InterruptedException {
         FirebaseLoginToSystem api = new FirebaseLoginToSystem();
 
-        FirebaseUser user = api.register(new User());
+        FirebaseUser user = api.register(new UserInfo());
         assertEquals("dilschat@yandex.ru", user.getEmail());
     }
 }
