@@ -1,6 +1,5 @@
 package joint_budget.joint_budget.API;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import joint_budget.joint_budget.DataTypes.Event;
@@ -34,8 +33,7 @@ public interface EventsAPI {
     void getAllEvents(LoadEventsCallback callback) throws InterruptedException;
 
 
-    void getAllPurchases(LoadPurchasesCallback callback);
-
+    void getAllPurchases(LoadPurchasesCallback callback, String EventID);
 
 
     interface LoadEventsCallback{
