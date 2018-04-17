@@ -1,6 +1,5 @@
 package joint_budget.joint_budget.API;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import joint_budget.joint_budget.DataTypes.Event;
