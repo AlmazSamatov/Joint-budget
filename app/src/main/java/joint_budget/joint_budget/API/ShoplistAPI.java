@@ -1,36 +1,20 @@
 package joint_budget.joint_budget.API;
 
 
-public abstract class ShoplistAPI {
-
-    public ShoplistAPI() {
-        super();
-    }
+public interface ShoplistAPI {
 
 
-    public void addItem() {
-        // TODO implement me
-    }
+    void addItem();
 
 
-    public void deleteItem() {
-        // TODO implement me
-    }
+    void deleteItem();
 
 
-    public void editItem() {
-        // TODO implement me
-    }
+    void editItem();
 
 
-    public void getAllShops() {
-        // TODO implement me
-    }
+    void getAllShops();
 
-
-    public void subscribeToItemsUpdates() {
-        // TODO implement me
-    }
 
 }
 

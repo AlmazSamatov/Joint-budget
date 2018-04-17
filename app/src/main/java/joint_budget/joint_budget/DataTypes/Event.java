@@ -11,7 +11,8 @@ public class Event {
     private ArrayList<UserInfo> participants;
     private String eventId;
 
-    public Event() { }
+    public Event() {
+    }
 
     public Event(String name, Date startDate, Date endDate, Currency currency, ArrayList<UserInfo> participants) {
         this.name = name;
