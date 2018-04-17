@@ -24,63 +24,98 @@ public class EventsModel {
     private List<Event> events;
     private List<Purchase> purchases;
     private final String eventsDBName = "Events";
-    private Context context;
     private EventsAPI eventsAPI;
 
-    public EventsModel(Context context) throws IOException {
-        this.context = context;
+    private static volatile EventsModel instance;
+
+    public static EventsModel getInstance() {
+        EventsModel localInstance = instance;
+        if (localInstance == null) {
+            synchronized (EventsModel.class) {
+                localInstance = instance;
+                if (localInstance == null) {
+                    instance = localInstance = new EventsModel();
+                }
+            }
+        }
+        return localInstance;
+    }
+
+    private EventsModel() {
         events = new ArrayList<>();
         purchases = new ArrayList<>();
         eventsAPI = new FirebaseEventsAPI();
-        getEventsFromDB();
     }
 
-    public void addEvent(Event event) throws IOException {
+    public void addEvent(Event event) {
         events.add(event);
-        saveEventsToDB();
+        try {
+            eventsAPI.createEvent(event);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        addEventToDB(event);
     }
 
-    private void saveEventsToDB() throws IOException {
-        deleteEventsFromDB();
-        FileOutputStream out = context.openFileOutput(eventsDBName, Context.MODE_PRIVATE);
-        Gson gson = new Gson();
-        String issuesInJson = gson.toJson(events);
-        out.write(issuesInJson.getBytes());
-        out.close();
+    private void addEventToDB(Event event) {
+
     }
 
-    private void deleteEventsFromDB(){
-        File file = new File(context.getFilesDir(), eventsDBName);
-        if(file.exists())
-            file.delete();
+    private void deleteEventsFromDB(Event event){
+
     }
 
-    private void getEventsFromDB() throws IOException {
-        StringBuilder contentBuilder = new StringBuilder();
+    private void getEventsFromDB(LoadEventsFromDBCallback callback) {
 
-        File file = new File(context.getFilesDir(), eventsDBName);
-        
-        if(file.exists()){
-            BufferedReader br = new BufferedReader(new FileReader(file));
+    }
 
-            String sCurrentLine;
-            while ((sCurrentLine = br.readLine()) != null)
-            {
-                contentBuilder.append(sCurrentLine);
-            }
+    public void updateEvent(Event event){
 
-            String eventsInJson = contentBuilder.toString();
-            Type listType = new TypeToken<List<Event>>(){}.getType();
-            Gson gson = new Gson();
-            events = gson.fromJson(eventsInJson, listType);
+    }
+
+    public void getEvents(EventsAPI.LoadEventsCallback callback) {
+        try {
+            eventsAPI.getAllEvents(callback);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
-    private void getPurchasesFromDB(){}
-
-    public List<Event>
-
-    public List<Event> getEvents(){
-        return events;
+    public void deleteEvent(String eventID) {
+        try {
+            eventsAPI.deleteEvent(eventID);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
+
+    public void editEvent(Event event){
+        try {
+            eventsAPI.updateEvent(event);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void joinEvent(String eventID, String password){
+        eventsAPI.joinEvent(eventID, password);
+    }
+
+    interface LoadEventsFromDBCallback{
+        void onLoad(List<Event> events);
+    }
+
+    public List<Purchase> getPurchases(String eventID){
+        return new ArrayList<>();
+    }
+
+    public Purchase getPurchase(String eventID, String purchaseID){
+        return new Purchase();
+    }
+
+    void savePurchase(Purchase purchase){ }
+
+    void updatePurchase(Purchase purchase){}
+
+    void deletePurchase(String eventID, String purchaseID){}
 }

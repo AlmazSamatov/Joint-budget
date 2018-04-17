@@ -6,6 +6,5 @@ public interface LoginPresenterInterface {
     void login(String login, String password);
     void loginGoogle(String login, String password);
 
-    void register(UserInfo userInfo);
     void resetPassword(String email);
 }

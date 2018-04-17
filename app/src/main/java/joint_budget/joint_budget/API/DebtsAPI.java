@@ -10,14 +10,11 @@ public interface DebtsAPI {
 
     LinkedList<Debt> getAllDebts();
 
-
     void sendInvoice(String debtID);
-
 
     void markAsReturned(String debtID);
 
     String createDebt(Debt debt);
-
 
 }
 

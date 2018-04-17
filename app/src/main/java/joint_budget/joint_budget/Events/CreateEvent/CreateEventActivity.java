@@ -112,7 +112,7 @@ public class CreateEventActivity extends AppCompatActivity implements CreateEven
         startEventsActivity();
     }
 
-    public void saveOnClick(View view) throws IOException, ParseException {
+    public void saveOnClick(View view) throws IOException, ParseException, InterruptedException {
         presenter.saveEvent(eventName.getText().toString(), startDate.getText().toString(),
                 finalDate.getText().toString(), currency.getSelectedItem().toString());
     }

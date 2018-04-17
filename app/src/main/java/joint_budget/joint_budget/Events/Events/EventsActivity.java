@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -53,11 +54,17 @@ public class EventsActivity extends AppCompatActivity implements EventsView {
     }
 
     @Override
-    public void showEvents(List<Event> events) {
-
+    public void showEvents(final List<Event> events) {
         EventsAdapter eventsAdapter = new EventsAdapter(this, R.layout.event_item, events);
         eventsListView.setEmptyView(emptyEvents);
         eventsListView.setAdapter(eventsAdapter);
+        eventsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                presenter.editEvent(events.get(i));
+            }
+        });
     }
+
 
 }

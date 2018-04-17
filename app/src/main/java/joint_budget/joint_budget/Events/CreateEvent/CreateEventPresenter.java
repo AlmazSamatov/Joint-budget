@@ -22,7 +22,7 @@ public class CreateEventPresenter implements CreateEventPresenterInterface {
 
     public CreateEventPresenter(CreateEventView view, Context context) throws IOException {
         this.view = view;
-        eventModel = new EventsModel(context);
+        eventModel = EventsModel.getInstance();
         userInfos = new ArrayList<>();
         addCurrentUser();
     }
@@ -53,7 +53,7 @@ public class CreateEventPresenter implements CreateEventPresenterInterface {
 
     @Override
     public void saveEvent(String name, String startDate, String finalDate,
-                          String currency) throws ParseException, IOException {
+                          String currency) throws ParseException, IOException, InterruptedException {
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         Date beginningDate = format.parse(startDate);
         Date endDate = format.parse(finalDate);
