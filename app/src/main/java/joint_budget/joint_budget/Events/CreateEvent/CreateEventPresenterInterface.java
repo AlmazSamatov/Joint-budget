@@ -9,7 +9,7 @@ import joint_budget.joint_budget.DataTypes.UserInfo;
 public interface CreateEventPresenterInterface {
     void setCurrentDate();
     void saveEvent(String name, String startDate, String finalDate,
-                   String currency) throws ParseException, IOException;
+                   String currency) throws ParseException, IOException, InterruptedException;
 
     ArrayList<UserInfo> getUserInfos();
     void addNewParticipant(String username, String participantLinkOrPhone, ParticipantsAdapter participantsAdapter);

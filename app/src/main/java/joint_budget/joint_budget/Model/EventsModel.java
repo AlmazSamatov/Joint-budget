@@ -47,16 +47,21 @@ public class EventsModel {
         eventsAPI = new FirebaseEventsAPI();
     }
 
-    public void addEvent(Event event)  {
+    public void addEvent(Event event) {
         events.add(event);
-        saveEventsToDB();
+        try {
+            eventsAPI.createEvent(event);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        addEventToDB(event);
     }
 
-    private void saveEventsToDB() {
+    private void addEventToDB(Event event) {
 
     }
 
-    private void deleteEventsFromDB(){
+    private void deleteEventsFromDB(Event event){
 
     }
 
@@ -64,10 +69,36 @@ public class EventsModel {
 
     }
 
-    public void updateEvent(Event event){}
+    public void updateEvent(Event event){
 
-    public List<Event> getEvents(){
-        return events;
+    }
+
+    public void getEvents(EventsAPI.LoadEventsCallback callback) {
+        try {
+            eventsAPI.getAllEvents(callback);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteEvent(String eventID) {
+        try {
+            eventsAPI.deleteEvent(eventID);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void editEvent(Event event){
+        try {
+            eventsAPI.updateEvent(event);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void joinEvent(String eventID, String password){
+        eventsAPI.joinEvent(eventID, password);
     }
 
     interface LoadEventsFromDBCallback{

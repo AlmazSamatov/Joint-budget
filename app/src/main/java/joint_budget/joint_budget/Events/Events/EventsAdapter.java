@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.text.DateFormat;
@@ -20,6 +21,7 @@ import joint_budget.joint_budget.R;
 
 public class EventsAdapter extends ArrayAdapter<Event> {
 
+    private EventsView eventView;
     private List<Event> events;
     @BindView(R.id.title_event_item)
     TextView title;
@@ -27,16 +29,19 @@ public class EventsAdapter extends ArrayAdapter<Event> {
     TextView date;
     @BindView(R.id.participants_number)
     TextView participantsAmount;
+    @BindView(R.id.delete_event)
+    Button deleteEvent;
 
-    public EventsAdapter(@NonNull Context context, int resource, @NonNull List<Event> objects) {
+    public EventsAdapter(@NonNull Context context, int resource, @NonNull List<Event> objects, EventsView view) {
         super(context, resource, objects);
         events = objects;
+        this.eventView = view;
     }
 
     @NonNull
     @Override
     public View getView(final int position, @Nullable View convertView, @NonNull final ViewGroup parent) {
-        Event event = events.get(position);
+        final Event event = events.get(position);
         View view = null;
 
         if (convertView == null) {
@@ -52,6 +57,13 @@ public class EventsAdapter extends ArrayAdapter<Event> {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         date.setText(dateFormat.format(event.getStartDate()));
         participantsAmount.setText(String.valueOf(event.getParticipants().size()));
+
+        deleteEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
+            }
+        });
 
         return view;
     }

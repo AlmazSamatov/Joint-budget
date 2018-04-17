@@ -53,7 +53,7 @@ public class CreateEventPresenter implements CreateEventPresenterInterface {
 
     @Override
     public void saveEvent(String name, String startDate, String finalDate,
-                          String currency) throws ParseException, IOException {
+                          String currency) throws ParseException, IOException, InterruptedException {
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         Date beginningDate = format.parse(startDate);
         Date endDate = format.parse(finalDate);
