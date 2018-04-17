@@ -21,37 +21,39 @@ public class FirebaseEventsAPI implements EventsAPI {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference mDatabase;
     private DatabaseReference databaseReference;
+    private DatabaseReference referenceToEvents;
 
     public FirebaseEventsAPI() {
         firebaseDatabase = FirebaseDatabase.getInstance("https://joint-budget-f59f7.firebaseio.com/");
         databaseReference = firebaseDatabase.getReference();
+        referenceToEvents = databaseReference.child("events");
     }
 
     @Override
     public Event createEvent(Event event) {
-        String key = databaseReference.child("events").push().getKey();
+        String key = referenceToEvents.push().getKey();
         event.setEventId(key);
-        databaseReference.child("events").child(key).setValue(event);
+        referenceToEvents.child(key).setValue(event);
         return event;
     }
 
     @Override
     public boolean deleteEvent(String eventID) {
-        Task valueAdding = databaseReference.child("events").child(eventID).removeValue();
+        Task valueAdding = referenceToEvents.child(eventID).removeValue();
         return valueAdding.isSuccessful();
     }
 
     @Override
     public boolean updateEvent(Event event) {
-        Task valueUpdating = databaseReference.child("events").child(event.getEventId()).setValue(event);
+        Task valueUpdating = referenceToEvents.child(event.getEventId()).setValue(event);
         return valueUpdating.isSuccessful();
     }
 
     @Override
     public Purchase addPurchase(Purchase purchase) {
-        String key = databaseReference.child("events").child(purchase.getEventID()).child("purchases").push().getKey();
+        String key = referenceToEvents.child(purchase.getEventID()).child("purchases").push().getKey();
         purchase.setPurchaseID(key);
-        databaseReference.child("events").child(purchase.getEventID()).child(key).setValue(purchase);
+        referenceToEvents.child(purchase.getEventID()).child(key).setValue(purchase);
         return purchase;
     }
 

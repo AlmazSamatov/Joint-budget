@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import joint_budget.joint_budget.API.FIrebaseAPI.FirebaseEventsAPI;
 import joint_budget.joint_budget.DataTypes.Event;
+import joint_budget.joint_budget.R;
 import joint_budget.joint_budget.DataTypes.UserInfo;
 
 /**
