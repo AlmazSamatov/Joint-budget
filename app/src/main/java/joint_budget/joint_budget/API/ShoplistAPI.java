@@ -16,7 +16,5 @@ public interface ShoplistAPI {
     void getAllShops();
 
 
-    void subscribeToItemsUpdates();
-
 }
 
