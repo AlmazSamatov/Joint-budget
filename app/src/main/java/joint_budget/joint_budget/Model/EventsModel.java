@@ -1,4 +1,4 @@
-package joint_budget.joint_budget.Events.Events;
+package joint_budget.joint_budget.Model;
 
 import android.content.Context;
 
@@ -14,44 +14,51 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import joint_budget.joint_budget.API.EventsAPI;
+import joint_budget.joint_budget.API.FIrebaseAPI.FirebaseEventsAPI;
 import joint_budget.joint_budget.DataTypes.Event;
+import joint_budget.joint_budget.DataTypes.Purchase;
 
-public class Model {
+public class EventsModel {
 
     private List<Event> events;
-    private final String eventsFileName = "Events";
+    private List<Purchase> purchases;
+    private final String eventsDBName = "Events";
     private Context context;
+    private EventsAPI eventsAPI;
 
-    public Model(Context context) throws IOException {
+    public EventsModel(Context context) throws IOException {
         this.context = context;
         events = new ArrayList<>();
-        getEventsFromFile();
+        purchases = new ArrayList<>();
+        eventsAPI = new FirebaseEventsAPI();
+        getEventsFromDB();
     }
 
     public void addEvent(Event event) throws IOException {
         events.add(event);
-        saveEventsToFile();
+        saveEventsToDB();
     }
 
-    private void saveEventsToFile() throws IOException {
-        deleteEventsFromFile();
-        FileOutputStream out = context.openFileOutput(eventsFileName, Context.MODE_PRIVATE);
+    private void saveEventsToDB() throws IOException {
+        deleteEventsFromDB();
+        FileOutputStream out = context.openFileOutput(eventsDBName, Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String issuesInJson = gson.toJson(events);
         out.write(issuesInJson.getBytes());
         out.close();
     }
 
-    private void deleteEventsFromFile(){
-        File file = new File(context.getFilesDir(), eventsFileName);
+    private void deleteEventsFromDB(){
+        File file = new File(context.getFilesDir(), eventsDBName);
         if(file.exists())
             file.delete();
     }
 
-    private void getEventsFromFile() throws IOException {
+    private void getEventsFromDB() throws IOException {
         StringBuilder contentBuilder = new StringBuilder();
 
-        File file = new File(context.getFilesDir(), eventsFileName);
+        File file = new File(context.getFilesDir(), eventsDBName);
         
         if(file.exists()){
             BufferedReader br = new BufferedReader(new FileReader(file));
@@ -68,6 +75,10 @@ public class Model {
             events = gson.fromJson(eventsInJson, listType);
         }
     }
+
+    private void getPurchasesFromDB(){}
+
+    public List<Event>
 
     public List<Event> getEvents(){
         return events;

@@ -6,20 +6,21 @@ import java.io.IOException;
 
 import joint_budget.joint_budget.DataTypes.Event;
 import joint_budget.joint_budget.DataTypes.UserInfo;
+import joint_budget.joint_budget.Model.EventsModel;
 
 public class EventsPresenter implements EventsPresenterInterface {
 
     private EventsView view;
-    private Model model;
+    private EventsModel eventModel;
 
     EventsPresenter(EventsView view, Context context) throws IOException {
         this.view = view;
-        model = new Model(context);
+        eventModel = new EventsModel(context);
     }
 
     @Override
     public void createEvent(Event event) throws IOException {
-        model.addEvent(event);
+        eventModel.addEvent(event);
     }
 
     @Override
@@ -49,6 +50,6 @@ public class EventsPresenter implements EventsPresenterInterface {
 
     @Override
     public void loadEvents() {
-        view.showEvents(model.getEvents());
+        view.showEvents(eventModel.getEvents());
     }
 }
