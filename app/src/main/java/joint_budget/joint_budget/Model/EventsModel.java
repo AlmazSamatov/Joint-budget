@@ -45,7 +45,6 @@ public class EventsModel {
         events = new ArrayList<>();
         purchases = new ArrayList<>();
         eventsAPI = new FirebaseEventsAPI();
-        getEventsFromDB();
     }
 
     public void addEvent(Event event)  {
@@ -61,13 +60,31 @@ public class EventsModel {
 
     }
 
-    private void getEventsFromDB() {
+    private void getEventsFromDB(LoadEventsFromDBCallback callback) {
 
     }
+
+    public void updateEvent(Event event){}
 
     public List<Event> getEvents(){
         return events;
     }
 
+    interface LoadEventsFromDBCallback{
+        void onLoad(List<Event> events);
+    }
 
+    public List<Purchase> getPurchases(String eventID){
+        return new ArrayList<>();
+    }
+
+    public Purchase getPurchase(String eventID, String purchaseID){
+        return new Purchase();
+    }
+
+    void savePurchase(Purchase purchase){ }
+
+    void updatePurchase(Purchase purchase){}
+
+    void deletePurchase(String eventID, String purchaseID){}
 }

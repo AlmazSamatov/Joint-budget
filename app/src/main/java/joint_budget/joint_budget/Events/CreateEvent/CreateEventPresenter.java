@@ -22,7 +22,7 @@ public class CreateEventPresenter implements CreateEventPresenterInterface {
 
     public CreateEventPresenter(CreateEventView view, Context context) throws IOException {
         this.view = view;
-        eventModel = new EventsModel(context);
+        eventModel = EventsModel.getInstance();
         userInfos = new ArrayList<>();
         addCurrentUser();
     }

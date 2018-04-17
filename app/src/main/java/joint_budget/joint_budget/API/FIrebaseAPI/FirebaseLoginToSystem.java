@@ -11,9 +11,9 @@ public class FirebaseLoginToSystem extends LoginToSystemAPI {
     private FirebaseAuth mAuth;
 
     @Override
-    public FirebaseUser register(RegisterPage registerPage) throws InterruptedException {
+    public FirebaseUser login(String login, String password) throws InterruptedException {
         mAuth = FirebaseAuth.getInstance();
-        Task<AuthResult> task = mAuth.createUserWithEmailAndPassword(registerPage.getEmail(), registerPage.getPassword());
+        Task<AuthResult> task = mAuth.createUserWithEmailAndPassword(login, password);
         while (task.isComplete()) {
             Thread.sleep(700);
         }
@@ -22,6 +22,5 @@ public class FirebaseLoginToSystem extends LoginToSystemAPI {
         } else {
             return null;
         }
-
     }
 }

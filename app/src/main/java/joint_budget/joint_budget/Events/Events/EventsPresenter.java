@@ -15,7 +15,7 @@ public class EventsPresenter implements EventsPresenterInterface {
 
     EventsPresenter(EventsView view, Context context) throws IOException {
         this.view = view;
-        eventModel = new EventsModel(context);
+        eventModel = EventsModel.getInstance();
     }
 
     @Override
