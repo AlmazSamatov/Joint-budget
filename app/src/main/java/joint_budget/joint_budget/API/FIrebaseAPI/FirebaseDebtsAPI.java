@@ -1,8 +1,5 @@
 package joint_budget.joint_budget.API.FIrebaseAPI;
 
-import android.content.Context;
-
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -14,12 +11,11 @@ import joint_budget.joint_budget.DataTypes.Debt;
 public class FirebaseDebtsAPI implements DebtsAPI {
 
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference referenceToDebts;
+    private DatabaseReference databaseReference;
 
-    public FirebaseDebtsAPI(Context context) {
-        FirebaseApp app = FirebaseApp.initializeApp(context);
-        firebaseDatabase = FirebaseDatabase.getInstance(app);
-        referenceToDebts = firebaseDatabase.getReference().child("debts");
+    public FirebaseDebtsAPI() {
+        firebaseDatabase = FirebaseDatabase.getInstance("https://joint-budget-f59f7.firebaseio.com/");
+        databaseReference = firebaseDatabase.getReference();
     }
 
     @Override
@@ -34,6 +30,14 @@ public class FirebaseDebtsAPI implements DebtsAPI {
 
     @Override
     public void markAsReturned(String debtID) {
+        databaseReference.child("debts").child(debtID).removeValue();
+    }
 
+    @Override
+    public String createDebt(Debt debt) {
+        DatabaseReference referenceToDebts = databaseReference.child("debts");
+        String key = referenceToDebts.push().getKey();
+        referenceToDebts.child(key).setValue(debt);
+        return key;
     }
 }

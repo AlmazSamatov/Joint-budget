@@ -16,6 +16,7 @@ public interface DebtsAPI {
 
     void markAsReturned(String debtID);
 
+    String createDebt(Debt debt);
 
 
 }
