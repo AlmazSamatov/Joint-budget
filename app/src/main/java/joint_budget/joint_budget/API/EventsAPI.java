@@ -30,7 +30,7 @@ public interface EventsAPI {
     boolean joinEvent(String EventID, String Password);
 
 
-    void getAllEvents(LoadEventsCallback callback) throws InterruptedException;
+    void getAllEvents(LoadEventsCallback callback, String userID) throws InterruptedException;
 
 
     void getAllPurchases(LoadPurchasesCallback callback, String EventID);

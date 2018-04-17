@@ -5,27 +5,17 @@ import java.util.LinkedList;
 import joint_budget.joint_budget.DataTypes.Debt;
 
 
-public abstract class DebtsAPI {
-
-    public DebtsAPI() {
-
-    }
+public interface DebtsAPI {
 
 
-    public LinkedList<Debt> getAllDebts() {
-        // TODO implement me
-        return new LinkedList<>();
-    }
+    LinkedList<Debt> getAllDebts();
 
 
-    public void sendInvoice(String debtID) {
-        // TODO implement me
-    }
+    void sendInvoice(String debtID);
 
 
-    public void markAsReturned(String debtID) {
-        // TODO implement me
-    }
+    void markAsReturned(String debtID);
+
 
 
 }
