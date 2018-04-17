@@ -1,10 +1,11 @@
 <resources>
-    <string name="app_name">Joint-budget</string>
+    <string name="app_name">Joint budget</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_up">or Sign up</string>
+    <string name="action_log_in">Log in</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
@@ -13,6 +14,45 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-
+    <string name="welcome_text">Easiest way to spent money with friends</string>
+    <string name="action_forget_password">Forget password</string>
+    <string name="action_log_in_with_google">Log in with Google</string>
+    <string name="prompt_firstname">First Name</string>
+    <string name="prompt_lastname">Last Name</string>
+    <string name="prompt_username">User Name</string>
+    <string name="prompt_phone_number">Phone Number</string>
+    <string name="create_account">Create account</string>
+    <string name="prompt_credit_card">Credit card</string>
+    <string name="prompt_repeat_password">Repeat password</string>
+    <string name="search_title">Search</string>
+    <string name="no_events">No events</string>
+    <string name="join_to_existing">Join to existing event</string>
+    <string name="create_event">Create new event</string>
+    <string name="prompt_event_name">Event name</string>
+    <string name="start_date_text">Start date:</string>
+    <string name="final_date_text">Final date:</string>
+    <string name="currency">Currency:</string>
+    <string name="start_date">05/04/2018</string>
+    <string name="final_date">06/04/2018</string>
+    <string name="rub">RUB</string>
+    <string name="participants_text">Participants:</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="participant_name">Participant name</string>
+    <string name="link_or_phone_number">Phone number or link to social network (optional)</string>
+    <string name="add">Add</string>
+    <string name="or">…OR…</string>
+    <string name="share">Share this event info with your friends</string>
+    <string name="event_id_text">Event ID:</string>
+    <string name="event_id_fake">EVN802</string>
+    <string name="password_text">Password:</string>
+    <string name="event_password_fake">902df</string>
+    <string name="participants">participants</string>
+    <string name="choose_date">Choose date</string>
+    <string-array name="currency_list">
+        <item>RUB</item>
+        <item>EUR</item>
+        <item>USD</item>
+    </string-array>
 
 </resources>

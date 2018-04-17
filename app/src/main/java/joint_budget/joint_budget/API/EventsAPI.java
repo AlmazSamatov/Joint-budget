@@ -1,86 +1,47 @@
 package joint_budget.joint_budget.API;
 
-import java.util.LinkedList;
+import java.util.List;
 
-import joint_budget.joint_budget.DataTypes.EventPage;
-import joint_budget.joint_budget.DataTypes.PurchasePage;
+import joint_budget.joint_budget.DataTypes.Event;
+import joint_budget.joint_budget.DataTypes.Purchase;
 
 
-public abstract class EventsAPI {
+public interface EventsAPI {
 
-    public EventsAPI() {
+
+    Event createEvent(Event event) throws InterruptedException;
+
+
+    boolean deleteEvent(String eventID) throws InterruptedException;
+
+
+    boolean updateEvent(Event event) throws InterruptedException;
+
+
+    Purchase addPurchase(Purchase purchase);
+
+
+    boolean updatePurchase(Purchase purchase);
+
+
+    boolean deletePurchase(String eventID, String purchaseID);
+
+
+    boolean joinEvent(String EventID, String Password);
+
+
+    void getAllEvents(LoadEventsCallback callback) throws InterruptedException;
+
+
+    void getAllPurchases(LoadPurchasesCallback callback, String EventID);
+
+
+    interface LoadEventsCallback{
+        void onLoad(List<Event> events);
     }
 
-
-    public boolean createEvent(EventPage eventPage) {
-        // TODO implement me
-        return false;
+    interface LoadPurchasesCallback{
+        void onLoad(List<Purchase> purchases);
     }
-
-
-    public boolean deleteEvent(String eventID) {
-        // TODO implement me
-        return false;
-
-    }
-
-
-    public boolean updateEvent(EventPage eventPage) {
-        // TODO implement me
-        return false;
-
-    }
-
-
-    public boolean addPurchase(PurchasePage purchasePage) {
-        // TODO implement me
-        return false;
-
-    }
-
-
-    public boolean editPurchase(PurchasePage purchasePage) {
-        // TODO implement me
-        return false;
-
-    }
-
-
-    public boolean deletePurchase(String eventID, String purchaseID) {
-        // TODO implement me
-        return false;
-
-    }
-
-
-    public boolean joinEvent(String EventID, String Password) {
-        // TODO implement me
-        return false;
-
-    }
-
-
-    public LinkedList<EventPage> getAllEvents() {
-        // TODO implement me
-        return new LinkedList<>();
-
-    }
-
-
-    public LinkedList<PurchasePage> getAllPurchases() {
-        // TODO implement me
-        return new LinkedList<>();
-    }
-
-
-    public void subscribeToEventsUpdates() {
-        // TODO implement me
-    }
-
-
-    public void subscribeToPurchasesUpdates() {
-        // TODO implement me
-    }
-
 }
 
