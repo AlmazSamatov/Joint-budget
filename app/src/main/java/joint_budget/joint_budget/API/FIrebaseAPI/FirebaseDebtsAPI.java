@@ -9,9 +9,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.LinkedList;
 
 import joint_budget.joint_budget.API.DebtsAPI;
-import joint_budget.joint_budget.DataTypes.DebtPage;
+import joint_budget.joint_budget.DataTypes.Debt;
 
-public class FirebaseDebtsAPI extends DebtsAPI {
+public class FirebaseDebtsAPI implements DebtsAPI {
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference referenceToDebts;
@@ -23,17 +23,17 @@ public class FirebaseDebtsAPI extends DebtsAPI {
     }
 
     @Override
-    public LinkedList<DebtPage> getAllDebts() {
-        return super.getAllDebts();
+    public LinkedList<Debt> getAllDebts() {
+        return null;
     }
 
     @Override
     public void sendInvoice(String debtID) {
-        super.sendInvoice(debtID);
+
     }
 
     @Override
     public void markAsReturned(String debtID) {
-        super.markAsReturned(debtID);
+
     }
 }

@@ -5,9 +5,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import joint_budget.joint_budget.API.ShoplistAPI;
 
-public class FirebaseShoplistAPI extends ShoplistAPI {
+public class FirebaseShoplistAPI implements ShoplistAPI {
 
-    FirebaseDatabase firebaseDatabase;
+    private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
     private DatabaseReference referenceToShopList;
 
@@ -19,26 +19,23 @@ public class FirebaseShoplistAPI extends ShoplistAPI {
 
     @Override
     public void addItem() {
-        super.addItem();
+
     }
 
     @Override
     public void deleteItem() {
-        super.deleteItem();
+
     }
 
     @Override
     public void editItem() {
-        super.editItem();
+
     }
 
     @Override
     public void getAllShops() {
-        super.getAllShops();
+
     }
 
-    @Override
-    public void subscribeToItemsUpdates() {
-        super.subscribeToItemsUpdates();
-    }
+
 }

@@ -9,9 +9,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import joint_budget.joint_budget.API.EventsAPI;
 import joint_budget.joint_budget.DataTypes.Event;
@@ -123,15 +121,4 @@ public class FirebaseEventsAPI implements EventsAPI {
         referenceToPurchase.addListenerForSingleValueEvent(purchaseListener);
     }
 
-
-    private Map<String, Object> EventToMap(Event event) {
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("EventId", event.getEventId());
-        map.put("Currency", event.getCurrency());
-        map.put("EndDate", event.getEndDate());
-        map.put("Name", event.getName());
-        map.put("StartDate", event.getStartDate());
-        map.put("Participants", event.getParticipants());
-        return map;
-    }
 }
