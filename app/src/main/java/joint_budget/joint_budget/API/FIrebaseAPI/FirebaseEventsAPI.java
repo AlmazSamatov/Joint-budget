@@ -18,7 +18,7 @@ import joint_budget.joint_budget.DataTypes.Purchase;
 
 public class FirebaseEventsAPI implements EventsAPI {
 
-    FirebaseDatabase firebaseDatabase;
+    private FirebaseDatabase firebaseDatabase;
     private DatabaseReference mDatabase;
     private DatabaseReference databaseReference;
     private DatabaseReference referenceToEvents;
@@ -84,7 +84,7 @@ public class FirebaseEventsAPI implements EventsAPI {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Event> events = new ArrayList<>();
-                for (DataSnapshot eventSnapshot: dataSnapshot.getChildren()) {
+                for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
                     events.add(eventSnapshot.getValue(Event.class));
                 }
                 callback.onLoad(events);
@@ -100,7 +100,25 @@ public class FirebaseEventsAPI implements EventsAPI {
     }
 
     @Override
-    public void getAllPurchases(LoadPurchasesCallback callback, String EventID) {
+    public void getAllPurchases(final LoadPurchasesCallback callback, String EventID) {
+        DatabaseReference referenceToPurchase = databaseReference.child("events/" + EventID + "/purchases");
+        ValueEventListener purchaseListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Purchase> purchases = new ArrayList<>();
+                for (DataSnapshot purchaseSnapshot : dataSnapshot.getChildren()) {
+                    purchases.add(purchaseSnapshot.getValue(Purchase.class));
+                }
+                callback.onLoad(purchases);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                throw new RuntimeException();
+            }
+        };
+
+        referenceToPurchase.addListenerForSingleValueEvent(purchaseListener);
     }
 
 
