@@ -10,7 +10,7 @@ public interface LoginToSystemAPI<T> {
 
     T register(PrivateUserInfo user) throws InterruptedException;
 
-    boolean recoverAccount(String email);
+    void recoverAccount(String email, final LoginCallback callback);
 
     String getSavedLogPass();
 

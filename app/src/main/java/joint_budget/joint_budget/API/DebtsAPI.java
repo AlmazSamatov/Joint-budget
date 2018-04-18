@@ -1,6 +1,6 @@
 package joint_budget.joint_budget.API;
 
-import java.util.LinkedList;
+import java.util.List;
 
 import joint_budget.joint_budget.DataTypes.Debt;
 
@@ -8,7 +8,7 @@ import joint_budget.joint_budget.DataTypes.Debt;
 public interface DebtsAPI {
 
 
-    LinkedList<Debt> getAllDebts();
+    void getAllDebts(LoadDebtsCallback callback, String userID);
 
     void sendInvoice(String debtID);
 
@@ -16,5 +16,8 @@ public interface DebtsAPI {
 
     String createDebt(Debt debt);
 
+    interface LoadDebtsCallback {
+        void onLoad(List<Debt> debts);
+    }
 }
 

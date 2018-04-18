@@ -77,7 +77,6 @@ public class FirebaseEventsAPI implements EventsAPI {
 
     @Override
     public void getAllEvents(final LoadEventsCallback callback, String userID) {
-
         DatabaseReference referenceToEvents = databaseReference.child("events");
         Query allEvents = referenceToEvents.orderByChild("participants").orderByChild("userID").equalTo(userID);
         ValueEventListener eventListener = new ValueEventListener() {
@@ -97,6 +96,7 @@ public class FirebaseEventsAPI implements EventsAPI {
         };
 
         allEvents.addListenerForSingleValueEvent(eventListener);
+
     }
 
     @Override
