@@ -10,8 +10,10 @@ public class Event {
     private Currency currency;
     private ArrayList<UserInfo> participants;
     private String eventId;
+    private ArrayList<ShoppingListItem> shopList;
 
-    public Event() { }
+    public Event() {
+    }
 
     public Event(String name, Date startDate, Date endDate, Currency currency, ArrayList<UserInfo> participants) {
         this.name = name;
@@ -68,6 +70,14 @@ public class Event {
 
     public String getEventId() {
         return eventId;
+    }
+
+    public ArrayList<ShoppingListItem> getShopList() {
+        return shopList;
+    }
+
+    public void setShopList(ArrayList<ShoppingListItem> shopList) {
+        this.shopList = shopList;
     }
 
 }

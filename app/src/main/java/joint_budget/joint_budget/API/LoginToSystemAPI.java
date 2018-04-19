@@ -1,36 +1,21 @@
 package joint_budget.joint_budget.API;
 
+import java.util.List;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
+import joint_budget.joint_budget.DataTypes.PrivateUserInfo;
 
-public abstract class LoginToSystemAPI<T> {
+public interface LoginToSystemAPI<T> {
 
-    private FirebaseAuth mAuth;
+    void login(String email, String password, LoginCallback callback);
 
-    public LoginToSystemAPI() {
-        //
+    T register(PrivateUserInfo user) throws InterruptedException;
+
+    void recoverAccount(String email, final LoginCallback callback);
+
+    String getSavedLogPass();
+
+    interface LoginCallback {
+        void onLogin(List<PrivateUserInfo> account);
     }
-
-    public abstract FirebaseUser login(String login, String password) throws InterruptedException;
-
-
-    public T register(UserInfo userInfo, String password) throws InterruptedException {
-        return null;
-    }
-
-
-    public boolean recoverAccount() {
-        // TODO implement me
-        return false;
-    }
-
-
-    public UserInfo getSavedLogPass() {
-        // TODO implement me
-        return null;
-    }
-
 }
 

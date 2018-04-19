@@ -4,6 +4,8 @@ public class ShoppingListItem {
     private String name;
     private UserInfo buyer;
 
+    private String itemID;
+
     public ShoppingListItem(String name) {
         this.name = name;
     }
@@ -14,5 +16,13 @@ public class ShoppingListItem {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getItemID() {
+        return itemID;
+    }
+
+    public void setItemID(String itemID) {
+        this.itemID = itemID;
     }
 }

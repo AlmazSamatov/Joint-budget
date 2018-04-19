@@ -7,6 +7,7 @@ public class UserInfo {
     private String phoneNumber;
     private String email;
     private String creditCard;
+    private String userID;
 
     public UserInfo() {
     }
@@ -75,6 +76,14 @@ public class UserInfo {
 
     public void setCreditCard(String creditCard) {
         this.creditCard = creditCard;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
 }

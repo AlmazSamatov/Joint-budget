@@ -1,36 +1,28 @@
 package joint_budget.joint_budget.API;
 
 
-public abstract class ShoplistAPI {
+import java.util.List;
 
-    public ShoplistAPI() {
-        super();
+import joint_budget.joint_budget.DataTypes.ShoppingListItem;
+
+public interface ShoplistAPI {
+
+
+    String addItem(String eventID, ShoppingListItem item);
+
+
+    void deleteItem(String EventID, String ShoplstItemID);
+
+
+    void editItem(String eventID, ShoppingListItem item);
+
+
+    void getAllShops(ShoppingListCallBack callback);
+
+    interface ShoppingListCallBack {
+        void onLoad(List<ShoppingListItem> items);
     }
 
-
-    public void addItem() {
-        // TODO implement me
-    }
-
-
-    public void deleteItem() {
-        // TODO implement me
-    }
-
-
-    public void editItem() {
-        // TODO implement me
-    }
-
-
-    public void getAllShops() {
-        // TODO implement me
-    }
-
-
-    public void subscribeToItemsUpdates() {
-        // TODO implement me
-    }
 
 }
 
