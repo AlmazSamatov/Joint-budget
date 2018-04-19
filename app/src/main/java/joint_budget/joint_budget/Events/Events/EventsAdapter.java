@@ -61,7 +61,7 @@ public class EventsAdapter extends ArrayAdapter<Event> {
         deleteEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+
             }
         });
 
