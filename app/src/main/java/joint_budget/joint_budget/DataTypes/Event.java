@@ -10,6 +10,7 @@ public class Event {
     private Currency currency;
     private ArrayList<UserInfo> participants;
     private String eventId;
+    private ArrayList<ShoppingListItem> shopList;
 
     public Event() {
     }
@@ -69,6 +70,14 @@ public class Event {
 
     public String getEventId() {
         return eventId;
+    }
+
+    public ArrayList<ShoppingListItem> getShopList() {
+        return shopList;
+    }
+
+    public void setShopList(ArrayList<ShoppingListItem> shopList) {
+        this.shopList = shopList;
     }
 
 }

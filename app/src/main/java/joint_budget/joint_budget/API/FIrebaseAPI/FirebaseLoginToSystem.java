@@ -25,7 +25,6 @@ public class FirebaseLoginToSystem implements LoginToSystemAPI {
 
     @Override
     public void login(String email, String password, final LoginCallback callback) {
-
         DatabaseReference referenceToUsers = databaseReference.child("users");
         Query account = referenceToUsers.orderByChild("email").equalTo(email);
         account.orderByChild("password").equalTo(password);
@@ -56,8 +55,26 @@ public class FirebaseLoginToSystem implements LoginToSystemAPI {
     }
 
     @Override
-    public boolean recoverAccount(String email) {
-        return false;
+    public void recoverAccount(String email, final LoginCallback callback) {
+        DatabaseReference referenceToUsers = databaseReference.child("users");
+        Query account = referenceToUsers.orderByChild("email").equalTo(email);
+        ValueEventListener completeListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<PrivateUserInfo> users = new ArrayList<>();
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    users.add(userSnapshot.getValue(PrivateUserInfo.class));
+                }
+                callback.onLogin(users);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                throw new RuntimeException();
+            }
+        };
+
+        account.addListenerForSingleValueEvent(completeListener);
     }
 
     @Override
