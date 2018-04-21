@@ -29,7 +29,7 @@ public class FirebaseEventsAPI implements EventsAPI {
     }
 
     @Override
-    public Event createEvent(Event event) {
+    public Event createEvent(Event event) {  // tested: works
         String key = referenceToEvents.push().getKey();
         event.setEventId(key);
         referenceToEvents.child(key).setValue(event);
@@ -37,35 +37,36 @@ public class FirebaseEventsAPI implements EventsAPI {
     }
 
     @Override
-    public boolean deleteEvent(String eventID) {
+    public boolean deleteEvent(String eventID) { // tested:works
         Task valueAdding = referenceToEvents.child(eventID).removeValue();
         return valueAdding.isSuccessful();
     }
 
     @Override
-    public boolean updateEvent(Event event) {
+    public boolean updateEvent(Event event) { //tested: works
         Task valueUpdating = referenceToEvents.child(event.getEventId()).setValue(event);
         return valueUpdating.isSuccessful();
     }
 
     @Override
-    public Purchase addPurchase(Purchase purchase) {
-        String key = referenceToEvents.child(purchase.getEventID()).child("purchases").push().getKey();
+    public Purchase addPurchase(Purchase purchase) { //tested:works
+        DatabaseReference referenceToPurchases = referenceToEvents.child(purchase.getEventID()).child("purchases");
+        String key = referenceToPurchases.push().getKey();
         purchase.setPurchaseID(key);
-        referenceToEvents.child(purchase.getEventID()).child(key).setValue(purchase);
+        referenceToPurchases.child(key).setValue(purchase);
         return purchase;
     }
 
     @Override
-    public boolean updatePurchase(Purchase purchase) {
-        Task valueUpdating = databaseReference.child("events/" + purchase.getEventID() + "purchases/" +
+    public boolean updatePurchase(Purchase purchase) { //tested: works
+        Task valueUpdating = databaseReference.child("events/" + purchase.getEventID() + "/purchases/" +
                 purchase.getPurchaseID()).setValue(purchase);
         return valueUpdating.isSuccessful();
     }
 
     @Override
-    public boolean deletePurchase(String eventID, String purchaseID) {
-        Task valueAdding = databaseReference.child("events/" + eventID + "purchases/" +
+    public boolean deletePurchase(String eventID, String purchaseID) { //tested: works
+        Task valueAdding = databaseReference.child("events/" + eventID + "/purchases/" +
                 purchaseID).removeValue();
         return valueAdding.isSuccessful();
     }
@@ -76,9 +77,9 @@ public class FirebaseEventsAPI implements EventsAPI {
     }
 
     @Override
-    public void getAllEvents(final LoadEventsCallback callback, String userID) {
+    public void getAllEvents(final LoadEventsCallback callback, String userID) {//tested
         DatabaseReference referenceToEvents = databaseReference.child("events");
-        Query allEvents = referenceToEvents.orderByChild("participants").orderByChild("userID").equalTo(userID);
+        Query allEvents = referenceToEvents.orderByChild("participants/userID").equalTo(userID);
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -100,7 +101,7 @@ public class FirebaseEventsAPI implements EventsAPI {
     }
 
     @Override
-    public void getAllPurchases(final LoadPurchasesCallback callback, String EventID) {
+    public void getAllPurchases(final LoadPurchasesCallback callback, String EventID) { //tested: works
         DatabaseReference referenceToPurchase = databaseReference.child("events/" + EventID + "/purchases");
         ValueEventListener purchaseListener = new ValueEventListener() {
             @Override
