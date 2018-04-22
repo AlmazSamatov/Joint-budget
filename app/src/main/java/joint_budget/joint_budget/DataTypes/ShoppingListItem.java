@@ -1,10 +1,16 @@
 package joint_budget.joint_budget.DataTypes;
 
-public class ShoppingListItem {
+import io.realm.RealmModel;
+import io.realm.RealmObject;
+
+public class ShoppingListItem extends RealmObject implements RealmModel{
     private String name;
     private UserInfo buyer;
 
     private String itemID;
+
+    public ShoppingListItem() {
+    }
 
     public ShoppingListItem(String name) {
         this.name = name;

@@ -1,6 +1,10 @@
 package joint_budget.joint_budget.DataTypes;
 
-public class UserInfo {
+import io.realm.RealmModel;
+import io.realm.RealmObject;
+import io.realm.annotations.Required;
+
+public class UserInfo extends RealmObject implements RealmModel{
     private String firstName;
     private String lastName;
     private String userName;

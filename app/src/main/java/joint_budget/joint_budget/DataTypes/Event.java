@@ -3,26 +3,55 @@ package joint_budget.joint_budget.DataTypes;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Event {
+import io.realm.RealmList;
+import io.realm.RealmModel;
+import io.realm.RealmObject;
+import io.realm.annotations.Required;
+
+public class Event extends RealmObject implements RealmModel{
+    private String eventId;
+    private String password;
+    @Required
     private String name;
     private Date startDate;
     private Date endDate;
-    private Currency currency;
-    private ArrayList<UserInfo> participants;
-    private String eventId;
-    private ArrayList<ShoppingListItem> shopList;
+    private String currency;
+    private RealmList<UserInfo> participants;
+    private RealmList<ShoppingListItem> shopList;
 
     public Event() {
+        participants = new RealmList<>();
+        shopList = new RealmList<>();
     }
 
-    public Event(String name, Date startDate, Date endDate, Currency currency, ArrayList<UserInfo> participants) {
+    public Event(String eventId, String password, String name, Date startDate, Date endDate, String currency, ArrayList<UserInfo> participants, ArrayList<ShoppingListItem> shopList) {
+        this.eventId = eventId;
+        this.password = password;
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.currency = currency;
-        this.participants = participants;
+        this.currency = Currency.valueOf(currency).toString();
+        this.participants = new RealmList<>();
+        this.shopList = new RealmList<>();
+        this.participants.addAll(participants);
+        this.shopList.addAll(shopList);
     }
 
+    public String getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(String eventId) {
+        this.eventId = eventId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public String getName() {
         return name;
@@ -49,35 +78,33 @@ public class Event {
     }
 
     public Currency getCurrency() {
-        return currency;
+        return Currency.valueOf(this.currency);
     }
 
     public void setCurrency(Currency currency) {
-        this.currency = currency;
+        this.currency = currency.toString();
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = Currency.valueOf(currency).toString();
     }
 
     public ArrayList<UserInfo> getParticipants() {
-        return participants;
+        return new ArrayList<>(participants);
     }
 
     public void setParticipants(ArrayList<UserInfo> participants) {
-        this.participants = participants;
-    }
-
-    public void setEventId(String key) {
-        eventId = key;
-    }
-
-    public String getEventId() {
-        return eventId;
+        this.participants.clear();
+        this.participants.addAll(participants);
     }
 
     public ArrayList<ShoppingListItem> getShopList() {
-        return shopList;
+        return new ArrayList<>(shopList);
     }
 
     public void setShopList(ArrayList<ShoppingListItem> shopList) {
-        this.shopList = shopList;
+        this.shopList.clear();
+        this.shopList.addAll(shopList);
     }
 
 }
