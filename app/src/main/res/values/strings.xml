@@ -43,7 +43,7 @@
     <string name="add">Add</string>
     <string name="or">…OR…</string>
     <string name="share">Share this event info with your friends</string>
-    <string name="event_id_text">Event ID:</string>
+    <string name="event_id_text">Event eventId:</string>
     <string name="event_id_fake">EVN802</string>
     <string name="password_text">Password:</string>
     <string name="event_password_fake">902df</string>

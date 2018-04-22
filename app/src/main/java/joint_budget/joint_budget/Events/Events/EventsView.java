@@ -10,4 +10,5 @@ interface EventsView {
 
     void onEventCreate(View view);
     void showEvents(List<Event> events);
+    void deleteEvent(Event event);
 }
