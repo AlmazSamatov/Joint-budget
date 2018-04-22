@@ -98,6 +98,51 @@ public class EventsModel {
         }
     }
 
+    private void addPurchasesToDB(Purchase purchase) {
+        try (Realm realm = Realm.getDefaultInstance()) {
+            realm.beginTransaction();
+            Purchase purchaseToAdd = realm.createObject(Purchase.class);
+            purchaseToAdd.setPurchaseItems(purchase.getPurchaseItems());
+            purchaseToAdd.setCurrency(purchase.getCurrency());
+            purchaseToAdd.setTotalCost(purchase.getTotalCost());
+            purchaseToAdd.setPurchaseName(purchase.getPurchaseName());
+            purchaseToAdd.setPurchaseID(purchase.getPurchaseID());
+            purchaseToAdd.setEventID(purchase.getEventID());
+            realm.commitTransaction();
+        }
+    }
+
+    public void deletePurchaseFromDB(Purchase purchase){
+        try (Realm realm = Realm.getDefaultInstance()) {
+            realm.beginTransaction();
+            RealmResults<Purchase> purchasesToDelete = realm.where(Purchase.class).equalTo("purchaseName", purchase.getPurchaseName()).findAll();
+            if (!purchasesToDelete.isEmpty()) {
+                purchasesToDelete.get(0).deleteFromRealm();
+            }
+            realm.commitTransaction();
+        }
+    }
+
+    public void getPurchasesFromDB(LoadPurchasesFromDBCallback callback, String eventName) {
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<Purchase> purchases = realm.where(Purchase.class).equalTo("eventName", eventName).findAll();
+        callback.onLoad(purchases);
+    }
+
+    public void updatePurchaseInDB(Purchase oldPurchase, Purchase newPurchase){
+        try (Realm realm = Realm.getDefaultInstance()) {
+            realm.beginTransaction();
+            Purchase purchaseInDB = realm.where(Purchase.class).equalTo("purchaseName", oldPurchase.getPurchaseName()).findFirst();
+            purchaseInDB.setPurchaseItems(newPurchase.getPurchaseItems());
+            purchaseInDB.setCurrency(newPurchase.getCurrency());
+            purchaseInDB.setTotalCost(newPurchase.getTotalCost());
+            purchaseInDB.setPurchaseName(newPurchase.getPurchaseName());
+            purchaseInDB.setPurchaseID(newPurchase.getPurchaseID());
+            purchaseInDB.setEventID(newPurchase.getEventID());
+            realm.commitTransaction();
+        }
+    }
+
     /*public void getEvents(EventsAPI.LoadEventsCallback callback) {
         try {
             eventsAPI.getAllEvents(callback);
@@ -128,6 +173,10 @@ public class EventsModel {
 
     public interface LoadEventsFromDBCallback{
         void onLoad(List<Event> events);
+    }
+
+    public interface LoadPurchasesFromDBCallback {
+        void onLoad(List<Purchase> purchases);
     }
 
     public List<Purchase> getPurchases(String eventID){
