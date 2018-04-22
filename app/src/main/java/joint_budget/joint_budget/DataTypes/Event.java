@@ -15,9 +15,9 @@ public class Event extends RealmObject implements RealmModel{
     private String name;
     private Date startDate;
     private Date endDate;
-    private String currency;
-    private RealmList<UserInfo> participants;
-    private RealmList<ShoppingListItem> shopList;
+    private String currency; // Leave it as a String; anyhow, getters and setters operate with Currency
+    private RealmList<UserInfo> participants; // Leave it as RealmList; getters and setters operate with ArrayList
+    private RealmList<ShoppingListItem> shopList; // Leave it as RealmList; getters and setters operate with ArrayList
 
     public Event() {
         participants = new RealmList<>();
