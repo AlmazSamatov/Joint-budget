@@ -9,32 +9,45 @@ import io.realm.RealmObject;
 import io.realm.annotations.Required;
 
 public class Event extends RealmObject implements RealmModel{
-    private String eventId;
-    private String password;
     @Required
     private String name;
+    private String eventId;
+    private String password;
     private Date startDate;
     private Date endDate;
+
     private String currency; // Leave it as a String; anyhow, getters and setters operate with Currency
     private RealmList<UserInfo> participants; // Leave it as RealmList; getters and setters operate with ArrayList
     private RealmList<ShoppingListItem> shopList; // Leave it as RealmList; getters and setters operate with ArrayList
+    private RealmList<Purchase> purchases; // Leave it as RealmList; getters and setters operate with ArrayList
+    private RealmList<Debt> debts; // Leave it as RealmList; getters and setters operate with ArrayList
 
     public Event() {
         participants = new RealmList<>();
         shopList = new RealmList<>();
+        purchases = new RealmList<>();
+        debts = new RealmList<>();
     }
 
-    public Event(String eventId, String password, String name, Date startDate, Date endDate, String currency, ArrayList<UserInfo> participants, ArrayList<ShoppingListItem> shopList) {
+    public Event(String eventId, String password, String name, Date startDate, Date endDate, String currency, ArrayList<UserInfo> participants, ArrayList<ShoppingListItem> shopList, ArrayList<Purchase> purchases, ArrayList<Debt> debts) {
         this.eventId = eventId;
         this.password = password;
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.currency = Currency.valueOf(currency).toString();
+
         this.participants = new RealmList<>();
-        this.shopList = new RealmList<>();
         this.participants.addAll(participants);
+
+        this.shopList = new RealmList<>();
         this.shopList.addAll(shopList);
+
+        this.purchases = new RealmList<>();
+        this.purchases.addAll(purchases);
+
+        this.debts = new RealmList<>();
+        this.debts.addAll(debts);
     }
 
     public String getEventId() {
@@ -107,4 +120,21 @@ public class Event extends RealmObject implements RealmModel{
         this.shopList.addAll(shopList);
     }
 
+    public ArrayList<Purchase> getPurchases() {
+        return new ArrayList<>(purchases);
+    }
+
+    public void setPurchases(ArrayList<Purchase> purchases) {
+        this.purchases.clear();
+        this.purchases.addAll(purchases);
+    }
+
+    public ArrayList<Debt> getDebts() {
+        return new ArrayList<>(debts);
+    }
+
+    public void setDebts(ArrayList<Debt> debts) {
+        this.debts.clear();
+        this.debts.addAll(debts);
+    }
 }
