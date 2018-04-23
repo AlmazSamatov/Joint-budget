@@ -6,7 +6,6 @@ import io.realm.RealmObject;
 public class ShoppingListItem extends RealmObject implements RealmModel{
     private String name;
     private UserInfo buyer;
-
     private String itemID;
 
     public ShoppingListItem() {
