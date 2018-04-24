@@ -19,6 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
 import joint_budget.joint_budget.DataTypes.Event;
+import joint_budget.joint_budget.Event.EventActivity;
 import joint_budget.joint_budget.Events.Choice.ChoiceActivity;
 import joint_budget.joint_budget.Events.CreateEvent.CreateEventActivity;
 import joint_budget.joint_budget.R;
@@ -69,7 +70,7 @@ public class EventsActivity extends AppCompatActivity implements EventsView {
         eventsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                presenter.editEvent(events.get(i));
+                launchEventActivity(events.get(i));
             }
         });
     }
@@ -90,6 +91,14 @@ public class EventsActivity extends AppCompatActivity implements EventsView {
         Gson gson = new Gson();
         String eventInJson = gson.toJson(Realm.getDefaultInstance().copyFromRealm(previousEvent));
         intent.putExtra("PreviousEvent", eventInJson);
+        startActivity(intent);
+    }
+
+    public void launchEventActivity(Event event){
+        Intent intent = new Intent(getBaseContext(), EventActivity.class);
+        Gson gson = new Gson();
+        String eventInJson = gson.toJson(Realm.getDefaultInstance().copyFromRealm(event));
+        intent.putExtra("Event", eventInJson);
         startActivity(intent);
     }
 

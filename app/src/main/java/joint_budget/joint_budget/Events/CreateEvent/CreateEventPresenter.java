@@ -105,4 +105,15 @@ public class CreateEventPresenter implements CreateEventPresenterInterface {
             view.setFields(previousEvent);
         }
     }
+
+    public String getDateInString(Date date){
+        String day          = (String) android.text.format.DateFormat.format("dd",   date);
+        String monthNumber  = (String) android.text.format.DateFormat.format("MM",   date);
+        String year         = (String) android.text.format.DateFormat.format("yyyy", date);
+        String dayText = String.format("%02d", Integer.parseInt(day));
+        String yearText = String.format("%02d", Integer.parseInt(year));
+        String monthText = String.format("%02d", Integer.parseInt(monthNumber));
+        String dateInString = dayText + '/' + monthText + '/' + yearText;
+        return dateInString;
+    }
 }

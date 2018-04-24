@@ -27,6 +27,7 @@
         <activity android:name=".Events.JoinExistingEvent.JoinExistingEventActivity" />
         <activity android:name=".Events.CreateEvent.CreateEventActivity" />
         <activity android:name=".Events.Choice.ChoiceActivity" />
+        <activity android:name=".Event.EventActivity" />
         <activity android:name=".Events.AddParticipant.AddParticipantActivity" />
     </application>
 

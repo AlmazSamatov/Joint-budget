@@ -60,6 +60,8 @@ public class EventsAdapter extends ArrayAdapter<Event> {
         date.setText(dateFormat.format(event.getStartDate()));
         participantsAmount.setText(String.valueOf(event.getParticipants().size()));
 
+        deleteEvent.setFocusable(false);
+        deleteEvent.setFocusableInTouchMode(false);
         deleteEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,6 +69,8 @@ public class EventsAdapter extends ArrayAdapter<Event> {
             }
         });
 
+        editEvent.setFocusable(false);
+        editEvent.setFocusableInTouchMode(false);
         editEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

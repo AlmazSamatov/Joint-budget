@@ -52,6 +52,7 @@
     <string name="no_purchases">No purchases</string>
     <string name="no_elements_in_shoplist">No products</string>
     <string name="no_debts">No debts</string>
+    <string name="purchases">Purchases</string>
     <string-array name="currency_list">
         <item>RUB</item>
         <item>EUR</item>
