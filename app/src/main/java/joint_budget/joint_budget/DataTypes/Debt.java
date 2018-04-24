@@ -4,8 +4,8 @@ import io.realm.RealmModel;
 import io.realm.RealmObject;
 
 public class Debt extends RealmObject implements RealmModel{
-    private String debtParticipant1;
-    private String debtParticipant2;
+    private String creditor;
+    private String debtor;
     private double amountOfDebt;
     private String currency; // Leave it as a String; anyhow, getters and setters operate with Currency
 
@@ -28,20 +28,20 @@ public class Debt extends RealmObject implements RealmModel{
         this.currency = currency.toString();
     }
 
-    public String getDebtParticipant1() {
-        return debtParticipant1;
+    public String getCreditor() {
+        return creditor;
     }
 
-    public void setDebtParticipant1(String debtParticipant1) {
-        this.debtParticipant1 = debtParticipant1;
+    public void setCreditor(String creditor) {
+        this.creditor = creditor;
     }
 
-    public String getDebtParticipant2() {
-        return debtParticipant2;
+    public String getDebtor() {
+        return debtor;
     }
 
-    public void setDebtParticipant2(String debtParticipant2) {
-        this.debtParticipant2 = debtParticipant2;
+    public void setDebtor(String debtor) {
+        this.debtor = debtor;
     }
 
 }

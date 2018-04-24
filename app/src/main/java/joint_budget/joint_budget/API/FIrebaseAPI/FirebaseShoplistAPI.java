@@ -25,7 +25,7 @@ public class FirebaseShoplistAPI implements ShoplistAPI {
 
     @Override
     public String addItem(String eventID, ShoppingListItem item) {
-        DatabaseReference referenceToShoplist = databaseReference.child("events/" + eventID + "shopList");
+        DatabaseReference referenceToShoplist = databaseReference.child("events/" + eventID + "/shopList");
         String key = referenceToShoplist.push().getKey();
         referenceToShoplist = referenceToShoplist.child(key);
         referenceToShoplist.setValue(item);
@@ -34,12 +34,12 @@ public class FirebaseShoplistAPI implements ShoplistAPI {
 
     @Override
     public void deleteItem(String EventID, String ShoplstItemID) {
-        databaseReference.child("event/" + EventID + "shopList/" + ShoplstItemID).removeValue();
+        databaseReference.child("events/" + EventID + "/shopList/" + ShoplstItemID).removeValue();
     }
 
     @Override
     public void editItem(String eventID, ShoppingListItem item) {
-        databaseReference.child("events/" + eventID + "shopList/" + item.getItemID()).setValue(item);
+        databaseReference.child("events/" + eventID + "/shopList/" + item.getItemID()).setValue(item);
 
     }
 
