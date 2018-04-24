@@ -15,15 +15,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import joint_budget.joint_budget.API.FIrebaseAPI.FIrebaseShoplistAPI;
-import joint_budget.joint_budget.API.FIrebaseAPI.FirebaseEventsAPI;
 import joint_budget.joint_budget.DataTypes.Event;
-import joint_budget.joint_budget.DataTypes.ShoppingListItem;
 import joint_budget.joint_budget.Events.Choice.ChoiceActivity;
+import joint_budget.joint_budget.Events.CreateEvent.ParticipantsAdapter;
 import joint_budget.joint_budget.R;
 
 public class EventsActivity extends AppCompatActivity implements EventsView {
 
+    private EventsAdapter eventsAdapter;
     private EventsPresenterInterface presenter;
     @BindView(R.id.events_add_event)
     FloatingActionButton createEvent;
@@ -36,17 +35,6 @@ public class EventsActivity extends AppCompatActivity implements EventsView {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events);
-        FIrebaseShoplistAPI api = new FIrebaseShoplistAPI();
-        ShoppingListItem item = new ShoppingListItem("f");
-        item.setName("1");
-        FirebaseEventsAPI api1 = new FirebaseEventsAPI();
-        Event event = new Event();
-        event.setName("fssd");
-        event = api1.createEvent(event);
-        item.setItemID(api.addItem(event.getEventId(), item));
-        item.setName("2");
-        api.editItem(event.getEventId(), item);
-        api.deleteItem(event.getEventId(), item.getItemID());
         try {
             initialize();
         } catch (IOException e) {
@@ -68,7 +56,7 @@ public class EventsActivity extends AppCompatActivity implements EventsView {
 
     @Override
     public void showEvents(final List<Event> events) {
-        EventsAdapter eventsAdapter = new EventsAdapter(this, R.layout.event_item, events, this);
+        eventsAdapter = new EventsAdapter(this, R.layout.event_item, events, this);
         eventsListView.setEmptyView(emptyEvents);
         eventsListView.setAdapter(eventsAdapter);
         eventsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -77,6 +65,12 @@ public class EventsActivity extends AppCompatActivity implements EventsView {
                 presenter.editEvent(events.get(i));
             }
         });
+    }
+
+    @Override
+    public void deleteEvent(Event event) {
+        presenter.deleteEvent(event);
+        eventsAdapter.notifyDataSetChanged();
     }
 
 

@@ -1,8 +1,9 @@
 package joint_budget.joint_budget.DataTypes;
 
 
-public class PrivateUserInfo extends UserInfo {
+import io.realm.RealmObject;
 
+public class PrivateUserInfo extends RealmObject {
     private String password;
     private String cvv;
 
