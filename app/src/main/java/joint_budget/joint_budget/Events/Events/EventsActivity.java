@@ -15,8 +15,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import joint_budget.joint_budget.API.FIrebaseAPI.FIrebaseShoplistAPI;
 import joint_budget.joint_budget.API.FIrebaseAPI.FirebaseEventsAPI;
-import joint_budget.joint_budget.API.FIrebaseAPI.FirebaseShoplistAPI;
 import joint_budget.joint_budget.DataTypes.Event;
 import joint_budget.joint_budget.DataTypes.ShoppingListItem;
 import joint_budget.joint_budget.Events.Choice.ChoiceActivity;
@@ -36,7 +36,7 @@ public class EventsActivity extends AppCompatActivity implements EventsView {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events);
-        FirebaseShoplistAPI api = new FirebaseShoplistAPI();
+        FIrebaseShoplistAPI api = new FIrebaseShoplistAPI();
         ShoppingListItem item = new ShoppingListItem("f");
         item.setName("1");
         FirebaseEventsAPI api1 = new FirebaseEventsAPI();
