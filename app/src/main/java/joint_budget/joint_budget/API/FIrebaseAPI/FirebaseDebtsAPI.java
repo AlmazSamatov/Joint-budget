@@ -13,12 +13,12 @@ import java.util.List;
 import joint_budget.joint_budget.API.DebtsAPI;
 import joint_budget.joint_budget.DataTypes.Debt;
 
-public class FireBaseDebtsAPI implements DebtsAPI {
+public class FirebaseDebtsAPI implements DebtsAPI {
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
 
-    public FireBaseDebtsAPI() {
+    public FirebaseDebtsAPI() {
         firebaseDatabase = FirebaseDatabase.getInstance("https://joint-budget-f59f7.firebaseio.com/");
         databaseReference = firebaseDatabase.getReference();
     }

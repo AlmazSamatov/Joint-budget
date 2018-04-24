@@ -1,7 +1,7 @@
 package joint_budget.joint_budget.Model;
 
 import joint_budget.joint_budget.API.DebtsAPI;
-import joint_budget.joint_budget.API.FIrebaseAPI.FireBaseDebtsAPI;
+import joint_budget.joint_budget.API.FIrebaseAPI.FirebaseDebtsAPI;
 
 public class DebtsModel {
 
@@ -15,7 +15,7 @@ public class DebtsModel {
                 localInstance = instance;
                 if (localInstance == null) {
                     instance = localInstance = new DebtsModel();
-                    debtsAPI = new FireBaseDebtsAPI();
+                    debtsAPI = new FirebaseDebtsAPI();
                 }
             }
         }

@@ -13,12 +13,12 @@ import java.util.List;
 import joint_budget.joint_budget.API.ShoplistAPI;
 import joint_budget.joint_budget.DataTypes.ShoppingListItem;
 
-public class FIrebaseShoplistAPI implements ShoplistAPI {
+public class FirebaseShoplistAPI implements ShoplistAPI {
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
 
-    public FIrebaseShoplistAPI() {
+    public FirebaseShoplistAPI() {
         firebaseDatabase = FirebaseDatabase.getInstance("https://joint-budget-f59f7.firebaseio.com/");
         databaseReference = firebaseDatabase.getReference();
     }
