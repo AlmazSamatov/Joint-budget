@@ -1,16 +1,5 @@
 package joint_budget.joint_budget.Model;
 
-import android.content.Context;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,7 +64,7 @@ public class EventsModel {
 
     public void getEvents(EventsAPI.LoadEventsCallback callback) {
         try {
-            eventsAPI.getAllEvents(callback);
+            eventsAPI.getAllEvents(callback, "user");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

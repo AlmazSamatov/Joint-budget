@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 import joint_budget.joint_budget.API.FIrebaseAPI.FirebaseEventsAPI;
 import joint_budget.joint_budget.DataTypes.Event;
-import joint_budget.joint_budget.R;
 import joint_budget.joint_budget.DataTypes.UserInfo;
+import joint_budget.joint_budget.R;
 
 /**
  * A login screen that offers login via email/password.
@@ -27,7 +27,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         setContentView(R.layout.activity_login);
         FirebaseEventsAPI api = new FirebaseEventsAPI();
         Event event = new Event();
-        event.setName("a");
+        event.setName("test");
+        event = api.createEvent(event);
         UserInfo userInfo = new UserInfo();
         userInfo.setFirstName("a");
         ArrayList<UserInfo> list = new ArrayList<>();

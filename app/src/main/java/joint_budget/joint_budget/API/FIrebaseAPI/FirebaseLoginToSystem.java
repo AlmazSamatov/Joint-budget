@@ -50,7 +50,7 @@ public class FirebaseLoginToSystem implements LoginToSystemAPI {
     @Override
     public String register(PrivateUserInfo user) {
         String key = databaseReference.child("users").push().getKey();
-        databaseReference.child("events").child(key).setValue(user);
+        databaseReference.child("users").child(key).setValue(user);
         return key;
     }
 

@@ -1,13 +1,12 @@
 package joint_budget.joint_budget;
 
-import com.google.firebase.auth.FirebaseUser;
-
 import org.junit.Test;
 
-import joint_budget.joint_budget.API.FIrebaseAPI.FirebaseLoginToSystem;
-import joint_budget.joint_budget.DataTypes.UserInfo;
+import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import joint_budget.joint_budget.API.EventsAPI;
+import joint_budget.joint_budget.API.FIrebaseAPI.FirebaseEventsAPI;
+import joint_budget.joint_budget.DataTypes.Event;
 
 
 /**
@@ -17,10 +16,16 @@ import static org.junit.Assert.assertEquals;
  */
 public class ExampleUnitTest {
     @Test
-    public void addition_isCorrect() throws InterruptedException {
-        FirebaseLoginToSystem api = new FirebaseLoginToSystem();
-
-        FirebaseUser user = api.register(new UserInfo());
-        assertEquals("dilschat@yandex.ru", user.getEmail());
+    public void addition_isCorrect() {
+        FirebaseEventsAPI api = new FirebaseEventsAPI();
+        EventsAPI.LoadEventsCallback callback = new EventsAPI.LoadEventsCallback() {
+            @Override
+            public void onLoad(List<Event> events) {
+                System.out.println(events);
+            }
+        };
+        Event event = new Event();
+        event.setName("test");
+        api.createEvent(event);
     }
 }
