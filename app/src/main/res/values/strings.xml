@@ -49,6 +49,9 @@
     <string name="event_password_fake">902df</string>
     <string name="participants">participants</string>
     <string name="choose_date">Choose date</string>
+    <string name="no_purchases">No purchases</string>
+    <string name="no_elements_in_shoplist">No products</string>
+    <string name="no_debts">No debts</string>
     <string-array name="currency_list">
         <item>RUB</item>
         <item>EUR</item>

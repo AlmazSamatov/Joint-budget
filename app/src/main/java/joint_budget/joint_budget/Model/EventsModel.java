@@ -14,7 +14,6 @@ public class EventsModel {
 
     private List<Event> events;
     private List<Purchase> purchases;
-    private final String eventsDBName = "Events";
     private EventsAPI eventsAPI;
 
     private static volatile EventsModel instance;
@@ -82,6 +81,11 @@ public class EventsModel {
         Realm realm = Realm.getDefaultInstance();
         RealmResults<Event> events = realm.where(Event.class).findAll();
         callback.onLoad(events);
+    }
+
+    public void updateEvent(Event oldEvent, Event newEvent) {
+
+        updateEventInDB(oldEvent, newEvent);
     }
 
     public void updateEventInDB(Event oldEvent, Event newEvent){

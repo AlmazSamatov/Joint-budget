@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -15,9 +16,11 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import joint_budget.joint_budget.DataTypes.Event;
 import joint_budget.joint_budget.Events.AddParticipant.AddParticipantActivity;
 import joint_budget.joint_budget.Events.Events.EventsActivity;
 import joint_budget.joint_budget.R;
@@ -52,6 +55,7 @@ public class CreateEventActivity extends AppCompatActivity implements CreateEven
         presenter = new CreateEventPresenter(this, getApplicationContext());
         presenter.setCurrentDate();
         showParticipants();
+        presenter.setPreviousEvent(getIntent());
     }
 
     private void showParticipants() {
@@ -89,6 +93,26 @@ public class CreateEventActivity extends AppCompatActivity implements CreateEven
         Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void setFields(Event previousEvent) {
+        eventName.setText(previousEvent.getName());
+        currency.setSelection(previousEvent.getCurrency().ordinal());
+        startDate.setText(getDateInString(previousEvent.getStartDate()));
+        finalDate.setText(getDateInString(previousEvent.getEndDate()));
+        presenter.addNewParticipants(previousEvent.getParticipants(), participantsAdapter);
+    }
+
+    public String getDateInString(Date date){
+        String day          = (String) DateFormat.format("dd",   date);
+        String monthNumber  = (String) DateFormat.format("MM",   date);
+        String year         = (String) DateFormat.format("yyyy", date);
+        String dayText = String.format("%02d", Integer.parseInt(day));
+        String yearText = String.format("%02d", Integer.parseInt(year));
+        String monthText = String.format("%02d", Integer.parseInt(monthNumber));
+        String dateInString = dayText + '/' + monthText + '/' + yearText;
+        return dateInString;
+    }
+
     public void showDatePicker(boolean isStartDate){
         DialogFragment dateDialog = new DatePicker(this, isStartDate);
         dateDialog.show(getFragmentManager(), "datePicker");
@@ -122,4 +146,5 @@ public class CreateEventActivity extends AppCompatActivity implements CreateEven
         Intent intent = new Intent(getApplicationContext(), EventsActivity.class);
         startActivity(intent);
     }
+
 }

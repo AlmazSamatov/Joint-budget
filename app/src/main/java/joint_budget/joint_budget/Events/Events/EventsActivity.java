@@ -10,14 +10,17 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import java.io.IOException;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.realm.Realm;
 import joint_budget.joint_budget.DataTypes.Event;
 import joint_budget.joint_budget.Events.Choice.ChoiceActivity;
-import joint_budget.joint_budget.Events.CreateEvent.ParticipantsAdapter;
+import joint_budget.joint_budget.Events.CreateEvent.CreateEventActivity;
 import joint_budget.joint_budget.R;
 
 public class EventsActivity extends AppCompatActivity implements EventsView {
@@ -50,6 +53,10 @@ public class EventsActivity extends AppCompatActivity implements EventsView {
 
     @Override
     public void onEventCreate(View view) {
+        launchChoiceActivity();
+    }
+
+    private void launchChoiceActivity() {
         Intent intent = new Intent(getBaseContext(), ChoiceActivity.class);
         startActivity(intent);
     }
@@ -73,5 +80,17 @@ public class EventsActivity extends AppCompatActivity implements EventsView {
         eventsAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void editEvent(Event event) {
+        launchCreateEventActivity(event);
+    }
+
+    public void launchCreateEventActivity(Event previousEvent){
+        Intent intent = new Intent(getBaseContext(), CreateEventActivity.class);
+        Gson gson = new Gson();
+        String eventInJson = gson.toJson(Realm.getDefaultInstance().copyFromRealm(previousEvent));
+        intent.putExtra("PreviousEvent", eventInJson);
+        startActivity(intent);
+    }
 
 }

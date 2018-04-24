@@ -1,6 +1,9 @@
 package joint_budget.joint_budget.Events.CreateEvent;
 
 import android.content.Context;
+import android.content.Intent;
+
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -19,16 +22,18 @@ public class CreateEventPresenter implements CreateEventPresenterInterface {
     private CreateEventView view;
     private EventsModel eventModel;
     private ArrayList<UserInfo> userInfos;
+    UserInfo currentUserInfo;
+    private Event previousEvent;
 
     public CreateEventPresenter(CreateEventView view, Context context) throws IOException {
         this.view = view;
         eventModel = EventsModel.getInstance();
         userInfos = new ArrayList<>();
+        currentUserInfo = new UserInfo();
         addCurrentUser();
     }
 
     private void addCurrentUser() {
-        UserInfo currentUserInfo = new UserInfo();
         currentUserInfo.setUserName("Ivan Ivanov");
         userInfos.add(currentUserInfo);
     }
@@ -52,6 +57,13 @@ public class CreateEventPresenter implements CreateEventPresenterInterface {
     }
 
     @Override
+    public void addNewParticipants(ArrayList<UserInfo> user, ParticipantsAdapter participantsAdapter) {
+        for(int i = 1; i < user.size(); i++)
+            userInfos.add(user.get(i));
+        participantsAdapter.notifyDataSetChanged();
+    }
+
+    @Override
     public void saveEvent(String name, String startDate, String finalDate,
                           String currency) throws ParseException, IOException, InterruptedException {
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -61,14 +73,21 @@ public class CreateEventPresenter implements CreateEventPresenterInterface {
             view.showError("Event should has name");
         } else if(endDate.before(beginningDate)){
             view.showError("Final date should be after start date");
-        } else{
+        } else {
             Event event = new Event();
             event.setName(name);
             event.setStartDate(beginningDate);
             event.setEndDate(endDate);
             event.setParticipants(userInfos);
             event.setCurrency(Currency.valueOf(currency));
-            eventModel.addEvent(event);
+            //event.setEventId(previousEvent.getEventId());
+
+            if (previousEvent == null){
+                eventModel.addEvent(event);
+            } else{
+                eventModel.updateEvent(previousEvent, event);
+            }
+
             view.startEventsActivity();
         }
     }
@@ -76,5 +95,14 @@ public class CreateEventPresenter implements CreateEventPresenterInterface {
     @Override
     public ArrayList<UserInfo> getUserInfos() {
         return userInfos;
+    }
+
+    public void setPreviousEvent(Intent intent) {
+        String previousEventInJson = intent.getStringExtra("PreviousEvent");
+        if(previousEventInJson != null){
+            Gson gson = new Gson();
+            previousEvent = gson.fromJson(previousEventInJson, Event.class);
+            view.setFields(previousEvent);
+        }
     }
 }

@@ -7,8 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.text.DateFormat;
@@ -31,7 +30,9 @@ public class EventsAdapter extends ArrayAdapter<Event> {
     @BindView(R.id.participants_number)
     TextView participantsAmount;
     @BindView(R.id.delete_event)
-    ImageView deleteEvent;
+    ImageButton deleteEvent;
+    @BindView(R.id.edit_event)
+    ImageButton editEvent;
 
     public EventsAdapter(@NonNull Context context, int resource, @NonNull List<Event> objects, EventsView view) {
         super(context, resource, objects);
@@ -63,6 +64,13 @@ public class EventsAdapter extends ArrayAdapter<Event> {
             @Override
             public void onClick(View view) {
                 eventView.deleteEvent(event);
+            }
+        });
+
+        editEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                eventView.editEvent(event);
             }
         });
 

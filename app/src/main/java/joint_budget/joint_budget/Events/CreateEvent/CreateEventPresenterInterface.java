@@ -1,5 +1,7 @@
 package joint_budget.joint_budget.Events.CreateEvent;
 
+import android.content.Intent;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -13,4 +15,6 @@ public interface CreateEventPresenterInterface {
 
     ArrayList<UserInfo> getUserInfos();
     void addNewParticipant(String username, String participantLinkOrPhone, ParticipantsAdapter participantsAdapter);
+    void setPreviousEvent(Intent intent);
+    void addNewParticipants(ArrayList<UserInfo> user, ParticipantsAdapter participantsAdapter);
 }

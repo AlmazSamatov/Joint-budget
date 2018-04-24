@@ -1,5 +1,7 @@
 package joint_budget.joint_budget.Events.CreateEvent;
 
+import joint_budget.joint_budget.DataTypes.Event;
+
 public interface CreateEventView {
 
     void setDates(String format);
@@ -7,4 +9,5 @@ public interface CreateEventView {
     void setFinalDate(String date);
     void startEventsActivity();
     void showError(String errorMessage);
+    void setFields(Event previousEvent);
 }
