@@ -2,35 +2,49 @@ package joint_budget.joint_budget.DataTypes;
 
 import java.util.LinkedList;
 
-public class Purchase {
-    private LinkedList<PurchaseItem> purchaseItems;
-    private Currency currency;
-    private int totalCost;
+import io.realm.Realm;
+import io.realm.RealmList;
+import io.realm.RealmModel;
+import io.realm.RealmObject;
+
+public class Purchase extends RealmObject implements RealmModel{
+    private RealmList<PurchaseItem> purchaseItems; // Leave it as RealmList; getters and setters operate with LinkedList
+    private String currency; // Leave it as a String; anyhow, getters and setters operate with Currency
+    private double totalCost;
     private String purchaseName;
     private String purchaseID;
     private String eventID;
+    private String eventName;
+
+    /*
+     *   Warning: for each constructor define initialization of purchaseItems list!!!
+     * */
+    public Purchase() {
+        purchaseItems = new RealmList<>();
+    }
 
     public LinkedList<PurchaseItem> getPurchaseItems() {
-        return purchaseItems;
+        return new LinkedList<>(purchaseItems);
     }
 
     public void setPurchaseItems(LinkedList<PurchaseItem> purchaseItems) {
-        this.purchaseItems = purchaseItems;
+        this.purchaseItems.clear();
+        this.purchaseItems.addAll(purchaseItems);
     }
 
     public Currency getCurrency() {
-        return currency;
+        return Currency.valueOf(currency);
     }
 
     public void setCurrency(Currency currency) {
-        this.currency = currency;
+        this.currency = currency.toString();
     }
 
-    public int getTotalCost() {
+    public double getTotalCost() {
         return totalCost;
     }
 
-    public void setTotalCost(int totalCost) {
+    public void setTotalCost(double totalCost) {
         this.totalCost = totalCost;
     }
 
@@ -58,4 +72,19 @@ public class Purchase {
         this.eventID = eventID;
     }
 
+    public void setPurchaseItems(RealmList<PurchaseItem> purchaseItems) {
+        this.purchaseItems = purchaseItems;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public String getEventName() {
+        return eventName;
+    }
+
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
+    }
 }

@@ -1,19 +1,10 @@
 package joint_budget.joint_budget.Model;
 
-import android.content.Context;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
 import joint_budget.joint_budget.API.EventsAPI;
 import joint_budget.joint_budget.API.FIrebaseAPI.FirebaseEventsAPI;
 import joint_budget.joint_budget.DataTypes.Event;
@@ -49,37 +40,75 @@ public class EventsModel {
 
     public void addEvent(Event event) {
         events.add(event);
-        try {
+        /*try {
             eventsAPI.createEvent(event);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        }*/
         addEventToDB(event);
     }
 
     private void addEventToDB(Event event) {
+        try (Realm realm = Realm.getDefaultInstance()) {
+            realm.beginTransaction();
+            Event eventToAdd = realm.createObject(Event.class);
+            eventToAdd.setName(event.getName());
+            eventToAdd.setEventId(event.getEventId());
+            eventToAdd.setPassword(event.getPassword());
+            eventToAdd.setStartDate(event.getStartDate());
+            eventToAdd.setEndDate(event.getEndDate());
+            eventToAdd.setCurrency(event.getCurrency());
+            eventToAdd.setParticipants(event.getParticipants());
+            eventToAdd.setShopList(event.getShopList());
+            eventToAdd.setPurchases(event.getPurchases());
+            eventToAdd.setDebts(event.getDebts());
+            realm.commitTransaction();
+        }
+    }
+
+    public void deleteEventFromDB(Event event){
+        try (Realm realm = Realm.getDefaultInstance()) {
+            realm.beginTransaction();
+            RealmResults<Event> eventToDelete = realm.where(Event.class).equalTo("name", event.getName()).findAll();
+            if (!eventToDelete.isEmpty()) {
+                eventToDelete.get(0).deleteFromRealm();
+            }
+            realm.commitTransaction();
+        }
 
     }
 
-    private void deleteEventsFromDB(Event event){
-
+    public void getEventsFromDB(LoadEventsFromDBCallback callback) {
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<Event> events = realm.where(Event.class).findAll();
+        callback.onLoad(events);
     }
 
-    private void getEventsFromDB(LoadEventsFromDBCallback callback) {
-
+    public void updateEventInDB(Event oldEvent, Event newEvent){
+        try (Realm realm = Realm.getDefaultInstance()) {
+            realm.beginTransaction();
+            Event eventInDB = realm.where(Event.class).equalTo("name", oldEvent.getName()).findFirst();
+            eventInDB.setName(newEvent.getName());
+            eventInDB.setEventId(newEvent.getEventId());
+            eventInDB.setPassword(newEvent.getPassword());
+            eventInDB.setStartDate(newEvent.getStartDate());
+            eventInDB.setEndDate(newEvent.getEndDate());
+            eventInDB.setCurrency(newEvent.getCurrency());
+            eventInDB.setParticipants(newEvent.getParticipants());
+            eventInDB.setShopList(newEvent.getShopList());
+            eventInDB.setPurchases(newEvent.getPurchases());
+            eventInDB.setDebts(newEvent.getDebts());
+            realm.commitTransaction();
+        }
     }
 
-    public void updateEvent(Event event){
-
-    }
-
-    public void getEvents(EventsAPI.LoadEventsCallback callback) {
+    /*public void getEvents(EventsAPI.LoadEventsCallback callback) {
         try {
             eventsAPI.getAllEvents(callback);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     public void deleteEvent(String eventID) {
         try {
@@ -101,8 +130,12 @@ public class EventsModel {
         eventsAPI.joinEvent(eventID, password);
     }
 
-    interface LoadEventsFromDBCallback{
+    public interface LoadEventsFromDBCallback{
         void onLoad(List<Event> events);
+    }
+
+    public interface LoadPurchasesFromDBCallback {
+        void onLoad(List<Purchase> purchases);
     }
 
     public List<Purchase> getPurchases(String eventID){

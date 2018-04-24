@@ -22,6 +22,7 @@ import joint_budget.joint_budget.R;
 
 public class EventsActivity extends AppCompatActivity implements EventsView {
 
+    private EventsAdapter eventsAdapter;
     private EventsPresenterInterface presenter;
     @BindView(R.id.events_add_event)
     FloatingActionButton createEvent;
@@ -55,7 +56,7 @@ public class EventsActivity extends AppCompatActivity implements EventsView {
 
     @Override
     public void showEvents(final List<Event> events) {
-        EventsAdapter eventsAdapter = new EventsAdapter(this, R.layout.event_item, events);
+        eventsAdapter = new EventsAdapter(this, R.layout.event_item, events, this);
         eventsListView.setEmptyView(emptyEvents);
         eventsListView.setAdapter(eventsAdapter);
         eventsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -64,6 +65,12 @@ public class EventsActivity extends AppCompatActivity implements EventsView {
                 presenter.editEvent(events.get(i));
             }
         });
+    }
+
+    @Override
+    public void deleteEvent(Event event) {
+        presenter.deleteEvent(event);
+        eventsAdapter.notifyDataSetChanged();
     }
 
 

@@ -1,16 +1,18 @@
 package joint_budget.joint_budget.DataTypes;
 
-public class Debt {
+import io.realm.RealmModel;
+import io.realm.RealmObject;
+
+public class Debt extends RealmObject implements RealmModel{
     private String debtParticipant1;
     private String debtParticipant2;
-    private int amountOfDebt;
-    private Currency currency;
+    private double amountOfDebt;
+    private String currency; // Leave it as a String; anyhow, getters and setters operate with Currency
 
-    Debt() {
+    public Debt() {
     }
 
-
-    public int getAmountOfDebt() {
+    public double getAmountOfDebt() {
         return amountOfDebt;
     }
 
@@ -19,11 +21,11 @@ public class Debt {
     }
 
     public Currency getCurrency() {
-        return currency;
+        return Currency.valueOf(currency);
     }
 
     public void setCurrency(Currency currency) {
-        this.currency = currency;
+        this.currency = currency.toString();
     }
 
     public String getDebtParticipant1() {

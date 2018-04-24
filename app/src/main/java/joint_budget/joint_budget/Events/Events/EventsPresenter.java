@@ -3,9 +3,11 @@ package joint_budget.joint_budget.Events.Events;
 import android.content.Context;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import joint_budget.joint_budget.API.EventsAPI;
+import joint_budget.joint_budget.DataTypes.Currency;
 import joint_budget.joint_budget.DataTypes.Event;
 import joint_budget.joint_budget.DataTypes.UserInfo;
 import joint_budget.joint_budget.Model.EventsModel;
@@ -47,16 +49,24 @@ public class EventsPresenter implements EventsPresenterInterface {
 
     @Override
     public void deleteEvent(Event event) {
-        eventModel.deleteEvent(event.getEventId());
+        //eventModel.deleteEvent(event.getEventId());
+        eventModel.deleteEventFromDB(event);
     }
 
     @Override
     public void loadEvents() {
-        eventModel.getEvents(new EventsAPI.LoadEventsCallback() {
+        eventModel.getEventsFromDB(new EventsModel.LoadEventsFromDBCallback() {
             @Override
             public void onLoad(List<Event> events) {
                 view.showEvents(events);
             }
         });
+
+        /*eventModel.getEvents(new EventsAPI.LoadEventsCallback() {
+            @Override
+            public void onLoad(List<Event> events) {
+                view.showEvents(events);
+            }
+        });*/
     }
 }
