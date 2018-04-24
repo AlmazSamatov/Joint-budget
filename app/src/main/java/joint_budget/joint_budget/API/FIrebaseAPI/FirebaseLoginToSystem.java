@@ -24,10 +24,9 @@ public class FirebaseLoginToSystem implements LoginToSystemAPI {
     }
 
     @Override
-    public void login(String email, String password, final LoginCallback callback) {
+    public void login(String email, final String password, final LoginCallback callback) {
         DatabaseReference referenceToUsers = databaseReference.child("users");
         Query account = referenceToUsers.orderByChild("email").equalTo(email);
-        account.orderByChild("password").equalTo(password);
         ValueEventListener completeListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -35,7 +34,13 @@ public class FirebaseLoginToSystem implements LoginToSystemAPI {
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     users.add(userSnapshot.getValue(PrivateUserInfo.class));
                 }
-                callback.onLogin(users);
+                ArrayList<PrivateUserInfo> acceptedUsers = new ArrayList<>();
+                for (int i = 0; i < users.size(); i++) {
+                    if (users.get(i).getPassword().equals(password)) {
+                        acceptedUsers.add(users.get(i));
+                    }
+                }
+                callback.onLogin(acceptedUsers);
             }
 
             @Override

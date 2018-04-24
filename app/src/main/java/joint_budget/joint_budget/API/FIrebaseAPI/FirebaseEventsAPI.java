@@ -72,8 +72,31 @@ public class FirebaseEventsAPI implements EventsAPI {
     }
 
     @Override
-    public boolean joinEvent(String EventID, String Password) {
-        return false;
+    public void joinEvent(String EventID, final String Password, final LoadEventsCallback callback) {
+        DatabaseReference referenceToEvents = databaseReference.child("events");
+        Query account = referenceToEvents.orderByChild("eventId").equalTo(EventID);
+        ValueEventListener completeListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Event> events = new ArrayList<>();
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    events.add(userSnapshot.getValue(Event.class));
+                }
+                ArrayList<Event> acceptedEvents = new ArrayList<>();
+                for (int i = 0; i < events.size(); i++) {
+                    if (events.get(i).getPassword().equals(Password)) {
+                        acceptedEvents.add(events.get(i));
+                    }
+                }
+                callback.onLoad(acceptedEvents);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                throw new RuntimeException();
+            }
+
+        };
     }
 
     @Override
