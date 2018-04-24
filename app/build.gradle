@@ -33,6 +33,11 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.2'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    // https://mvnrepository.com/artifact/org.mockito/mockito-all
+    testCompile group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
+
+
+
 }
 
 apply plugin: 'com.google.gms.google-services'

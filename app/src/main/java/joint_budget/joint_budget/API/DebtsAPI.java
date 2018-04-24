@@ -10,6 +10,10 @@ public interface DebtsAPI {
 
     void getAllDebts(LoadDebtsCallback callback, String userID);
 
+    void getAllDebtsThatIowe(LoadDebtsCallback callback, String userID);
+
+    void getAllDebtsThatOwedToMe(LoadDebtsCallback callback, String userID);
+
     void sendInvoice(String debtID);
 
     void markAsReturned(String debtID);

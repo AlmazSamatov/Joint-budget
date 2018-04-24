@@ -1,12 +1,13 @@
 package joint_budget.joint_budget.DataTypes;
 
 public class Debt {
-    private String debtParticipant1;
-    private String debtParticipant2;
+    private String creditor;
+    private String debtor;
     private int amountOfDebt;
     private Currency currency;
+    private String debtID;
 
-    Debt() {
+    public Debt() {
     }
 
 
@@ -26,20 +27,28 @@ public class Debt {
         this.currency = currency;
     }
 
-    public String getDebtParticipant1() {
-        return debtParticipant1;
+    public String getCreditor() {
+        return creditor;
     }
 
-    public void setDebtParticipant1(String debtParticipant1) {
-        this.debtParticipant1 = debtParticipant1;
+    public void setCreditor(String creditor) {
+        this.creditor = creditor;
     }
 
-    public String getDebtParticipant2() {
-        return debtParticipant2;
+    public String getDebtor() {
+        return debtor;
     }
 
-    public void setDebtParticipant2(String debtParticipant2) {
-        this.debtParticipant2 = debtParticipant2;
+    public void setDebtor(String debtor) {
+        this.debtor = debtor;
+    }
+
+    public String getDebtID() {
+        return debtID;
+    }
+
+    public void setDebtID(String debtID) {
+        this.debtID = debtID;
     }
 
 }

@@ -24,10 +24,38 @@ public class FirebaseDebtsAPI implements DebtsAPI {
     }
 
     @Override
-    public void getAllDebts(final LoadDebtsCallback callback, String userID) {
+    public void getAllDebts(LoadDebtsCallback callback, String userID) {
+        this.getAllDebtsThatIowe(callback, userID);
+        this.getAllDebtsThatOwedToMe(callback, userID);
+    }
+
+    @Override
+    public void getAllDebtsThatIowe(final LoadDebtsCallback callback, String userID) { //tested" works
         DatabaseReference referenceToEvents = databaseReference.child("debts");
-        Query allDebts = referenceToEvents.orderByChild("debtParticipant1").equalTo(userID);
-        allDebts.orderByChild("debtParticipant2").equalTo(userID);
+        Query allDebts = referenceToEvents.orderByChild("debtor").equalTo(userID);
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Debt> debts = new ArrayList<>();
+                for (DataSnapshot debtsSnapshot : dataSnapshot.getChildren()) {
+                    debts.add(debtsSnapshot.getValue(Debt.class));
+                }
+                callback.onLoad(debts);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                throw new RuntimeException();
+            }
+        };
+
+        allDebts.addListenerForSingleValueEvent(eventListener);
+    }
+
+    @Override
+    public void getAllDebtsThatOwedToMe(final LoadDebtsCallback callback, String userID) {//tested: works
+        DatabaseReference referenceToEvents = databaseReference.child("debts");
+        Query allDebts = referenceToEvents.orderByChild("creditor").equalTo(userID);
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -53,12 +81,12 @@ public class FirebaseDebtsAPI implements DebtsAPI {
     }
 
     @Override
-    public void markAsReturned(String debtID) {
+    public void markAsReturned(String debtID) {//tested: works
         databaseReference.child("debts").child(debtID).removeValue();
     }
 
     @Override
-    public String createDebt(Debt debt) {
+    public String createDebt(Debt debt) {// tested: works
         DatabaseReference referenceToDebts = databaseReference.child("debts");
         String key = referenceToDebts.push().getKey();
         referenceToDebts.child(key).setValue(debt);
