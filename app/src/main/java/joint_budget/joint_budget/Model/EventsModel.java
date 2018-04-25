@@ -130,8 +130,8 @@ public class EventsModel {
         }
     }
 
-    public void joinEvent(String eventID, String password){
-        eventsAPI.joinEvent(eventID, password);
+    public void joinEvent(String eventID, String password, EventsAPI.LoadEventsCallback callback){
+        eventsAPI.joinEvent(eventID, password, callback);
     }
 
     public interface LoadEventsFromDBCallback{

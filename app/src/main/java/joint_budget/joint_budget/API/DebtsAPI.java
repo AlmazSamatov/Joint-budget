@@ -8,11 +8,11 @@ import joint_budget.joint_budget.DataTypes.Debt;
 public interface DebtsAPI {
 
 
-    void getAllDebts(LoadDebtsCallback callback, String userID);
+    void getAllDebts(LoadDebtsCallback callback, String userID,String eventID);
 
-    void getAllDebtsThatIowe(LoadDebtsCallback callback, String userID);
+    void getAllDebtsThatIowe(LoadDebtsCallback callback, String userID,String eventID);
 
-    void getAllDebtsThatOwedToMe(LoadDebtsCallback callback, String userID);
+    void getAllDebtsThatOwedToMe(LoadDebtsCallback callback, String userID, String eventID);
 
     void sendInvoice(String debtID);
 

@@ -17,10 +17,12 @@ public class FirebaseLoginToSystem implements LoginToSystemAPI {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference mDatabase;
     private DatabaseReference databaseReference;
+    private DatabaseReference referencesToUsers;
 
     public FirebaseLoginToSystem() {
         firebaseDatabase = FirebaseDatabase.getInstance("https://joint-budget-f59f7.firebaseio.com/");
         databaseReference = firebaseDatabase.getReference();
+        referencesToUsers = databaseReference.child("users");
     }
 
     @Override
@@ -54,8 +56,8 @@ public class FirebaseLoginToSystem implements LoginToSystemAPI {
 
     @Override
     public String register(PrivateUserInfo user) {
-        String key = databaseReference.child("users").push().getKey();
-        databaseReference.child("users").child(key).setValue(user);
+        String key = referencesToUsers.push().getKey();
+        referencesToUsers.child(key).setValue(user);
         return key;
     }
 

@@ -28,8 +28,8 @@ public class EventsPresenter implements EventsPresenterInterface {
     }
 
     @Override
-    public void joinEvent(String eventID, String password) {
-        eventModel.joinEvent(eventID, password);
+    public void joinEvent(String eventID, String password, EventsAPI.LoadEventsCallback callback) {
+        eventModel.joinEvent(eventID, password, callback);
     }
 
     @Override

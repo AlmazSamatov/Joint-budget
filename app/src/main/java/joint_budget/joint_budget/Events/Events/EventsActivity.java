@@ -18,7 +18,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
+import joint_budget.joint_budget.API.FIrebaseAPI.FirebaseEventsAPI;
+import joint_budget.joint_budget.API.FIrebaseAPI.FirebaseLoginToSystem;
 import joint_budget.joint_budget.DataTypes.Event;
+import joint_budget.joint_budget.DataTypes.PrivateUserInfo;
 import joint_budget.joint_budget.Event.EventActivity;
 import joint_budget.joint_budget.Events.Choice.ChoiceActivity;
 import joint_budget.joint_budget.Events.CreateEvent.CreateEventActivity;
@@ -39,6 +42,13 @@ public class EventsActivity extends AppCompatActivity implements EventsView {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events);
+        FirebaseLoginToSystem api = new FirebaseLoginToSystem();
+        FirebaseEventsAPI api1 = new FirebaseEventsAPI();
+        Event event = new Event();
+        api1.createEvent(event);
+        PrivateUserInfo user = new PrivateUserInfo();
+        user.setFirstName("dsfsd");
+        api.register(user);
         try {
             initialize();
         } catch (IOException e) {

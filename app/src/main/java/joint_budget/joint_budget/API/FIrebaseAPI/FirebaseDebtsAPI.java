@@ -24,13 +24,13 @@ public class FirebaseDebtsAPI implements DebtsAPI {
     }
 
     @Override
-    public void getAllDebts(LoadDebtsCallback callback, String userID) {
-        this.getAllDebtsThatIowe(callback, userID);
-        this.getAllDebtsThatOwedToMe(callback, userID);
+    public void getAllDebts(LoadDebtsCallback callback, String userID, String eventID) {
+        this.getAllDebtsThatIowe(callback, userID, eventID);
+        this.getAllDebtsThatOwedToMe(callback, userID, eventID);
     }
 
     @Override
-    public void getAllDebtsThatIowe(final LoadDebtsCallback callback, String userID) { //tested" works
+    public void getAllDebtsThatIowe(final LoadDebtsCallback callback, String userID, final String eventID) { //tested" works
         DatabaseReference referenceToEvents = databaseReference.child("debts");
         Query allDebts = referenceToEvents.orderByChild("debtor").equalTo(userID);
         ValueEventListener eventListener = new ValueEventListener() {
@@ -38,7 +38,10 @@ public class FirebaseDebtsAPI implements DebtsAPI {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Debt> debts = new ArrayList<>();
                 for (DataSnapshot debtsSnapshot : dataSnapshot.getChildren()) {
-                    debts.add(debtsSnapshot.getValue(Debt.class));
+                    Debt debt = debtsSnapshot.getValue(Debt.class);
+                    if (debt.getEventID().equals(eventID)){
+                        debts.add(debt);
+                    }
                 }
                 callback.onLoad(debts);
             }
@@ -53,7 +56,7 @@ public class FirebaseDebtsAPI implements DebtsAPI {
     }
 
     @Override
-    public void getAllDebtsThatOwedToMe(final LoadDebtsCallback callback, String userID) {//tested: works
+    public void getAllDebtsThatOwedToMe(final LoadDebtsCallback callback, String userID,final String eventID) {//tested: works
         DatabaseReference referenceToEvents = databaseReference.child("debts");
         Query allDebts = referenceToEvents.orderByChild("creditor").equalTo(userID);
         ValueEventListener eventListener = new ValueEventListener() {
@@ -61,7 +64,10 @@ public class FirebaseDebtsAPI implements DebtsAPI {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Debt> debts = new ArrayList<>();
                 for (DataSnapshot debtsSnapshot : dataSnapshot.getChildren()) {
-                    debts.add(debtsSnapshot.getValue(Debt.class));
+                    Debt debt = debtsSnapshot.getValue(Debt.class);
+                    if (debt.getEventID().equals(eventID)){
+                        debts.add(debt);
+                    }
                 }
                 callback.onLoad(debts);
             }
