@@ -6,8 +6,8 @@ public class RegisterPresenter implements RegisterPresenterInterface {
 
     RegisterView view;
 
-    RegisterPresenter(){
-        view = new RegisterActivity();
+    RegisterPresenter(RegisterView view){
+        this.view = view;
     }
 
     @Override

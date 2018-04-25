@@ -159,6 +159,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/create_account"
+        android:onClick="createAccount"
         android:background="@color/blue"
         android:text="@string/create_account"
         android:layout_alignParentBottom="true"

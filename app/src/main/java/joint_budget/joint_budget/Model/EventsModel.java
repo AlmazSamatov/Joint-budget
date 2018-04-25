@@ -85,6 +85,15 @@ public class EventsModel {
     public void updatePurchase(Purchase previousPurchase, Purchase purchase) {
     }
 
+    public void getPurchasesFromDB(LoadPurchasesFromDBCallback loadPurchasesFromDBCallback, Event currentEvent) {
+    }
+
+    public void addPurchase(Purchase purchase) {
+    }
+
+    public void updatePurchase(Purchase previousPurchase, Purchase purchase) {
+    }
+
     public interface LoadEventsFromDBCallback{
         void onLoad(List<Event> events);
     }

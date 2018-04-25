@@ -24,6 +24,7 @@
                 android:textColor="@color/black" />
 
             <EditText
+                android:id="@+id/join_event_id"
                 android:layout_marginStart="120dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -46,6 +47,7 @@
                 android:textColor="@color/black" />
 
             <EditText
+                android:id="@+id/join_pass"
                 android:layout_marginStart="120dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -64,6 +66,7 @@
 
         <Button
             android:id="@+id/cancel_btn"
+            android:onClick="cancelOnClick"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/cancel"
@@ -75,6 +78,7 @@
 
         <Button
             android:id="@+id/save_btn"
+            android:onClick="saveOnClick"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/save"
