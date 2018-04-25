@@ -99,7 +99,7 @@ public class EventsActivity extends AppCompatActivity implements EventsView {
     public void launchCreateEventActivity(Event previousEvent){
         Intent intent = new Intent(getBaseContext(), CreateEventActivity.class);
         Gson gson = new Gson();
-        String eventInJson = gson.toJson(Realm.getDefaultInstance().copyFromRealm(previousEvent));
+        String eventInJson = gson.toJson(previousEvent);
         intent.putExtra("PreviousEvent", eventInJson);
         startActivity(intent);
     }
@@ -107,7 +107,7 @@ public class EventsActivity extends AppCompatActivity implements EventsView {
     public void launchEventActivity(Event event){
         Intent intent = new Intent(getBaseContext(), EventActivity.class);
         Gson gson = new Gson();
-        String eventInJson = gson.toJson(Realm.getDefaultInstance().copyFromRealm(event));
+        String eventInJson = gson.toJson(event);
         intent.putExtra("Event", eventInJson);
         startActivity(intent);
     }

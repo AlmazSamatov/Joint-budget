@@ -39,71 +39,15 @@ public class EventsModel {
 
     public void addEvent(Event event) {
         events.add(event);
-        /*try {
+        try {
             eventsAPI.createEvent(event);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }*/
-        addEventToDB(event);
-    }
-
-    private void addEventToDB(Event event) {
-        try (Realm realm = Realm.getDefaultInstance()) {
-            realm.beginTransaction();
-            Event eventToAdd = realm.createObject(Event.class);
-            eventToAdd.setName(event.getName());
-            eventToAdd.setEventId(event.getEventId());
-            eventToAdd.setPassword(event.getPassword());
-            eventToAdd.setStartDate(event.getStartDate());
-            eventToAdd.setEndDate(event.getEndDate());
-            eventToAdd.setCurrency(event.getCurrency());
-            eventToAdd.setParticipants(event.getParticipants());
-            eventToAdd.setShopList(event.getShopList());
-            eventToAdd.setPurchases(event.getPurchases());
-            eventToAdd.setDebts(event.getDebts());
-            realm.commitTransaction();
         }
-    }
-
-    public void deleteEventFromDB(Event event){
-        try (Realm realm = Realm.getDefaultInstance()) {
-            realm.beginTransaction();
-            RealmResults<Event> eventToDelete = realm.where(Event.class).equalTo("name", event.getName()).findAll();
-            if (!eventToDelete.isEmpty()) {
-                eventToDelete.get(0).deleteFromRealm();
-            }
-            realm.commitTransaction();
-        }
-
-    }
-
-    public void getEventsFromDB(LoadEventsFromDBCallback callback) {
-        Realm realm = Realm.getDefaultInstance();
-        RealmResults<Event> events = realm.where(Event.class).findAll();
-        callback.onLoad(events);
     }
 
     public void updateEvent(Event oldEvent, Event newEvent) {
 
-        updateEventInDB(oldEvent, newEvent);
-    }
-
-    public void updateEventInDB(Event oldEvent, Event newEvent){
-        try (Realm realm = Realm.getDefaultInstance()) {
-            realm.beginTransaction();
-            Event eventInDB = realm.where(Event.class).equalTo("name", oldEvent.getName()).findFirst();
-            eventInDB.setName(newEvent.getName());
-            eventInDB.setEventId(newEvent.getEventId());
-            eventInDB.setPassword(newEvent.getPassword());
-            eventInDB.setStartDate(newEvent.getStartDate());
-            eventInDB.setEndDate(newEvent.getEndDate());
-            eventInDB.setCurrency(newEvent.getCurrency());
-            eventInDB.setParticipants(newEvent.getParticipants());
-            eventInDB.setShopList(newEvent.getShopList());
-            eventInDB.setPurchases(newEvent.getPurchases());
-            eventInDB.setDebts(newEvent.getDebts());
-            realm.commitTransaction();
-        }
     }
 
     /*public void getEvents(EventsAPI.LoadEventsCallback callback) {

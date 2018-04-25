@@ -49,18 +49,11 @@ public class EventsPresenter implements EventsPresenterInterface {
 
     @Override
     public void deleteEvent(Event event) {
-        //eventModel.deleteEvent(event.getEventId());
-        eventModel.deleteEventFromDB(event);
+        eventModel.deleteEvent(event.getEventId());
     }
 
     @Override
     public void loadEvents() {
-        eventModel.getEventsFromDB(new EventsModel.LoadEventsFromDBCallback() {
-            @Override
-            public void onLoad(List<Event> events) {
-                view.showEvents(events);
-            }
-        });
 
         /*eventModel.getEvents(new EventsAPI.LoadEventsCallback() {
             @Override
