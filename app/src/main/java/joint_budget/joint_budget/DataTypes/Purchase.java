@@ -10,6 +10,7 @@ public class Purchase {
     private String purchaseID;
     private String eventID;
 
+
     public LinkedList<PurchaseItem> getPurchaseItems() {
         return purchaseItems;
     }

@@ -19,7 +19,7 @@ public class FirebaseEventsAPI implements EventsAPI {
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference mDatabase;
-    private DatabaseReference databaseReference;
+    private DatabaseReference databaseReference; 
     private DatabaseReference referenceToEvents;
 
     public FirebaseEventsAPI() {

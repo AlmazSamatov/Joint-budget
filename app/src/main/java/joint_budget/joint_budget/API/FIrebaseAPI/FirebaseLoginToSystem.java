@@ -44,7 +44,6 @@ public class FirebaseLoginToSystem implements LoginToSystemAPI {
                 }
                 callback.onLogin(acceptedUsers);
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 throw new RuntimeException();

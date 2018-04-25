@@ -13,9 +13,7 @@ public class PurchaseItem {
         return itemName;
     }
 
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
-    }
+    public void setItemName(String itemName) { this.itemName = itemName; }
 
     public Currency getCostOfPurchase() {
         return costOfPurchase;

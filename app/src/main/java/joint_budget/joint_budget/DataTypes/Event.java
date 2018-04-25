@@ -80,6 +80,7 @@ public class Event {
     public void setShopList(ArrayList<ShoppingListItem> shopList) {
         this.shopList = shopList;
     }
+
     public String getPassword() {
         return password;
     }

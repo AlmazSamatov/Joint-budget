@@ -6,6 +6,7 @@ public class PrivateUserInfo extends UserInfo {
     private String password;
     private String cvv;
 
+
     public String getPassword() {
         return password;
     }

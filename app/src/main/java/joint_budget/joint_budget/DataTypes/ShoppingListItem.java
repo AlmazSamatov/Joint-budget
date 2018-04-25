@@ -3,7 +3,6 @@ package joint_budget.joint_budget.DataTypes;
 public class ShoppingListItem {
     private String name;
     private UserInfo buyer;
-
     private String itemID;
 
     public ShoppingListItem(String name) {

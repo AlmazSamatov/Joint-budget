@@ -11,7 +11,6 @@ public class Debt {
     public Debt() {
     }
 
-
     public int getAmountOfDebt() {
         return amountOfDebt;
     }
