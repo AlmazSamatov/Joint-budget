@@ -44,8 +44,8 @@ public class DebtsAdapter extends ArrayAdapter<Debt> {
 
         ButterKnife.bind(this, view);
 
-        from.setText(debt.getDebtParticipant1());
-        to.setText(debt.getDebtParticipant2());
+        from.setText(debt.getCreditor());
+        to.setText(debt.getDebtor());
 
         return view;
     }

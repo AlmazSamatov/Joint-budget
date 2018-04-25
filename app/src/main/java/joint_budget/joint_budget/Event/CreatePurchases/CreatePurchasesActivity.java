@@ -60,8 +60,7 @@ public class CreatePurchasesActivity extends AppCompatActivity implements Create
     }
 
     private void showParticipants() {
-        participantsAdapter = new ParticipantsAdapter(this, R.layout.participant_item,
-                presenter.getUserInfos());
+        participantsAdapter = new ParticipantsAdapter(this, R.layout.participant_item, presenter.getUserInfos());
         participantsList.setAdapter(participantsAdapter);
     }
 
@@ -74,7 +73,7 @@ public class CreatePurchasesActivity extends AppCompatActivity implements Create
     public void setFields(Purchase previousPurchase) {
         purchaseName.setText(previousPurchase.getPurchaseName());
         currency.setSelection(previousPurchase.getCurrency().ordinal());
-        presenter.addNewParticipants(previousPurchase.getPurchaseItems().get(0).getParticipants(),
+        presenter.addNewParticipants(previousPurchase.getPurchaseItems().get(0).getParticipantsOfPurchase(),
                 participantsAdapter);
     }
 

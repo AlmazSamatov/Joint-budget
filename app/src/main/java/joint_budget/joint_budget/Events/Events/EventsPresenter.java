@@ -6,8 +6,8 @@ import android.content.Intent;
 import java.io.IOException;
 import java.util.List;
 
+import joint_budget.joint_budget.API.EventsAPI;
 import joint_budget.joint_budget.DataTypes.Event;
-import joint_budget.joint_budget.DataTypes.UserInfo;
 import joint_budget.joint_budget.Model.EventsModel;
 
 public class EventsPresenter implements EventsPresenterInterface {
@@ -27,46 +27,27 @@ public class EventsPresenter implements EventsPresenterInterface {
     }
 
     @Override
-    public void joinEvent(String eventID, String password) {
-        eventModel.joinEvent(eventID, password);
-    }
-
-    @Override
-    public void addParticipantToEvent(UserInfo userInfo, Event event) {
-
-    }
-
-    @Override
-    public void deleteParticipantFromEvent(UserInfo userInfo, Event event) {
-
-    }
-
-    @Override
     public void editEvent(Event event) {
         eventModel.editEvent(event);
     }
 
     @Override
     public void deleteEvent(Event event) {
-        //eventModel.deleteEvent(event.getEventId());
-        eventModel.deleteEventFromDB(event);
+        eventModel.deleteEvent(event.getEventId());
+        view.updateListView();
     }
 
     @Override
     public void loadEvents() {
-        eventModel.getEventsFromDB(new EventsModel.LoadEventsFromDBCallback() {
+        view.turnOnPrgressBar();
+        eventModel.getEvents(userID, new EventsAPI.LoadEventsCallback() {
             @Override
             public void onLoad(List<Event> events) {
-                view.showEvents(events);
+                eventModel.setEvents(events);
+                view.turnOffPrgressBar();
+                view.showEvents(eventModel.getEventsLocal());
             }
         });
-
-        /*eventModel.getEvents(new EventsAPI.LoadEventsCallback() {
-            @Override
-            public void onLoad(List<Event> events) {
-                view.showEvents(events);
-            }
-        });*/
     }
 
     @Override

@@ -9,11 +9,15 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
+import joint_budget.joint_budget.API.FIrebaseAPI.FirebaseLoginToSystem;
+import joint_budget.joint_budget.API.LoginToSystemAPI;
 import joint_budget.joint_budget.DataTypes.Currency;
 import joint_budget.joint_budget.DataTypes.Event;
+import joint_budget.joint_budget.DataTypes.PrivateUserInfo;
 import joint_budget.joint_budget.DataTypes.UserInfo;
 import joint_budget.joint_budget.Model.EventsModel;
 
@@ -21,22 +25,28 @@ public class CreateEventPresenter implements CreateEventPresenterInterface {
 
     private CreateEventView view;
     private EventsModel eventModel;
-    private ArrayList<UserInfo> userInfos;
-    UserInfo currentUserInfo;
+    private List<UserInfo> userInfos;
     private Event previousEvent;
     private String userID;
+    private FirebaseLoginToSystem firebaseLoginToSystem;
 
     public CreateEventPresenter(CreateEventView view, Context context) throws IOException {
         this.view = view;
         eventModel = EventsModel.getInstance();
-        userInfos = new ArrayList<>();
-        currentUserInfo = new UserInfo();
-        addCurrentUser();
+        userInfos = new LinkedList<>();
+        firebaseLoginToSystem = new FirebaseLoginToSystem();
     }
 
-    private void addCurrentUser() {
-        currentUserInfo.setUserName("Ivan Ivanov");
-        userInfos.add(currentUserInfo);
+    public void addCurrentUser(final ParticipantsAdapter participantsAdapter) {
+        firebaseLoginToSystem.getUserByID(userID, new LoginToSystemAPI.GetUserCallback() {
+            @Override
+            public void onLoad(List<PrivateUserInfo> users) {
+                if(users.size() != 0) {
+                    userInfos.add(users.get(0));
+                    participantsAdapter.notifyDataSetChanged();
+                }
+            }
+        });
     }
 
     @Override
@@ -58,9 +68,8 @@ public class CreateEventPresenter implements CreateEventPresenterInterface {
     }
 
     @Override
-    public void addNewParticipants(ArrayList<UserInfo> user, ParticipantsAdapter participantsAdapter) {
-        for(int i = 1; i < user.size(); i++)
-            userInfos.add(user.get(i));
+    public void addNewParticipants(List<UserInfo> user, ParticipantsAdapter participantsAdapter) {
+        userInfos.addAll(user);
         participantsAdapter.notifyDataSetChanged();
     }
 
@@ -81,12 +90,12 @@ public class CreateEventPresenter implements CreateEventPresenterInterface {
             event.setEndDate(endDate);
             event.setParticipants(userInfos);
             event.setCurrency(Currency.valueOf(currency));
-            //event.setEventId(previousEvent.getEventId());
 
             if (previousEvent == null){
                 eventModel.addEvent(event);
             } else{
-                eventModel.updateEvent(previousEvent, event);
+                event.setEventId(previousEvent.getEventId());
+                eventModel.updateEvent(event);
             }
 
             view.startEventsActivity();
@@ -94,16 +103,18 @@ public class CreateEventPresenter implements CreateEventPresenterInterface {
     }
 
     @Override
-    public ArrayList<UserInfo> getUserInfos() {
+    public List<UserInfo> getUserInfos() {
         return userInfos;
     }
 
-    public void setPreviousEvent(Intent intent) {
+    public void setPreviousEvent(Intent intent, ParticipantsAdapter participantsAdapter) {
         String previousEventInJson = intent.getStringExtra("PreviousEvent");
         if(previousEventInJson != null){
             Gson gson = new Gson();
             previousEvent = gson.fromJson(previousEventInJson, Event.class);
             view.setFields(previousEvent);
+        } else{
+            addCurrentUser(participantsAdapter);
         }
     }
 

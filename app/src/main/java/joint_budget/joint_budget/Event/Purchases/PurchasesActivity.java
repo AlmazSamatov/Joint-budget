@@ -15,7 +15,6 @@ import com.google.gson.Gson;
 import java.util.List;
 
 import butterknife.BindView;
-import io.realm.Realm;
 import joint_budget.joint_budget.DataTypes.Purchase;
 import joint_budget.joint_budget.Event.CreatePurchases.CreatePurchasesActivity;
 import joint_budget.joint_budget.R;
@@ -76,7 +75,7 @@ public class PurchasesActivity extends AppCompatActivity implements PurchasesVie
         Intent intent = new Intent(getBaseContext(), CreatePurchasesActivity.class);
         if(previousPurchase != null){
             Gson gson = new Gson();
-            String purchaseInJson = gson.toJson(Realm.getDefaultInstance().copyFromRealm(previousPurchase));
+            String purchaseInJson = gson.toJson(previousPurchase);
             intent.putExtra("PreviousPurchase", purchaseInJson);
             intent.putExtra("userID", presenter.getUserID());
         }

@@ -8,9 +8,14 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import joint_budget.joint_budget.API.EventsAPI;
+import joint_budget.joint_budget.DataTypes.Event;
 import joint_budget.joint_budget.Events.Events.EventsActivity;
+import joint_budget.joint_budget.Model.EventsModel;
 import joint_budget.joint_budget.R;
 
 public class JoinExistingEventActivity extends AppCompatActivity {
@@ -20,6 +25,7 @@ public class JoinExistingEventActivity extends AppCompatActivity {
     @BindView(R.id.join_pass)
     EditText pass;
     private String userID;
+    private EventsModel eventsModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,6 +37,7 @@ public class JoinExistingEventActivity extends AppCompatActivity {
     private void initialize() {
         ButterKnife.bind(this);
         userID = getIntent().getStringExtra("userID");
+        eventsModel = EventsModel.getInstance();
     }
 
     public void cancelOnClick(View view) {
@@ -38,15 +45,26 @@ public class JoinExistingEventActivity extends AppCompatActivity {
     }
 
     public void saveOnClick(View view) {
-        if(joinExisting())
-            startEventsActivity();
+       joinExisting();
     }
 
-    private boolean joinExisting() {
+    private void joinExisting() {
         String eventId = eventID.getText().toString();
         String password = pass.getText().toString();
-        // join
-        return false;
+        if(eventId.trim().length() == 0)
+            showError("Type eventID");
+        else if(password.trim().length() == 0)
+            showError("Type password");
+        else{
+            eventsModel.joinEvent(eventId, password, new EventsAPI.LoadEventsCallback() {
+                @Override
+                public void onLoad(List<Event> events) {
+                    if(events.size() > 0){
+                        startEventsActivity();
+                    }
+                }
+            }, userID);
+        }
     }
 
     private void showError(String error){

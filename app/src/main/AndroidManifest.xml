@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Events.Events.EventsActivity"
+            android:name=".Login.LoginActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,6 +28,12 @@
         <activity android:name=".Events.CreateEvent.CreateEventActivity" />
         <activity android:name=".Events.Choice.ChoiceActivity" />
         <activity android:name=".Event.EventActivity" />
+        <activity android:name=".Events.Events.EventsActivity" />
+        <activity android:name=".Register.RegisterActivity" />
+        <activity android:name=".Event.CreatePurchases.CreatePurchasesActivity" />
+        <activity android:name=".Event.Debts.DebtsActivity" />
+        <activity android:name=".Event.Purchases.PurchasesActivity" />
+        <activity android:name=".Event.ShopList.ShopListActivity" />
         <activity android:name=".Events.AddParticipant.AddParticipantActivity" />
     </application>
 

@@ -5,11 +5,10 @@ import java.util.LinkedList;
 public class Purchase {
     private LinkedList<PurchaseItem> purchaseItems;
     private Currency currency;
-    private int totalCost;
+    private double totalCost;
     private String purchaseName;
     private String purchaseID;
     private String eventID;
-
 
     public LinkedList<PurchaseItem> getPurchaseItems() {
         return purchaseItems;
@@ -27,11 +26,11 @@ public class Purchase {
         this.currency = currency;
     }
 
-    public int getTotalCost() {
+    public double getTotalCost() {
         return totalCost;
     }
 
-    public void setTotalCost(int totalCost) {
+    public void setTotalCost(double totalCost) {
         this.totalCost = totalCost;
     }
 

@@ -16,6 +16,7 @@
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginBottom="8dp"
         android:visibility="gone" />
 
@@ -67,7 +68,7 @@
                     android:imeActionId="6"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
-                    android:inputType="textPassword"
+                    android:inputType="textWebPassword"
                     android:maxLines="1"
                     android:singleLine="true" />
 
@@ -80,6 +81,7 @@
 
                 <TextView
                     android:id="@+id/sign_up"
+                    android:onClick="registerOnClick"
                     style="?android:textAppearanceSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -92,6 +94,7 @@
                 <Button
                     android:id="@+id/log_in"
                     style="?android:textAppearanceSmall"
+                    android:onClick="loginOnClick"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/action_log_in"

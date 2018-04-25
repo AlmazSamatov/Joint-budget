@@ -6,10 +6,12 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import joint_budget.joint_budget.DataTypes.Currency;
 import joint_budget.joint_budget.DataTypes.Purchase;
+import joint_budget.joint_budget.DataTypes.PurchaseItem;
 import joint_budget.joint_budget.DataTypes.UserInfo;
 import joint_budget.joint_budget.Events.CreateEvent.ParticipantsAdapter;
 import joint_budget.joint_budget.Model.EventsModel;
@@ -18,14 +20,14 @@ public class CreatePurchasesPresenter implements CreatePurchasesPresenterInterfa
 
     private CreatePurchasesView view;
     private EventsModel model;
-    private ArrayList<UserInfo> userInfos;
+    private List<UserInfo> userInfos;
     private String userID;
     private Purchase previousPurchase;
 
     public CreatePurchasesPresenter(CreatePurchasesView view) throws IOException {
         this.view = view;
         model = EventsModel.getInstance();
-        userInfos = new ArrayList<>();
+        userInfos = new LinkedList<>();
     }
 
     @Override
@@ -41,7 +43,7 @@ public class CreatePurchasesPresenter implements CreatePurchasesPresenterInterfa
     }
 
     @Override
-    public void addNewParticipants(ArrayList<UserInfo> user, ParticipantsAdapter participantsAdapter) {
+    public void addNewParticipants(List<UserInfo> user, ParticipantsAdapter participantsAdapter) {
         for(int i = 1; i < user.size(); i++)
             userInfos.add(user.get(i));
         participantsAdapter.notifyDataSetChanged();
@@ -65,18 +67,23 @@ public class CreatePurchasesPresenter implements CreatePurchasesPresenterInterfa
             purchase.setCurrency(Currency.valueOf(currency));
             purchase.setPurchaseName(name);
             purchase.setTotalCost(c);
-            //event.setEventId(previousEvent.getEventId());
+            PurchaseItem purchaseItem = new PurchaseItem();
+            purchaseItem.setParticipantsOfPurchase(userInfos);
+            LinkedList<PurchaseItem> purchaseItems = new LinkedList<>();
+            purchaseItems.add(purchaseItem);
+            purchase.setPurchaseItems(purchaseItems);
 
             if (previousPurchase == null){
                 model.addPurchase(purchase);
             } else{
-                model.updatePurchase(previousPurchase, purchase);
+                purchase.setPurchaseID(previousPurchase.getPurchaseID());
+                model.updatePurchase(purchase);
             }
         }
     }
 
     @Override
-    public ArrayList<UserInfo> getUserInfos() {
+    public List<UserInfo> getUserInfos() {
         return userInfos;
     }
 

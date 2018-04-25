@@ -25,7 +25,7 @@
 
             <EditText
                 android:id="@+id/join_event_id"
-                android:layout_marginStart="120dp"
+                android:layout_marginStart="165dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text" />

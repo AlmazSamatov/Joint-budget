@@ -2,15 +2,16 @@ package joint_budget.joint_budget.DataTypes;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Event {
     private String name;
     private Date startDate;
     private Date endDate;
     private Currency currency;
-    private ArrayList<UserInfo> participants;
+    private List<UserInfo> participants;
     private String eventId;
-    private ArrayList<ShoppingListItem> shopList;
+    private List<ShoppingListItem> shopList;
     private String password;
 
     public Event() {
@@ -57,11 +58,11 @@ public class Event {
         this.currency = currency;
     }
 
-    public ArrayList<UserInfo> getParticipants() {
+    public List<UserInfo> getParticipants() {
         return participants;
     }
 
-    public void setParticipants(ArrayList<UserInfo> participants) {
+    public void setParticipants(List<UserInfo> participants) {
         this.participants = participants;
     }
 
@@ -73,11 +74,11 @@ public class Event {
         return eventId;
     }
 
-    public ArrayList<ShoppingListItem> getShopList() {
+    public List<ShoppingListItem> getShopList() {
         return shopList;
     }
 
-    public void setShopList(ArrayList<ShoppingListItem> shopList) {
+    public void setShopList(List<ShoppingListItem> shopList) {
         this.shopList = shopList;
     }
 

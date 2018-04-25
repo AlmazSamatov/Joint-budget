@@ -54,7 +54,7 @@ public class CreateEventActivity extends AppCompatActivity implements CreateEven
         presenter.getCurrentUser(getIntent());
         presenter.setCurrentDate();
         showParticipants();
-        presenter.setPreviousEvent(getIntent());
+        presenter.setPreviousEvent(getIntent(), participantsAdapter);
     }
 
     private void showParticipants() {

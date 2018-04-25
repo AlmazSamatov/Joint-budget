@@ -1,9 +1,9 @@
 package joint_budget.joint_budget.Event;
 
+import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.TabHost;
 
 import butterknife.BindView;
@@ -13,7 +13,7 @@ import joint_budget.joint_budget.Event.Purchases.PurchasesActivity;
 import joint_budget.joint_budget.Event.ShopList.ShopListActivity;
 import joint_budget.joint_budget.R;
 
-public class EventActivity extends AppCompatActivity {
+public class EventActivity extends TabActivity {
 
     private String userID;
     @BindView(android.R.id.tabhost)
