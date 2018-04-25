@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,18 +33,24 @@ public class JoinExistingEventActivity extends AppCompatActivity {
         userID = getIntent().getStringExtra("userID");
     }
 
-
     public void cancelOnClick(View view) {
         startEventsActivity();
     }
 
     public void saveOnClick(View view) {
-        joinExisting();
-        startEventsActivity();
+        if(joinExisting())
+            startEventsActivity();
     }
 
-    private void joinExisting() {
+    private boolean joinExisting() {
+        String eventId = eventID.getText().toString();
+        String password = pass.getText().toString();
         // join
+        return false;
+    }
+
+    private void showError(String error){
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
     }
 
     public void startEventsActivity(){
