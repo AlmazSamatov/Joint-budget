@@ -79,8 +79,6 @@ public class CreatePurchasesPresenter implements CreatePurchasesPresenterInterfa
             } else{
                 model.updatePurchase(previousPurchase, purchase);
             }
-
-            view.startEventActivity();
         }
     }
 

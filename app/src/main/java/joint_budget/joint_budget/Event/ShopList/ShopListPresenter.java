@@ -17,18 +17,24 @@ public class ShopListPresenter implements ShopListPresenterInterface {
     }
 
     @Override
-    public void addShoplistItem(ShoppingListItem purchase) {
+    public void addShoplistItem(ShoppingListItem item) {
 
     }
 
     @Override
-    public void editShoplistItem(ShoppingListItem purchase) {
+    public void editShoplistItem(ShoppingListItem item) {
 
     }
 
     @Override
-    public void deleteShoplistItem(ShoppingListItem purchase) {
+    public void deleteShoplistItem(ShoppingListItem item) {
 
+    }
+
+    @Override
+    public void loadItems(){
+
+        //view.showItems();
     }
 
     @Override

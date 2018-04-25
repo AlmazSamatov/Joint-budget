@@ -5,11 +5,13 @@ import android.content.Intent;
 import joint_budget.joint_budget.DataTypes.ShoppingListItem;
 
 public interface ShopListPresenterInterface {
-    void addShoplistItem(ShoppingListItem purchase);
+    void addShoplistItem(ShoppingListItem item);
 
-    void editShoplistItem(ShoppingListItem purchase);
+    void editShoplistItem(ShoppingListItem item);
 
-    void deleteShoplistItem(ShoppingListItem purchase);
+    void deleteShoplistItem(ShoppingListItem item);
+
+    void loadItems();
 
     void setEvent(Intent intent);
 

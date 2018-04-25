@@ -17,7 +17,7 @@ import java.util.List;
 import butterknife.BindView;
 import io.realm.Realm;
 import joint_budget.joint_budget.DataTypes.Purchase;
-import joint_budget.joint_budget.Event.CreatePurchaseActivity;
+import joint_budget.joint_budget.Event.CreatePurchases.CreatePurchasesActivity;
 import joint_budget.joint_budget.R;
 
 public class PurchasesActivity extends AppCompatActivity implements PurchasesView {
@@ -72,7 +72,7 @@ public class PurchasesActivity extends AppCompatActivity implements PurchasesVie
     }
 
     public void launchCreatePurchaseActivity(Purchase previousPurchase){
-        Intent intent = new Intent(getBaseContext(), CreatePurchaseActivity.class);
+        Intent intent = new Intent(getBaseContext(), CreatePurchasesActivity.class);
         if(previousPurchase != null){
             Gson gson = new Gson();
             String purchaseInJson = gson.toJson(Realm.getDefaultInstance().copyFromRealm(previousPurchase));

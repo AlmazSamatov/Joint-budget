@@ -17,7 +17,6 @@ import java.text.ParseException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import joint_budget.joint_budget.DataTypes.Purchase;
-import joint_budget.joint_budget.Event.EventActivity;
 import joint_budget.joint_budget.Events.AddParticipant.AddParticipantActivity;
 import joint_budget.joint_budget.Events.CreateEvent.ParticipantsAdapter;
 import joint_budget.joint_budget.R;
@@ -71,12 +70,6 @@ public class CreatePurchasesActivity extends AppCompatActivity implements Create
     }
 
     @Override
-    public void startEventActivity() {
-        Intent intent = new Intent(getApplicationContext(), EventActivity.class);
-        startActivity(intent);
-    }
-
-    @Override
     public void setFields(Purchase previousPurchase) {
         purchaseName.setText(previousPurchase.getPurchaseName());
         currency.setSelection(previousPurchase.getCurrency().ordinal());
@@ -99,12 +92,13 @@ public class CreatePurchasesActivity extends AppCompatActivity implements Create
     }
 
     public void cancelOnClick(View view) {
-        startEventActivity();
+        finish();
     }
 
     public void saveOnClick(View view) throws IOException, ParseException, InterruptedException {
         presenter.savePurchase(purchaseName.getText().toString(),
                 cost.getText().toString(), currency.getSelectedItem().toString());
+        finish();
     }
 
 }
