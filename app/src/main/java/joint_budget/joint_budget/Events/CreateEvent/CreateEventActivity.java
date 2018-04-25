@@ -51,6 +51,7 @@ public class CreateEventActivity extends AppCompatActivity implements CreateEven
     private void initialize() throws IOException {
         ButterKnife.bind(this);
         presenter = new CreateEventPresenter(this, getApplicationContext());
+        presenter.getCurrentUser(getIntent());
         presenter.setCurrentDate();
         showParticipants();
         presenter.setPreviousEvent(getIntent());

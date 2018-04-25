@@ -54,6 +54,7 @@ public class CreatePurchasesActivity extends AppCompatActivity implements Create
     private void initialize() throws IOException {
         ButterKnife.bind(this);
         presenter = new CreatePurchasesPresenter(this);
+        presenter.getCurrentUser(getIntent());
         showParticipants();
         presenter.setPreviousPurchase(getIntent());
     }

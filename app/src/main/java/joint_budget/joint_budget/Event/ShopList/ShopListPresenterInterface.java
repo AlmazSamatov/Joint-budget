@@ -15,4 +15,7 @@ public interface ShopListPresenterInterface {
 
     void setEvent(Intent intent);
 
+    void getCurrentUser(Intent intent);
+
+    String getUserID();
 }

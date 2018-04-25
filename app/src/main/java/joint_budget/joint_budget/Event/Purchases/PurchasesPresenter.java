@@ -1,4 +1,6 @@
 package joint_budget.joint_budget.Event.Purchases;
+import android.content.Intent;
+
 import java.util.List;
 
 import joint_budget.joint_budget.DataTypes.Event;
@@ -10,6 +12,7 @@ public class PurchasesPresenter implements PurchasesPresenterInterface {
     PurchasesView view;
     EventsModel model;
     Event currentEvent;
+    private String userID;
 
     PurchasesPresenter(PurchasesView view){
         this.view = view;
@@ -29,5 +32,15 @@ public class PurchasesPresenter implements PurchasesPresenterInterface {
                 view.showPurchases(purchases);
             }
         }, currentEvent);
+    }
+
+    @Override
+    public void getCurrentUser(Intent intent) {
+        userID = intent.getStringExtra("userID");
+    }
+
+    @Override
+    public String getUserID() {
+        return userID;
     }
 }

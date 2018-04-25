@@ -14,4 +14,8 @@ interface CreatePurchasesPresenterInterface {
     ArrayList<UserInfo> getUserInfos();
     void setPreviousPurchase(Intent intent);
     void addNewParticipant(String username, String participantLinkOrPhone, ParticipantsAdapter participantsAdapter);
+
+    void getCurrentUser(Intent intent);
+
+    String getUserID();
 }

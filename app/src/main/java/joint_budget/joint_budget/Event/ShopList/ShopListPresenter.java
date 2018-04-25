@@ -11,6 +11,7 @@ public class ShopListPresenter implements ShopListPresenterInterface {
 
     ShopListView view;
     Event event;
+    private String userID;
 
     ShopListPresenter(ShopListView view){
         this.view = view;
@@ -44,5 +45,15 @@ public class ShopListPresenter implements ShopListPresenterInterface {
             Gson gson = new Gson();
             event = gson.fromJson(eventInJson, Event.class);
         }
+    }
+
+    @Override
+    public void getCurrentUser(Intent intent) {
+        userID = intent.getStringExtra("userID");
+    }
+
+    @Override
+    public String getUserID() {
+        return userID;
     }
 }

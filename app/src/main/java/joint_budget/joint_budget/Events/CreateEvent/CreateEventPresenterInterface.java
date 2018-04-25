@@ -19,4 +19,8 @@ public interface CreateEventPresenterInterface {
     void setPreviousEvent(Intent intent);
     void addNewParticipants(ArrayList<UserInfo> user, ParticipantsAdapter participantsAdapter);
     String getDateInString(Date date);
+
+    void getCurrentUser(Intent intent);
+
+    String getUserID();
 }

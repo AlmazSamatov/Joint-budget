@@ -48,6 +48,7 @@ public class EventsActivity extends AppCompatActivity implements EventsView {
     private void initialize() throws IOException {
         ButterKnife.bind(this);
         presenter = new EventsPresenter(this, getApplicationContext());
+        presenter.getCurrentUser(getIntent());
         presenter.loadEvents();
     }
 
@@ -58,6 +59,7 @@ public class EventsActivity extends AppCompatActivity implements EventsView {
 
     private void launchChoiceActivity() {
         Intent intent = new Intent(getBaseContext(), ChoiceActivity.class);
+        intent.putExtra("userID", presenter.getUserID());
         startActivity(intent);
     }
 
@@ -90,6 +92,7 @@ public class EventsActivity extends AppCompatActivity implements EventsView {
         Gson gson = new Gson();
         String eventInJson = gson.toJson(previousEvent);
         intent.putExtra("PreviousEvent", eventInJson);
+        intent.putExtra("userID", presenter.getUserID());
         startActivity(intent);
     }
 
@@ -98,6 +101,7 @@ public class EventsActivity extends AppCompatActivity implements EventsView {
         Gson gson = new Gson();
         String eventInJson = gson.toJson(event);
         intent.putExtra("Event", eventInJson);
+        intent.putExtra("userID", presenter.getUserID());
         startActivity(intent);
     }
 

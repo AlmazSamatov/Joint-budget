@@ -32,6 +32,7 @@ public class DebtsActivity extends AppCompatActivity implements DebtsView {
 
     private void initialize() {
         presenter = new DebtsPresenter(this);
+        presenter.getCurrentUser(getIntent());
         presenter.loadDebts();
     }
 

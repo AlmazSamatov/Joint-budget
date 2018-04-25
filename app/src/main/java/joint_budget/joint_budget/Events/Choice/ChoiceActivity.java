@@ -19,11 +19,13 @@ public class ChoiceActivity extends AppCompatActivity {
 
     public void joinExistingEvent(View view) {
         Intent intent = new Intent(getBaseContext(), JoinExistingEventActivity.class);
+        intent.putExtra("userID", getIntent().getStringExtra("userID"));
         startActivity(intent);
     }
 
     public void createNewEvent(View view) {
         Intent intent = new Intent(getBaseContext(), CreateEventActivity.class);
+        intent.putExtra("userID", getIntent().getStringExtra("userID"));
         startActivity(intent);
     }
 }

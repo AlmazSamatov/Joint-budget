@@ -40,6 +40,7 @@ public class PurchasesActivity extends AppCompatActivity implements PurchasesVie
 
     private void initialize() {
         presenter = new PurchasesPresenter(this);
+        presenter.getCurrentUser(getIntent());
         presenter.loadPurchases();
     }
 
@@ -77,6 +78,7 @@ public class PurchasesActivity extends AppCompatActivity implements PurchasesVie
             Gson gson = new Gson();
             String purchaseInJson = gson.toJson(Realm.getDefaultInstance().copyFromRealm(previousPurchase));
             intent.putExtra("PreviousPurchase", purchaseInJson);
+            intent.putExtra("userID", presenter.getUserID());
         }
         startActivity(intent);
     }

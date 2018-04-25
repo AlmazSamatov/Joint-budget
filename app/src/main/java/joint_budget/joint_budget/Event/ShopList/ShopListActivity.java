@@ -35,6 +35,7 @@ public class ShopListActivity extends AppCompatActivity implements ShopListView 
 
     private void initialize() {
         presenter = new ShopListPresenter(this);
+        presenter.getCurrentUser(getIntent());
         presenter.setEvent(getIntent());
     }
 

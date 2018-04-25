@@ -15,6 +15,7 @@ import joint_budget.joint_budget.R;
 
 public class EventActivity extends AppCompatActivity {
 
+    private String userID;
     @BindView(android.R.id.tabhost)
     TabHost tabHost;
 
@@ -27,6 +28,7 @@ public class EventActivity extends AppCompatActivity {
 
     private void initialize() {
         ButterKnife.bind(this);
+        getUserID();
         initializeTab();
     }
 
@@ -38,6 +40,7 @@ public class EventActivity extends AppCompatActivity {
         tabSpec.setIndicator("Purchases");
         Intent purhasesIntent = new Intent(this, PurchasesActivity.class);
         purhasesIntent.putExtra("Event", getIntent().getStringExtra("Event"));
+        purhasesIntent.putExtra("userID", userID);
         tabSpec.setContent(purhasesIntent);
         tabHost.addTab(tabSpec);
 
@@ -45,6 +48,7 @@ public class EventActivity extends AppCompatActivity {
         tabSpec.setIndicator("Debts");
         Intent debtsIntent = new Intent(this, DebtsActivity.class);
         debtsIntent.putExtra("Event", getIntent().getStringExtra("Event"));
+        debtsIntent.putExtra("userID", userID);
         tabSpec.setContent(debtsIntent);
         tabHost.addTab(tabSpec);
 
@@ -52,7 +56,12 @@ public class EventActivity extends AppCompatActivity {
         tabSpec.setIndicator("Shoplist");
         Intent shopListIntent = new Intent(this, ShopListActivity.class);
         shopListIntent.putExtra("Event", getIntent().getStringExtra("Event"));
+        shopListIntent.putExtra("userID", userID);
         tabSpec.setContent(shopListIntent);
         tabHost.addTab(tabSpec);
+    }
+
+    public void getUserID() {
+        userID = getIntent().getStringExtra("userID");
     }
 }

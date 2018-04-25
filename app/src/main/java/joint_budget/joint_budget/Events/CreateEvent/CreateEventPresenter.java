@@ -24,6 +24,7 @@ public class CreateEventPresenter implements CreateEventPresenterInterface {
     private ArrayList<UserInfo> userInfos;
     UserInfo currentUserInfo;
     private Event previousEvent;
+    private String userID;
 
     public CreateEventPresenter(CreateEventView view, Context context) throws IOException {
         this.view = view;
@@ -115,5 +116,15 @@ public class CreateEventPresenter implements CreateEventPresenterInterface {
         String monthText = String.format("%02d", Integer.parseInt(monthNumber));
         String dateInString = dayText + '/' + monthText + '/' + yearText;
         return dateInString;
+    }
+
+    @Override
+    public void getCurrentUser(Intent intent) {
+        userID = intent.getStringExtra("userID");
+    }
+
+    @Override
+    public String getUserID() {
+        return userID;
     }
 }

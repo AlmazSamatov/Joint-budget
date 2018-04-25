@@ -19,20 +19,13 @@ public class CreatePurchasesPresenter implements CreatePurchasesPresenterInterfa
     private CreatePurchasesView view;
     private EventsModel model;
     private ArrayList<UserInfo> userInfos;
-    UserInfo currentUserInfo;
+    private String userID;
     private Purchase previousPurchase;
 
     public CreatePurchasesPresenter(CreatePurchasesView view) throws IOException {
         this.view = view;
         model = EventsModel.getInstance();
         userInfos = new ArrayList<>();
-        currentUserInfo = new UserInfo();
-        addCurrentUser();
-    }
-
-    private void addCurrentUser() {
-        currentUserInfo.setUserName("Ivan Ivanov");
-        userInfos.add(currentUserInfo);
     }
 
     @Override
@@ -96,6 +89,16 @@ public class CreatePurchasesPresenter implements CreatePurchasesPresenterInterfa
             previousPurchase = gson.fromJson(previousPurchaseInJson, Purchase.class);
             view.setFields(previousPurchase);
         }
+    }
+
+    @Override
+    public void getCurrentUser(Intent intent) {
+        userID = intent.getStringExtra("userID");
+    }
+
+    @Override
+    public String getUserID() {
+        return userID;
     }
 
 
