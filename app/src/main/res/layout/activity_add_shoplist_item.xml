@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/create_event_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/shoplist_btns"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:counterEnabled="true"
+            app:counterMaxLength="50">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/shoplist_item_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_shoplist_item_name"
+                android:inputType="text"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/shoplist_btns"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/cancel_btn"
+            android:onClick="cancelOnClick"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:background="@color/blue"
+            style="?android:textAppearanceSmall"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/save_btn"
+            android:onClick="saveOnClick"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:background="@color/blue"
+            style="?android:textAppearanceSmall"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+</RelativeLayout>

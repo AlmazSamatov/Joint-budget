@@ -13,7 +13,6 @@ import joint_budget.joint_budget.DataTypes.Purchase;
 public class EventsModel {
 
     private List<Event> events;
-    private List<Purchase> purchases;
     private EventsAPI eventsAPI;
 
     private static volatile EventsModel instance;
@@ -33,7 +32,6 @@ public class EventsModel {
 
     private EventsModel() {
         events = new ArrayList<>();
-        purchases = new ArrayList<>();
         eventsAPI = new FirebaseEventsAPI();
     }
 
@@ -78,6 +76,15 @@ public class EventsModel {
         eventsAPI.joinEvent(eventID, password, callback);
     }
 
+    public void getPurchasesFromDB(LoadPurchasesFromDBCallback loadPurchasesFromDBCallback, Event currentEvent) {
+    }
+
+    public void addPurchase(Purchase purchase) {
+    }
+
+    public void updatePurchase(Purchase previousPurchase, Purchase purchase) {
+    }
+
     public interface LoadEventsFromDBCallback{
         void onLoad(List<Event> events);
     }
@@ -98,5 +105,5 @@ public class EventsModel {
 
     void updatePurchase(Purchase purchase){}
 
-    void deletePurchase(String eventID, String purchaseID){}
+    public void deletePurchase(Event eventID, Purchase purchaseID){}
 }
