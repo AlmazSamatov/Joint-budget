@@ -2,6 +2,7 @@ package joint_budget.joint_budget.DataTypes;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class Event {
@@ -10,6 +11,7 @@ public class Event {
     private Date endDate;
     private Currency currency;
     private List<UserInfo> participants;
+    private HashMap<String, Purchase> purchases;
     private String eventId;
     private List<ShoppingListItem> shopList;
     private String password;
@@ -90,5 +92,11 @@ public class Event {
         this.password = password;
     }
 
+    public HashMap<String, Purchase> getPurchases() {
+        return purchases;
+    }
 
+    public void setPurchases(HashMap<String, Purchase> purchases) {
+        this.purchases = purchases;
+    }
 }

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,6 +11,7 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -40,8 +40,6 @@ public class EventsActivity extends AppCompatActivity implements EventsView {
     ProgressBar progressBar;
     @BindView(R.id.swipeIssues)
     FrameLayout issues;
-    @BindView(R.id.swipeRefreshLayout)
-    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -113,6 +111,11 @@ public class EventsActivity extends AppCompatActivity implements EventsView {
         eventsAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void showError(String errorMessage) {
+        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+    }
+
     public void launchCreateEventActivity(Event previousEvent){
         Intent intent = new Intent(getBaseContext(), CreateEventActivity.class);
         Gson gson = new Gson();
@@ -130,5 +133,4 @@ public class EventsActivity extends AppCompatActivity implements EventsView {
         intent.putExtra("userID", presenter.getUserID());
         startActivity(intent);
     }
-
 }

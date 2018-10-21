@@ -54,7 +54,7 @@ public class CreateEventActivity extends AppCompatActivity implements CreateEven
         presenter.getCurrentUser(getIntent());
         presenter.setCurrentDate();
         showParticipants();
-        presenter.setPreviousEvent(getIntent(), participantsAdapter);
+        presenter.setPreviousEvent(getIntent());
     }
 
     private void showParticipants() {
@@ -94,11 +94,15 @@ public class CreateEventActivity extends AppCompatActivity implements CreateEven
 
     @Override
     public void setFields(Event previousEvent) {
-        eventName.setText(previousEvent.getName());
-        currency.setSelection(previousEvent.getCurrency().ordinal());
-        startDate.setText(presenter.getDateInString(previousEvent.getStartDate()));
-        finalDate.setText(presenter.getDateInString(previousEvent.getEndDate()));
-        presenter.addNewParticipants(previousEvent.getParticipants(), participantsAdapter);
+        if(previousEvent.getName() != null){
+            eventName.setText(previousEvent.getName());
+            currency.setSelection(previousEvent.getCurrency().ordinal());
+            startDate.setText(presenter.getDateInString(previousEvent.getStartDate()));
+            finalDate.setText(presenter.getDateInString(previousEvent.getEndDate()));
+            presenter.addNewParticipants(previousEvent.getParticipants(), participantsAdapter);
+        } else{
+            presenter.addCurrentUser(participantsAdapter);
+        }
     }
 
     public void showDatePicker(boolean isStartDate){
@@ -108,6 +112,8 @@ public class CreateEventActivity extends AppCompatActivity implements CreateEven
 
     public void addParticipants(View view) {
         Intent intent = new Intent(getApplicationContext(), AddParticipantActivity.class);
+        intent.putExtra("eventID", presenter.getPreviousEvent().getEventId());
+        intent.putExtra("eventPass", presenter.getPreviousEvent().getPassword());
         startActivityForResult(intent, REQUEST_CODE);
     }
 
@@ -132,6 +138,7 @@ public class CreateEventActivity extends AppCompatActivity implements CreateEven
     @Override
     public void startEventsActivity(){
         Intent intent = new Intent(getApplicationContext(), EventsActivity.class);
+        intent.putExtra("userID", getIntent().getStringExtra("userID"));
         startActivity(intent);
     }
 

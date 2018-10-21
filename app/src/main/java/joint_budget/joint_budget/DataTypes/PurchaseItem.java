@@ -4,7 +4,7 @@ import java.util.List;
 
 public class PurchaseItem {
     private String itemName;
-    private Currency costOfPurchase;
+    private double costOfPurchase;
     private List<UserInfo> participantsOfPurchase;
 
     public String getItemName() {
@@ -13,11 +13,11 @@ public class PurchaseItem {
 
     public void setItemName(String itemName) { this.itemName = itemName; }
 
-    public Currency getCostOfPurchase() {
+    public double getCostOfPurchase() {
         return costOfPurchase;
     }
 
-    public void setCostOfPurchase(Currency costOfPurchase) {
+    public void setCostOfPurchase(double costOfPurchase) {
         this.costOfPurchase = costOfPurchase;
     }
 

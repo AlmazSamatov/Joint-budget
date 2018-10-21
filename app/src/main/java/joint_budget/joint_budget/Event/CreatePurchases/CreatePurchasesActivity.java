@@ -1,6 +1,5 @@
 package joint_budget.joint_budget.Event.CreatePurchases;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -17,7 +16,6 @@ import java.text.ParseException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import joint_budget.joint_budget.DataTypes.Purchase;
-import joint_budget.joint_budget.Events.AddParticipant.AddParticipantActivity;
 import joint_budget.joint_budget.Events.CreateEvent.ParticipantsAdapter;
 import joint_budget.joint_budget.R;
 
@@ -25,7 +23,6 @@ public class CreatePurchasesActivity extends AppCompatActivity implements Create
 
     private CreatePurchasesPresenterInterface presenter;
     private ParticipantsAdapter participantsAdapter;
-    private final int REQUEST_CODE = 1;
 
     @BindView(R.id.purchase_name)
     TextInputEditText purchaseName;
@@ -33,7 +30,7 @@ public class CreatePurchasesActivity extends AppCompatActivity implements Create
     Spinner currency;
     @BindView(R.id.purchase_cost)
     TextInputEditText cost;
-    @BindView(R.id.participants_list)
+    @BindView(R.id.participants_list_purchases)
     ListView participantsList;
     @BindView(R.id.save_btn)
     Button save;
@@ -43,7 +40,7 @@ public class CreatePurchasesActivity extends AppCompatActivity implements Create
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_event);
+        setContentView(R.layout.activity_add_purchase);
         try {
             initialize();
         } catch (IOException e) {
@@ -54,7 +51,7 @@ public class CreatePurchasesActivity extends AppCompatActivity implements Create
     private void initialize() throws IOException {
         ButterKnife.bind(this);
         presenter = new CreatePurchasesPresenter(this);
-        presenter.getCurrentUser(getIntent());
+        presenter.getData(getIntent());
         showParticipants();
         presenter.setPreviousPurchase(getIntent());
     }
@@ -72,33 +69,27 @@ public class CreatePurchasesActivity extends AppCompatActivity implements Create
     @Override
     public void setFields(Purchase previousPurchase) {
         purchaseName.setText(previousPurchase.getPurchaseName());
+        cost.setText(Double.toString(previousPurchase.getTotalCost()));
         currency.setSelection(previousPurchase.getCurrency().ordinal());
-        presenter.addNewParticipants(previousPurchase.getPurchaseItems().get(0).getParticipantsOfPurchase(),
-                participantsAdapter);
+        presenter.addNewParticipants(previousPurchase.getPurchaseItems().get(0).getParticipantsOfPurchase());
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == REQUEST_CODE && resultCode == RESULT_OK){
-            String username = data.getStringExtra("participantName");
-            String participantLinkOrPhone = data.getStringExtra("participantLinkOrPhone");
-            presenter.addNewParticipant(username, participantLinkOrPhone, participantsAdapter);
-        }
+    public void notifyDataSetChanged() {
+        participantsAdapter.notifyDataSetChanged();
     }
 
-    public void addParticipants(View view) {
-        Intent intent = new Intent(getApplicationContext(), AddParticipantActivity.class);
-        startActivityForResult(intent, REQUEST_CODE);
-    }
-
-    public void cancelOnClick(View view) {
+    public void cancelOnClick(View view){
         finish();
     }
 
-    public void saveOnClick(View view) throws IOException, ParseException, InterruptedException {
+    public void saveOnClick(View view) throws ParseException {
         presenter.savePurchase(purchaseName.getText().toString(),
                 cost.getText().toString(), currency.getSelectedItem().toString());
         finish();
     }
 
+    public void restoreOnClick(View view) {
+        presenter.restoreParticipants();
+    }
 }

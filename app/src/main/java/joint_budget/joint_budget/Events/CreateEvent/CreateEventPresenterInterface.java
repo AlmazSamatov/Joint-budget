@@ -7,9 +7,12 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
+import joint_budget.joint_budget.DataTypes.Event;
 import joint_budget.joint_budget.DataTypes.UserInfo;
 
 public interface CreateEventPresenterInterface {
+    void addCurrentUser(ParticipantsAdapter participantsAdapter);
+
     void setCurrentDate();
 
     void addNewParticipants(List<UserInfo> user, ParticipantsAdapter participantsAdapter);
@@ -19,10 +22,12 @@ public interface CreateEventPresenterInterface {
 
     List<UserInfo> getUserInfos();
     void addNewParticipant(String username, String participantLinkOrPhone, ParticipantsAdapter participantsAdapter);
-    void setPreviousEvent(Intent intent, ParticipantsAdapter participantsAdapter);
+    void setPreviousEvent(Intent intent);
     String getDateInString(Date date);
 
     void getCurrentUser(Intent intent);
 
     String getUserID();
+
+    Event getPreviousEvent();
 }

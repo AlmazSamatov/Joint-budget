@@ -47,7 +47,8 @@ public class ParticipantsAdapter extends ArrayAdapter<UserInfo> {
         String firstName = userInfo.getFirstName();
         String lastName = userInfo.getLastName();
         String name = "";
-        if(firstName.length() == 0 && lastName.length() == 0)
+        if((firstName == null || lastName == null) ||
+                (firstName.length() == 0 && lastName.length() == 0))
             name = userInfo.getUserName();
         else
             name = firstName + ' ' + lastName;

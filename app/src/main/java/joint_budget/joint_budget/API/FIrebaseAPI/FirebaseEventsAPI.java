@@ -119,18 +119,33 @@ public class FirebaseEventsAPI implements EventsAPI {
     }
 
     @Override
-    public void getAllEvents(final LoadEventsCallback callback, String userID) {//tested
+    public void getAllEvents(final LoadEventsCallback callback, final String userID) {//tested
         DatabaseReference referenceToEvents = databaseReference.child("events");
-        final Query allEvents = referenceToEvents.orderByChild("participants/userID").equalTo(userID);
+        final Query allEvents = referenceToEvents.orderByChild("startDate");
         final ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 List<Event> events = new ArrayList<>();
                 for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
                     events.add(eventSnapshot.getValue(Event.class));
                 }
-                allEvents.removeEventListener(this);
-                callback.onLoad(events);
+
+                List<Event> userEvents = new ArrayList<>();
+                for(Event event: events){
+                    if(event.getParticipants() != null){
+                        for(UserInfo userInfo: event.getParticipants()){
+                            if(userInfo != null && userInfo.getUserID() != null){
+                                if(userInfo.getUserID().equals(userID)){
+                                    userEvents.add(event);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                callback.onLoad(userEvents);
             }
 
             @Override
@@ -153,6 +168,7 @@ public class FirebaseEventsAPI implements EventsAPI {
                 for (DataSnapshot purchaseSnapshot : dataSnapshot.getChildren()) {
                     purchases.add(purchaseSnapshot.getValue(Purchase.class));
                 }
+
                 callback.onLoad(purchases);
             }
 
@@ -162,7 +178,7 @@ public class FirebaseEventsAPI implements EventsAPI {
             }
         };
 
-        referenceToPurchase.addListenerForSingleValueEvent(purchaseListener);
+        referenceToPurchase.addValueEventListener(purchaseListener);
     }
 
 }

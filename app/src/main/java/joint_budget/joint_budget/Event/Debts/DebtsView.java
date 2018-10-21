@@ -7,4 +7,6 @@ import joint_budget.joint_budget.DataTypes.Debt;
 interface DebtsView {
     void showDebts(List<Debt> debts);
     void updateListView();
+    void turnOnProgressBar();
+    void turnOffProgressBar();
 }

@@ -17,7 +17,7 @@ public interface ShoplistAPI {
     void editItem(String eventID, ShoppingListItem item);
 
 
-    void getAllShops(ShoppingListCallBack callback);
+    void getAllShops(ShoppingListCallBack callback, String eventID);
 
     interface ShoppingListCallBack {
         void onLoad(List<ShoppingListItem> items);

@@ -33,8 +33,12 @@ public class EventsPresenter implements EventsPresenterInterface {
 
     @Override
     public void deleteEvent(Event event) {
-        eventModel.deleteEvent(event.getEventId());
-        view.updateListView();
+        if(event.getParticipants().get(0).getUserID().equals(userID)){
+            eventModel.deleteEvent(event.getEventId());
+            view.updateListView();
+        } else{
+            view.showError("You can not delete this event");
+        }
     }
 
     @Override

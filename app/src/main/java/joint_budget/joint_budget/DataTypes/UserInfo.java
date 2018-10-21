@@ -87,4 +87,11 @@ public class UserInfo {
         this.userID = userID;
     }
 
+    public boolean equals(UserInfo userInfo) {
+        if(this.getUserID() != null && userInfo.getUserID() != null){
+            return this.getUserID().equals(userInfo.getUserID());
+        } else{
+            return this.getUserName().equals(userInfo.getUserName());
+        }
+    }
 }

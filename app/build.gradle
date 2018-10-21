@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "joint_budget.joint_budget"
-        minSdkVersion 21
+        minSdkVersion 22
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"

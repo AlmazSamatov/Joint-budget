@@ -37,6 +37,7 @@ public class CreateEventPresenter implements CreateEventPresenterInterface {
         firebaseLoginToSystem = new FirebaseLoginToSystem();
     }
 
+    @Override
     public void addCurrentUser(final ParticipantsAdapter participantsAdapter) {
         firebaseLoginToSystem.getUserByID(userID, new LoginToSystemAPI.GetUserCallback() {
             @Override
@@ -68,8 +69,8 @@ public class CreateEventPresenter implements CreateEventPresenterInterface {
     }
 
     @Override
-    public void addNewParticipants(List<UserInfo> user, ParticipantsAdapter participantsAdapter) {
-        userInfos.addAll(user);
+    public void addNewParticipants(List<UserInfo> users, ParticipantsAdapter participantsAdapter) {
+        userInfos.addAll(users);
         participantsAdapter.notifyDataSetChanged();
     }
 
@@ -84,19 +85,13 @@ public class CreateEventPresenter implements CreateEventPresenterInterface {
         } else if(endDate.before(beginningDate)){
             view.showError("Final date should be after start date");
         } else {
-            Event event = new Event();
-            event.setName(name);
-            event.setStartDate(beginningDate);
-            event.setEndDate(endDate);
-            event.setParticipants(userInfos);
-            event.setCurrency(Currency.valueOf(currency));
+            previousEvent.setName(name);
+            previousEvent.setStartDate(beginningDate);
+            previousEvent.setEndDate(endDate);
+            previousEvent.setParticipants(userInfos);
+            previousEvent.setCurrency(Currency.valueOf(currency));
 
-            if (previousEvent == null){
-                eventModel.addEvent(event);
-            } else{
-                event.setEventId(previousEvent.getEventId());
-                eventModel.updateEvent(event);
-            }
+            eventModel.updateEvent(previousEvent);
 
             view.startEventsActivity();
         }
@@ -107,14 +102,12 @@ public class CreateEventPresenter implements CreateEventPresenterInterface {
         return userInfos;
     }
 
-    public void setPreviousEvent(Intent intent, ParticipantsAdapter participantsAdapter) {
+    public void setPreviousEvent(Intent intent) {
         String previousEventInJson = intent.getStringExtra("PreviousEvent");
         if(previousEventInJson != null){
             Gson gson = new Gson();
             previousEvent = gson.fromJson(previousEventInJson, Event.class);
             view.setFields(previousEvent);
-        } else{
-            addCurrentUser(participantsAdapter);
         }
     }
 
@@ -137,5 +130,10 @@ public class CreateEventPresenter implements CreateEventPresenterInterface {
     @Override
     public String getUserID() {
         return userID;
+    }
+
+    @Override
+    public Event getPreviousEvent(){
+        return previousEvent;
     }
 }

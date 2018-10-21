@@ -23,6 +23,9 @@ public class DebtsAdapter extends ArrayAdapter<Debt> {
     TextView from;
     @BindView(R.id.to)
     TextView to;
+    @BindView(R.id.debt_cost_value)
+    TextView cost;
+
 
     public DebtsAdapter(@NonNull Context context, int resource, @NonNull List<Debt> objects) {
         super(context, resource, objects);
@@ -44,8 +47,18 @@ public class DebtsAdapter extends ArrayAdapter<Debt> {
 
         ButterKnife.bind(this, view);
 
-        from.setText(debt.getCreditor());
-        to.setText(debt.getDebtor());
+        String debtorName = debt.getDebtor().getUserName();
+        if(debt.getDebtor().getUserID() != null)
+            debtorName = debt.getDebtor().getFirstName() + ' ' + debt.getDebtor().getLastName();
+
+        String creditorName = debt.getCreditor().getUserName();
+        if(debt.getCreditor().getUserID() != null)
+            creditorName = debt.getCreditor().getFirstName() + ' ' + debt.getCreditor().getLastName();
+
+        from.setText(debtorName);
+        to.setText(creditorName);
+        cost.setText(Double.toString(debt.getAmountOfDebt()));
+
 
         return view;
     }

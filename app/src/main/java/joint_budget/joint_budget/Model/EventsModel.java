@@ -13,6 +13,8 @@ public class EventsModel {
     private List<Event> events;
     private EventsAPI eventsAPI;
 
+    private List<Purchase> purchases;
+
     private static volatile EventsModel instance;
 
     public static EventsModel getInstance() {
@@ -30,15 +32,17 @@ public class EventsModel {
 
     private EventsModel() {
         events = new ArrayList<>();
+        purchases = new ArrayList<>();
         eventsAPI = new FirebaseEventsAPI();
     }
 
-    public void addEvent(Event event) {
+    public Event addEvent(Event event) {
         try {
-            eventsAPI.createEvent(event);
+            return eventsAPI.createEvent(event);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        return new Event();
     }
 
     public void updateEvent(Event newEvent) {
@@ -68,7 +72,7 @@ public class EventsModel {
 
     private void deleteEventFromLocal(String eventID) {
         for(int i = 0; i < events.size(); i++){
-            if(events.get(0).getEventId().equals(eventID)){
+            if(events.get(i).getEventId().equals(eventID)){
                 events.remove(i);
                 break;
             }
@@ -90,6 +94,7 @@ public class EventsModel {
 
     public void addPurchase(Purchase purchase) {
         eventsAPI.addPurchase(purchase);
+        purchases.add(purchase);
     }
 
     public void getPurchases(EventsAPI.LoadPurchasesCallback callback, String eventID){
@@ -97,10 +102,24 @@ public class EventsModel {
     }
 
     public void updatePurchase(Purchase purchase){
+        DebtsModel.getInstance().updateDebts(purchase);
+        for (int i = 0; i < purchases.size(); i++) {
+            if (purchases.get(i).getPurchaseID().equals(purchase.getPurchaseID())) {
+                purchases.set(i, purchase);
+                break;
+            }
+        }
         eventsAPI.updatePurchase(purchase);
     }
 
     public void deletePurchase(String eventID, String purchaseID){
+        for (int i = 0; i < purchases.size(); i++) {
+            if (purchases.get(i).getPurchaseID().equals(purchaseID)) {
+                DebtsModel.getInstance().deleteDebts(purchases.get(i));
+                purchases.remove(i);
+                break;
+            }
+        }
         eventsAPI.deletePurchase(eventID, purchaseID);
     }
 
@@ -110,5 +129,9 @@ public class EventsModel {
 
     public List<Event> getEventsLocal() {
         return events;
+    }
+
+    public void setPurchases(List<Purchase> purchases) {
+        this.purchases = purchases;
     }
 }

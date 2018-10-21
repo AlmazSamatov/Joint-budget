@@ -73,6 +73,7 @@ public class JoinExistingEventActivity extends AppCompatActivity {
 
     public void startEventsActivity(){
         Intent intent = new Intent(getApplicationContext(), EventsActivity.class);
+        intent.putExtra("userID", getIntent().getStringExtra("userID"));
         startActivity(intent);
     }
 }

@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.List;
@@ -24,9 +24,9 @@ public class ShopListAdapter extends ArrayAdapter<ShoppingListItem> {
     @BindView(R.id.shoplist_item_name)
     TextView shoplistItemName;
     @BindView(R.id.edit_shoplist_item)
-    Button editItem;
+    ImageButton editItem;
     @BindView(R.id.delete_shoplist_item)
-    Button deleteItem;
+    ImageButton deleteItem;
 
     public ShopListAdapter(@NonNull Context context, int resource, @NonNull List<ShoppingListItem> objects, ShopListView view) {
         super(context, resource, objects);

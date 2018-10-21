@@ -31,9 +31,7 @@
         <activity android:name=".Events.Events.EventsActivity" />
         <activity android:name=".Register.RegisterActivity" />
         <activity android:name=".Event.CreatePurchases.CreatePurchasesActivity" />
-        <activity android:name=".Event.Debts.DebtsActivity" />
-        <activity android:name=".Event.Purchases.PurchasesActivity" />
-        <activity android:name=".Event.ShopList.ShopListActivity" />
+        <activity android:name=".Event.ShopList.ShopListItemActivity" />
         <activity android:name=".Events.AddParticipant.AddParticipantActivity" />
     </application>
 

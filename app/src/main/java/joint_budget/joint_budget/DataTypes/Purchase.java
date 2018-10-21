@@ -1,20 +1,20 @@
 package joint_budget.joint_budget.DataTypes;
 
-import java.util.LinkedList;
+import java.util.List;
 
 public class Purchase {
-    private LinkedList<PurchaseItem> purchaseItems;
+    private List<PurchaseItem> purchaseItems;
     private Currency currency;
     private double totalCost;
     private String purchaseName;
     private String purchaseID;
     private String eventID;
 
-    public LinkedList<PurchaseItem> getPurchaseItems() {
+    public List<PurchaseItem> getPurchaseItems() {
         return purchaseItems;
     }
 
-    public void setPurchaseItems(LinkedList<PurchaseItem> purchaseItems) {
+    public void setPurchaseItems(List<PurchaseItem> purchaseItems) {
         this.purchaseItems = purchaseItems;
     }
 
