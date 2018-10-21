@@ -16,5 +16,5 @@ Application for planning and controlling joint budget together with friends, fam
 
 # How it works:
 <p align="left">
-  <img src="screenshots/presentation.gif" width="350"/>
+  <img src="screenshots/presentation.gif" width="700"/>
 </p>
