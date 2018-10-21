@@ -13,3 +13,8 @@ Application for planning and controlling joint budget together with friends, fam
   <img src="screenshots/s6.JPG" width="200"/>
   <img src="screenshots/s7.JPG" width="200"/>
 </p>
+
+# How it works:
+<p align="left">
+  <img src="screenshots/presentation.gif" width="350"/>
+</p>
