@@ -2,8 +2,10 @@ package joint_budget.joint_budget.DataTypes;
 
 public class ShoppingListItem {
     private String name;
-    private UserInfo buyer;
+    private String eventID;
     private String itemID;
+
+    public ShoppingListItem(){}
 
     public ShoppingListItem(String name) {
         this.name = name;
@@ -23,5 +25,13 @@ public class ShoppingListItem {
 
     public void setItemID(String itemID) {
         this.itemID = itemID;
+    }
+
+    public String getEventID() {
+        return eventID;
+    }
+
+    public void setEventID(String eventID) {
+        this.eventID = eventID;
     }
 }

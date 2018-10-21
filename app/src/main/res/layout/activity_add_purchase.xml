@@ -102,19 +102,13 @@
                 android:layout_alignBottom="@+id/participants_img"
                 android:text="@string/participants_text"/>
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/add_participants"
-                android:onClick="addParticipants"
+            <Button
+                android:layout_alignParentRight="true"
+                android:onClick="restoreOnClick"
+                android:id="@+id/restore_participants"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                app:fabSize="normal"
-                android:layout_marginEnd="5dp"
-                android:clickable="true"
-                app:backgroundTint="@color/blue"
-                android:src="@drawable/plus"
-                app:elevation="6dp"
-                android:focusable="true" />
+                android:text="Restore"/>
 
         </RelativeLayout>
 

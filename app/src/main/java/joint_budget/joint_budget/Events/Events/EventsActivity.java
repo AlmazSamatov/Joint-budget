@@ -7,8 +7,11 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -33,6 +36,10 @@ public class EventsActivity extends AppCompatActivity implements EventsView {
     ListView eventsListView;
     @BindView(R.id.empty_events)
     TextView emptyEvents;
+    @BindView(R.id.EventsProgressBar)
+    ProgressBar progressBar;
+    @BindView(R.id.swipeIssues)
+    FrameLayout issues;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,14 +90,36 @@ public class EventsActivity extends AppCompatActivity implements EventsView {
     }
 
     @Override
+    public void turnOnPrgressBar(){
+        issues.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void turnOffPrgressBar(){
+        issues.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
     public void editEvent(Event event) {
         launchCreateEventActivity(event);
+    }
+
+    @Override
+    public void updateListView() {
+        eventsAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showError(String errorMessage) {
+        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
     }
 
     public void launchCreateEventActivity(Event previousEvent){
         Intent intent = new Intent(getBaseContext(), CreateEventActivity.class);
         Gson gson = new Gson();
-        String eventInJson = gson.toJson(previousEvent);
+        String eventInJson = gson.toJson(previousEvent, Event.class);
         intent.putExtra("PreviousEvent", eventInJson);
         intent.putExtra("userID", presenter.getUserID());
         startActivity(intent);
@@ -99,10 +128,9 @@ public class EventsActivity extends AppCompatActivity implements EventsView {
     public void launchEventActivity(Event event){
         Intent intent = new Intent(getBaseContext(), EventActivity.class);
         Gson gson = new Gson();
-        String eventInJson = gson.toJson(event);
+        String eventInJson = gson.toJson(event, Event.class);
         intent.putExtra("Event", eventInJson);
         intent.putExtra("userID", presenter.getUserID());
         startActivity(intent);
     }
-
 }

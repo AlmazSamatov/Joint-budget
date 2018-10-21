@@ -54,15 +54,19 @@ public class PurchasesAdapter extends ArrayAdapter<Purchase> {
         ButterKnife.bind(this, view);
 
         title.setText(purchase.getPurchaseName());
-        creatorName.setText(purchase.getPurchaseItems().get(0).getParticipants().get(0).getUserName());
-        participantsAmount.setText(String.valueOf(purchase.getPurchaseItems().get(0).getParticipants().size()));
+        String firstName = purchase.getPurchaseItems().get(0).getParticipantsOfPurchase().get(0).getFirstName();
+        String lastName = purchase.getPurchaseItems().get(0).getParticipantsOfPurchase().get(0).getLastName();
+        String name = firstName + ' ' + lastName;
+        creatorName.setText(name);
+        participantsAmount.setText(String.valueOf(purchase.getPurchaseItems().get(0).getParticipantsOfPurchase().size()));
 
+        final String userID = purchase.getPurchaseItems().get(0).getParticipantsOfPurchase().get(0).getUserID();
         deleteEvent.setFocusable(false);
         deleteEvent.setFocusableInTouchMode(false);
         deleteEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                purchasesView.delete(purchase);
+                purchasesView.delete(userID, purchase);
             }
         });
 
@@ -71,7 +75,7 @@ public class PurchasesAdapter extends ArrayAdapter<Purchase> {
         editEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                purchasesView.editPurchase(purchase);
+                purchasesView.editPurchase(userID, purchase);
             }
         });
 

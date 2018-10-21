@@ -54,10 +54,11 @@ public class FirebaseLoginToSystem implements LoginToSystemAPI {
     }
 
     @Override
-    public String register(PrivateUserInfo user) {
+    public void register(PrivateUserInfo user, RegisterCallback callback) {
         String key = referencesToUsers.push().getKey();
+        user.setUserID(key);
         referencesToUsers.child(key).setValue(user);
-        return key;
+        callback.onRegister(key);
     }
 
     @Override
@@ -86,6 +87,29 @@ public class FirebaseLoginToSystem implements LoginToSystemAPI {
     @Override
     public String getSavedLogPass() {
         return null;
+    }
+
+    public void getUserByID(String userID, final GetUserCallback callback) {
+        DatabaseReference referenceToUsers = databaseReference.child("users");
+        Query account = referenceToUsers.orderByChild("userID").equalTo(userID);
+        ValueEventListener completeListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<PrivateUserInfo> users = new ArrayList<>();
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    users.add(userSnapshot.getValue(PrivateUserInfo.class));
+                }
+
+                callback.onLoad(users);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                throw new RuntimeException();
+            }
+        };
+
+        account.addListenerForSingleValueEvent(completeListener);
     }
 }
 

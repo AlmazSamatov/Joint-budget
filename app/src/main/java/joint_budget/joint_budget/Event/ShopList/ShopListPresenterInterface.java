@@ -1,11 +1,11 @@
 package joint_budget.joint_budget.Event.ShopList;
 
-import android.content.Intent;
+import android.os.Bundle;
 
 import joint_budget.joint_budget.DataTypes.ShoppingListItem;
 
 public interface ShopListPresenterInterface {
-    void addShoplistItem(ShoppingListItem item);
+    void addShoplistItem();
 
     void editShoplistItem(ShoppingListItem item);
 
@@ -13,9 +13,9 @@ public interface ShopListPresenterInterface {
 
     void loadItems();
 
-    void setEvent(Intent intent);
+    void setEvent(Bundle bundle);
 
-    void getCurrentUser(Intent intent);
+    void getCurrentUser(Bundle bundle);
 
     String getUserID();
 }

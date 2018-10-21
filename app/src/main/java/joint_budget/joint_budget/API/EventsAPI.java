@@ -27,7 +27,7 @@ public interface EventsAPI {
     boolean deletePurchase(String eventID, String purchaseID);
 
 
-    void joinEvent(String EventID, String Password, LoadEventsCallback callback);
+    void joinEvent(String EventID, String Password, LoadEventsCallback callback, String userID);
 
 
     void getAllEvents(LoadEventsCallback callback, String userID) throws InterruptedException;

@@ -1,13 +1,11 @@
 package joint_budget.joint_budget.DataTypes;
 
-import com.google.firebase.auth.FirebaseUser;
-
-import java.util.LinkedList;
+import java.util.List;
 
 public class PurchaseItem {
     private String itemName;
-    private Currency costOfPurchase;
-    private LinkedList<FirebaseUser> participantsOfPurchase;
+    private double costOfPurchase;
+    private List<UserInfo> participantsOfPurchase;
 
     public String getItemName() {
         return itemName;
@@ -15,19 +13,19 @@ public class PurchaseItem {
 
     public void setItemName(String itemName) { this.itemName = itemName; }
 
-    public Currency getCostOfPurchase() {
+    public double getCostOfPurchase() {
         return costOfPurchase;
     }
 
-    public void setCostOfPurchase(Currency costOfPurchase) {
+    public void setCostOfPurchase(double costOfPurchase) {
         this.costOfPurchase = costOfPurchase;
     }
 
-    public LinkedList<FirebaseUser> getParticipantsOfPurchase() {
+    public List<UserInfo> getParticipantsOfPurchase() {
         return participantsOfPurchase;
     }
 
-    public void setParticipantsOfPurchase(LinkedList<FirebaseUser> participantsOfPurchase) {
+    public void setParticipantsOfPurchase(List<UserInfo> participantsOfPurchase) {
         this.participantsOfPurchase = participantsOfPurchase;
     }
 }

@@ -12,8 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import joint_budget.joint_budget.API.EventsAPI;
+import joint_budget.joint_budget.API.LoginToSystemAPI;
 import joint_budget.joint_budget.DataTypes.Event;
+import joint_budget.joint_budget.DataTypes.PrivateUserInfo;
 import joint_budget.joint_budget.DataTypes.Purchase;
+import joint_budget.joint_budget.DataTypes.UserInfo;
 
 public class FirebaseEventsAPI implements EventsAPI {
 
@@ -32,6 +35,8 @@ public class FirebaseEventsAPI implements EventsAPI {
     public Event createEvent(Event event) {  // tested: works
         String key = referenceToEvents.push().getKey();
         event.setEventId(key);
+        String password = referenceToEvents.child(key).push().getKey();
+        event.setPassword(password);
         referenceToEvents.child(key).setValue(event);
         return event;
     }
@@ -72,7 +77,8 @@ public class FirebaseEventsAPI implements EventsAPI {
     }
 
     @Override
-    public void joinEvent(String EventID, final String Password, final LoadEventsCallback callback) {
+    public void joinEvent(String EventID, final String Password, final LoadEventsCallback callback,
+                          final String userID) {
         DatabaseReference referenceToEvents = databaseReference.child("events");
         Query account = referenceToEvents.orderByChild("eventId").equalTo(EventID);
         ValueEventListener completeListener = new ValueEventListener() {
@@ -86,6 +92,17 @@ public class FirebaseEventsAPI implements EventsAPI {
                 for (int i = 0; i < events.size(); i++) {
                     if (events.get(i).getPassword().equals(Password)) {
                         acceptedEvents.add(events.get(i));
+                        final Event changedEvent = events.get(i);
+                        new FirebaseLoginToSystem().getUserByID(userID, new LoginToSystemAPI.GetUserCallback() {
+                            @Override
+                            public void onLoad(List<PrivateUserInfo> userInfos) {
+                                List<UserInfo> infos = changedEvent.getParticipants();
+                                infos.add(userInfos.get(0));
+                                changedEvent.setParticipants(infos);
+                                new FirebaseEventsAPI().updateEvent(changedEvent);
+                            }
+                        });
+
                     }
                 }
                 callback.onLoad(acceptedEvents);
@@ -97,20 +114,38 @@ public class FirebaseEventsAPI implements EventsAPI {
             }
 
         };
+
+        account.addListenerForSingleValueEvent(completeListener);
     }
 
     @Override
-    public void getAllEvents(final LoadEventsCallback callback, String userID) {//tested
+    public void getAllEvents(final LoadEventsCallback callback, final String userID) {//tested
         DatabaseReference referenceToEvents = databaseReference.child("events");
-        Query allEvents = referenceToEvents.orderByChild("participants/userID").equalTo(userID);
-        ValueEventListener eventListener = new ValueEventListener() {
+        final Query allEvents = referenceToEvents.orderByChild("startDate");
+        final ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 List<Event> events = new ArrayList<>();
                 for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
                     events.add(eventSnapshot.getValue(Event.class));
                 }
-                callback.onLoad(events);
+
+                List<Event> userEvents = new ArrayList<>();
+                for(Event event: events){
+                    if(event.getParticipants() != null){
+                        for(UserInfo userInfo: event.getParticipants()){
+                            if(userInfo != null && userInfo.getUserID() != null){
+                                if(userInfo.getUserID().equals(userID)){
+                                    userEvents.add(event);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                callback.onLoad(userEvents);
             }
 
             @Override
@@ -119,7 +154,7 @@ public class FirebaseEventsAPI implements EventsAPI {
             }
         };
 
-        allEvents.addListenerForSingleValueEvent(eventListener);
+        allEvents.addValueEventListener(eventListener);
 
     }
 
@@ -133,6 +168,7 @@ public class FirebaseEventsAPI implements EventsAPI {
                 for (DataSnapshot purchaseSnapshot : dataSnapshot.getChildren()) {
                     purchases.add(purchaseSnapshot.getValue(Purchase.class));
                 }
+
                 callback.onLoad(purchases);
             }
 
@@ -142,7 +178,7 @@ public class FirebaseEventsAPI implements EventsAPI {
             }
         };
 
-        referenceToPurchase.addListenerForSingleValueEvent(purchaseListener);
+        referenceToPurchase.addValueEventListener(purchaseListener);
     }
 
 }

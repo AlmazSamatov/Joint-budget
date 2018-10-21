@@ -8,7 +8,7 @@ public interface LoginToSystemAPI<T> {
 
     void login(String email, String password, LoginCallback callback);
 
-    T register(PrivateUserInfo user) throws InterruptedException;
+    void register(PrivateUserInfo user, RegisterCallback callback) throws InterruptedException;
 
     void recoverAccount(String email, final LoginCallback callback);
 
@@ -16,6 +16,14 @@ public interface LoginToSystemAPI<T> {
 
     interface LoginCallback {
         void onLogin(List<PrivateUserInfo> account);
+    }
+
+    interface RegisterCallback {
+        void onRegister(String userID);
+    }
+
+    interface GetUserCallback{
+        void onLoad(List<PrivateUserInfo> userInfos);
     }
 }
 

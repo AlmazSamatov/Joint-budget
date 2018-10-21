@@ -1,14 +1,18 @@
 package joint_budget.joint_budget.Event.Purchases;
 
-import android.content.Intent;
+import android.os.Bundle;
 
 import joint_budget.joint_budget.DataTypes.Purchase;
 
 interface PurchasesPresenterInterface {
-    void deletePurchase(Purchase purchase);
+    void deletePurchase(String userID, Purchase purchase);
     void loadPurchases();
 
-    void getCurrentUser(Intent intent);
+    void getData(Bundle bundle);
 
     String getUserID();
+
+    String getEventID();
+
+    void editEvent(String userID, Purchase purchase);
 }

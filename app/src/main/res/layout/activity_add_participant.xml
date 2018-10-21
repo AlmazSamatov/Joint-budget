@@ -88,14 +88,15 @@
             android:text="@string/event_id_text"
             android:layout_marginStart="10dp"
             android:textColor="@color/black"
-            android:textSize="25sp"/>
+            android:textSize="20sp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/event_id"
+            android:textIsSelectable="true"
             android:textColor="@color/black"
-            android:textSize="25sp"
+            android:textSize="18sp"
             android:layout_marginStart="10dp"
             android:text="@string/event_id_fake"
             android:layout_alignBottom="@+id/event_id_text"
@@ -115,14 +116,15 @@
             android:text="@string/password_text"
             android:layout_marginStart="10dp"
             android:textColor="@color/black"
-            android:textSize="25sp"/>
+            android:textSize="20sp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:textIsSelectable="true"
             android:id="@+id/event_password"
             android:textColor="@color/black"
-            android:textSize="25sp"
+            android:textSize="18sp"
             android:layout_marginStart="10dp"
             android:text="@string/event_password_fake"
             android:layout_alignBottom="@+id/password_text"

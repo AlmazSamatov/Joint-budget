@@ -3,8 +3,6 @@ package joint_budget.joint_budget.Model;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.realm.Realm;
-import io.realm.RealmResults;
 import joint_budget.joint_budget.API.EventsAPI;
 import joint_budget.joint_budget.API.FIrebaseAPI.FirebaseEventsAPI;
 import joint_budget.joint_budget.DataTypes.Event;
@@ -14,6 +12,8 @@ public class EventsModel {
 
     private List<Event> events;
     private EventsAPI eventsAPI;
+
+    private List<Purchase> purchases;
 
     private static volatile EventsModel instance;
 
@@ -32,35 +32,50 @@ public class EventsModel {
 
     private EventsModel() {
         events = new ArrayList<>();
+        purchases = new ArrayList<>();
         eventsAPI = new FirebaseEventsAPI();
     }
 
-    public void addEvent(Event event) {
-        events.add(event);
+    public Event addEvent(Event event) {
         try {
-            eventsAPI.createEvent(event);
+            return eventsAPI.createEvent(event);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return new Event();
+    }
+
+    public void updateEvent(Event newEvent) {
+        try {
+            eventsAPI.updateEvent(newEvent);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    public void updateEvent(Event oldEvent, Event newEvent) {
-
-    }
-
-    /*public void getEvents(EventsAPI.LoadEventsCallback callback) {
+    public void getEvents(String userID, EventsAPI.LoadEventsCallback callback) {
         try {
-            eventsAPI.getAllEvents(callback);
+            eventsAPI.getAllEvents(callback, userID);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }*/
+    }
 
     public void deleteEvent(String eventID) {
         try {
+            deleteEventFromLocal(eventID);
             eventsAPI.deleteEvent(eventID);
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void deleteEventFromLocal(String eventID) {
+        for(int i = 0; i < events.size(); i++){
+            if(events.get(i).getEventId().equals(eventID)){
+                events.remove(i);
+                break;
+            }
         }
     }
 
@@ -72,47 +87,51 @@ public class EventsModel {
         }
     }
 
-    public void joinEvent(String eventID, String password, EventsAPI.LoadEventsCallback callback){
-        eventsAPI.joinEvent(eventID, password, callback);
-    }
-
-    public void getPurchasesFromDB(LoadPurchasesFromDBCallback loadPurchasesFromDBCallback, Event currentEvent) {
-    }
-
-    public void addPurchase(Purchase purchase) {
-    }
-
-    public void updatePurchase(Purchase previousPurchase, Purchase purchase) {
-    }
-
-    public void getPurchasesFromDB(LoadPurchasesFromDBCallback loadPurchasesFromDBCallback, Event currentEvent) {
+    public void joinEvent(String eventID, String password, EventsAPI.LoadEventsCallback callback,
+                          String userID){
+        eventsAPI.joinEvent(eventID, password, callback, userID);
     }
 
     public void addPurchase(Purchase purchase) {
+        eventsAPI.addPurchase(purchase);
+        purchases.add(purchase);
     }
 
-    public void updatePurchase(Purchase previousPurchase, Purchase purchase) {
+    public void getPurchases(EventsAPI.LoadPurchasesCallback callback, String eventID){
+        eventsAPI.getAllPurchases(callback, eventID);
     }
 
-    public interface LoadEventsFromDBCallback{
-        void onLoad(List<Event> events);
+    public void updatePurchase(Purchase purchase){
+        DebtsModel.getInstance().updateDebts(purchase);
+        for (int i = 0; i < purchases.size(); i++) {
+            if (purchases.get(i).getPurchaseID().equals(purchase.getPurchaseID())) {
+                purchases.set(i, purchase);
+                break;
+            }
+        }
+        eventsAPI.updatePurchase(purchase);
     }
 
-    public interface LoadPurchasesFromDBCallback {
-        void onLoad(List<Purchase> purchases);
+    public void deletePurchase(String eventID, String purchaseID){
+        for (int i = 0; i < purchases.size(); i++) {
+            if (purchases.get(i).getPurchaseID().equals(purchaseID)) {
+                DebtsModel.getInstance().deleteDebts(purchases.get(i));
+                purchases.remove(i);
+                break;
+            }
+        }
+        eventsAPI.deletePurchase(eventID, purchaseID);
     }
 
-    public List<Purchase> getPurchases(String eventID){
-        return new ArrayList<>();
+    public void setEvents(List<Event> events) {
+        this.events = events;
     }
 
-    public Purchase getPurchase(String eventID, String purchaseID){
-        return new Purchase();
+    public List<Event> getEventsLocal() {
+        return events;
     }
 
-    void savePurchase(Purchase purchase){ }
-
-    void updatePurchase(Purchase purchase){}
-
-    public void deletePurchase(Event eventID, Purchase purchaseID){}
+    public void setPurchases(List<Purchase> purchases) {
+        this.purchases = purchases;
+    }
 }

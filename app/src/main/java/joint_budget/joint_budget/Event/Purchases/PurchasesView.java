@@ -5,9 +5,17 @@ import java.util.List;
 import joint_budget.joint_budget.DataTypes.Purchase;
 
 interface PurchasesView {
-    void delete(Purchase purchase);
+    void delete(String userID, Purchase purchase);
 
     void showPurchases(List<Purchase> purchases);
 
-    void editPurchase(Purchase purchase);
+    void editPurchase(String userID, Purchase purchase);
+
+    void turnOnProgressBar();
+
+    void turnOffPrgoressBar();
+
+    void showError(String error);
+
+    void launchCreatePurchaseActivity(Purchase previousPurchase);
 }

@@ -1,8 +1,8 @@
 package joint_budget.joint_budget.Register;
 
-import joint_budget.joint_budget.DataTypes.UserInfo;
+import joint_budget.joint_budget.DataTypes.PrivateUserInfo;
 
 public interface RegisterPresenterInterface {
 
-    void register(UserInfo userInfo);
+    void register(PrivateUserInfo userInfo);
 }
